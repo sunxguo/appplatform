@@ -1,0 +1,246 @@
+/* CSS Document */
+a:hover {
+	color: #80BDE3;
+}
+.partContent {
+	height: auto;
+	margin-top: 20px;
+	background-color: #F9F9F9;
+	background-color: #fff;
+	border: 1px solid #D3D8DD;
+}
+.title {
+	height: 35px;
+	color: #4E7093;
+	line-height: 35px;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #EFF1F4;
+	padding-left: 10px;
+}
+.formList .item {
+	margin-bottom: 10px;
+	padding-left: 30px; 
+	margin-left: 10px;
+}
+.slider-pic {
+	overflow: hidden;
+	zoom: 1;
+	margin: 10px 0 50px 0;
+}
+.slider-pic ul {
+	margin-right: -10px;
+	overflow: hidden;
+	zoom: 1;
+}
+.slider-pic li {
+	float: left;
+	width: 116px;
+	height: 229px;
+	padding: 4px;
+	border: 2px solid #fff;
+	margin-right: 10px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+.slider-pic li:hover {
+	border-color: #98BC3F;
+}
+.slider-pic li .oper{
+	width:100%;
+	height:20px;
+	margin-top:3px;
+	font-size:16px;
+	display:none;
+}
+.slider-pic li .oper img{
+	width:23px;
+	height:23px;
+	cursor:pointer;
+}
+.slider-pic .add a {
+	display: block;
+	width: 117px;
+	height: 208px;
+	text-indent: -9999px;
+	background: #DDE0E5 url(/assets/images/cms/ico_add3.png) center center no-repeat;
+}
+.slider-pic .loading{
+	margin:100px 50px;
+}
+.formList .baseInfo {
+	margin-right: 5%;
+	width: 55%;
+	float: left;
+}
+.formList .listImgs {
+	height:169px;
+	float: left;
+	width: 30%;
+}
+.lists{
+	margin-left: 25px;
+	height: 137px;
+	margin-top: 10px;
+}
+.img-item{
+	width: 90px;
+	height: 84px;
+	float:left;
+}
+.del-bt{
+	width:16px;
+	height:18px;
+	position:relative;
+	top:-75px;
+	left:59px;
+	cursor:pointer;
+	display:none;
+}
+.example{
+	float: right;
+	margin-right: 20px;
+}
+#imgListDivs{
+	width: 345px;
+	padding-top: 20px;
+}
+input[type="radio"] {
+	_vertical-align: -1px;
+	vertical-align: -2px;
+	margin-right: 3px;
+}
+.formList .btn-center {
+	text-align: center;
+	padding: 20px 0;
+}
+.formList .content{
+	width:90%;
+}
+.btnfa120 {
+	display: inline-block;
+	width: 120px;
+	height: 28px;
+	line-height: 28px;
+	background: url(/assets/images/cms/btnfa120.png) no-repeat;
+	text-align: center;
+	vertical-align: middle;
+	color: white;
+	box-shadow: 1px 1px 2px #DBDBDB;
+}
+.contentlist .btn80{
+	display: inline-block;
+	width: 80px;
+	height: 28px;
+	line-height: 28px;
+	font-size:12px;
+	background: url(/assets/images/cms/btn80.png) no-repeat;
+	text-align: center;
+	vertical-align: middle;
+	color: #5F7292;
+}
+.contentlist .btn80:hover{
+	color: #006CD9;
+}
+.table-head{
+	border: 1px solid #CCD3DC;
+	background: #f6f6f6 url(/assets/images/cms/th.png) top repeat-x;
+	font-weight: normal;
+	color: #555555;
+}
+.table-head th {
+	height: 22px;
+	padding: 0 0 1px 0;
+	border:1px solid #ccd3dc;
+	border-left: 0px none;
+}
+.table-head th:hover{
+	border: 1px solid #ccd3dc;
+	background: #dadada url(/assets/images/cms/grid-bg.png) 0 -30px repeat-x;
+	/*font-weight: normal;*/
+	color: #212121;
+}
+tbody tr td{
+	height: 22px;
+	padding: 0 0 1px 0;
+	border:1px solid #ccd3dc;
+	text-align:center;
+}
+tbody tr:hover{
+	border: 1px solid #aad3eb;
+	background: #f3fcff;
+	color: #212121;
+}
+.del-essay:hover{
+	color: #fc6600;
+	text-decoration: underline;
+}
+.page-div{
+	width:600px;
+	margin:20px auto;
+}
+.page-div .page-bt {
+	width: 16px;
+	height: 16px;
+	background-image: url(/assets/images/cms/main_frame.png);
+	margin: 5px 0 0 5px;
+	text-indent: -9999px;
+	display: inline-block;
+	cursor: pointer;
+}
+.page-div .first{
+	background-position: -330px -180px;
+}
+.page-div .first-disabled{
+	background-position: -330px -240px;
+	cursor: default;
+}
+.page-div .prev{
+	background-position: -350px -180px;
+}
+.page-div .prev-disabled{
+	background-position: -350px -240px;
+	cursor: default;
+}
+.page-div .next{
+	background-position: -370px -180px;
+}
+.page-div .next-disabled{
+	background-position: -370px -240px;
+	cursor: default;
+}
+.page-div .last{
+	background-position: -388px -180px;
+}
+.page-div .last-disabled{
+	background-position: -388px -240px;
+	cursor: default;
+}
+.page-div .showpagenum{
+	margin: 0 5px 0 5px;
+}
+.page-div .jump{
+	margin-left:10px;
+}
+.page-div .jumpinput{
+	margin: 0 5px;
+	width: 30px;
+	border:1px solid #CCC;
+	-moz-border-radius: 1px;
+	-webkit-border-radius: 1px;
+	border-radius: 1px;
+}
+.page-div .jumpbt {
+	background: url(/assets/images/cms/button.png) 0  0 no-repeat, url(/assets/images/cms/button.png) right -20px no-repeat;
+	height: 20px;
+	line-height: 20px;
+	cursor: pointer;
+	text-align: center;
+	min-width: 40px;
+	border: 0;
+	outline: none;
+	white-space: nowrap;
+	display: inline-block;
+	color: #333333;
+}

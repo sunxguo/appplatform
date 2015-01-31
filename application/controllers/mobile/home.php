@@ -167,6 +167,18 @@ class Home extends CI_Controller {
 		}
 		echo json_encode(array("result"=>"success","message"=>"信息写入成功"));
 	}
+	public function check_push_msg(){
+		$condition=array("appid_message"=>$_POST["appid"]);
+		$orfield="type_message";
+		$ordata=array("0","2");
+		$order=array("col"=>"time_message","by"=>"asc");
+		$msg=$this->dbHandler->SDSDUNROR("message",$condition,$orfield,$ordata,$order);
+		foreach($msg as $m){
+			if(strtotime($m->time_message)-strtotime(date("Y-m-d H:i:s"))<120){
+				echo $m->title_message;
+			}
+		}
+	}
 	public function putin_cart(){
 		if(isset($_SESSION["cart"][$_POST["productid"]])){
 			$_SESSION["cart"][$_POST["productid"]]["countnum"]+=1;//购物车

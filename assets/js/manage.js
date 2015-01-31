@@ -10,7 +10,7 @@ function modify(type,id,data){
 					{
 						'info_type':'app_drop',
 						'id':id,
-						'data':data=="down"?7:0
+						'data':data=="down"?7:1
 					},
 					function(data){
 						var result=$.parseJSON(data);

@@ -153,19 +153,6 @@ $(document).ready(function(){
 					);
 				}
 			break;
-			case "user":
-				var name=$("#editor_new_title").val();
-				if(name=="") alert("请填写完整！");
-				else{
-					$.post("/cadmin/modify_data",
-							{'id':$("#editor_new_id").val(),'type':'user','name':name},
-							function(data){
-								alert(data);
-								location.reload();
-							}
-					);
-				}
-			break;
 			case "contest":
 				var langArray=getCheckBox("lang","语言",true);
 				if(langArray!="empty"){

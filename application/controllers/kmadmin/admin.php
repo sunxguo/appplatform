@@ -426,8 +426,8 @@ class Admin extends CI_Controller {
 	//0未生成1生成中2已生成3待发布4发布审核中5已发布6发布审核不通过7删除
 	public function get_app_state(){
 		$state=array(
-			//"0"=>"未生成",
-			//"1"=>"生成中",
+			"0"=>"未生成",
+			"1"=>"生成中",
 			//"2"=>"已生成",
 			"3"=>"待发布",
 			"4"=>"发布审核中",
@@ -664,10 +664,23 @@ class Admin extends CI_Controller {
 				$is_modify=false;
 				$message="输入密码错误";
 			}
+			$table="admin";
+			$where="id_admin";
+			break;
+			case "merchantpwd":
+			$info=$this->dbHandler->selectPartData('merchant','id_merchant',$_SESSION["userid"]);
+			if(MD5("kmkj".$_POST["oldpwd"])==$info[0]->pwd_merchant){
+				$data=array('username_merchant'=>$_POST["username"],'pwd_merchant'=>MD5("kmkj".$_POST["newpwd"]));
+			}else{
+				$is_modify=false;
+				$message="输入密码错误";
+			}
+			$table="merchant";
+			$where="id_merchant";
 			break;
 		}
 		if($is_modify){
-			$result=$this->dbHandler->updatedata('admin',$data,'id_admin',$_SESSION["userid"]);
+			$result=$this->dbHandler->updatedata($table,$data,$where,$_SESSION["userid"]);
 			if($result==1) echo json_encode(array("result"=>"success","message"=>"修改成功"));
 		}else{
 			echo json_encode(array("result"=>"failed","message"=>$message));

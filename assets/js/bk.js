@@ -142,3 +142,136 @@ $(document).ready(function(){
 				location.reload();
 		});
 	}
+	
+	function modify_merchant_pwd(){
+		var username=$("#username").val();
+		var oldpwd=$("#oldpwd").val();
+		var newpwd=$("#newpwd").val();
+		var renewpwd=$("#renewpwd").val();
+		if(username==""||oldpwd==""||newpwd==""||renewpwd==""){
+			$("#errorInfo").show();
+			$("#errorInfo").text("请填写完整！");
+		}
+		else if(newpwd!=renewpwd){
+			$("#errorInfo").show();
+			$("#errorInfo").text("两次新密码不一致");
+		}
+		else{
+			$("#errorInfo").hide();
+			$.post(
+				"/kmadmin/admin/modify",
+				{
+					'modifytype':"merchantpwd",
+					'username':username,
+					'oldpwd':oldpwd,
+					'newpwd':newpwd
+				},
+				function(data){
+					var result=$.parseJSON(data);
+					if(result.result=="success"){
+						alert(result.message);
+						window.location.href="/cms/index/logout"; 
+					}else{
+						alert(result.message);
+					}
+				});
+		}
+		
+	}
+function avatar_modify_click(){
+	$("#avatarfile").click();
+}
+function upload_avatar(){
+	$('#uploadAvatarForm').ajaxSubmit({
+		success: function (data) {
+			var result=$.parseJSON(data);
+			if(result.code){
+				modify_avatar(result.message);
+			}else{
+				alert(result.message);
+			}
+		},
+		url: "/cms/index/upload_img",
+		data: $('#uploadAvatarForm').formSerialize(),
+		type: 'POST',
+		beforeSubmit: function () {
+			$("#loading").show();
+		}
+	});
+	return false;
+}
+
+function modify_avatar(src){
+	$.post(
+		"/cms/index/modify_info",
+		{
+			'info_type':"merchant_avatar",
+			'src':src
+		},
+		function(data){
+			var result=$.parseJSON(data);
+			if(result.result=="success"){
+				location.reload();
+			}else{
+				alert(result.message);
+			}
+		});
+}
+	function save_merchant_info(){
+		$.post(
+			"/cms/index/modify_info",
+			{
+				'info_type':"merchant_data",
+				'gender':$("#gender").val(),
+				'email':$("#email").val(),
+				'phone':$("#phone").val(),
+				'qq':$("#qq").val(),
+				'birthday':$("#birthday").val()
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					location.reload();
+				}else{
+					alert(result.message);
+				}
+			});
+		
+	}
+function add_correlation(){
+	$.post(
+		"/cms/index/modify_info",
+		{
+			'info_type':"merchant_correlation",
+			'username':$("#username").val(),
+			'apply_msg':$("#apply_msg").val()
+		},
+		function(data){
+			var result=$.parseJSON(data);
+			if(result.result=="success"){
+				location.reload();
+			}else{
+				alert("该账号不存在，可注册后再添加");
+			}
+		});
+}
+function accept_apply(type){
+	if(confirm("接受该申请后只有上一级账号赋予的权限，确定接受？")){
+		var resultnum=1;
+		if(type=="ok") resultnum=2;
+		$.post(
+			"/cms/index/modify_info",
+			{
+				'info_type':"merchant_apply",
+				'resultnum':resultnum
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					location.reload();
+				}else{
+					alert(result.message);
+				}
+			});
+	}
+}

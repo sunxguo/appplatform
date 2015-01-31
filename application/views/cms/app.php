@@ -48,7 +48,7 @@
 								<?php echo $item->download_time_app;?>次
 							</dd>
 						</dl>
-						<?php if($item->state_app!=7):?>
+						<?php if($item->state_app!=7 && $item->state_app>1):?>
 						<div class="code">
 							<img id="" alt="" style="width:100px;height:100px;" src="<?php echo $item->two_code_app;?>">
 						</div>
@@ -61,7 +61,9 @@
 						<a id="" name="" href="/cms/index/publish?appid=<?php echo $item->id_app;?>" class="btn60 recreate">内容管理</a>
 						<a id="" name="" href="#" class="btn80s publish" onclick="AuditApp(this)" style="margin-right: 20px;">发布到市场</a>
 						<a class="ico-help" href="###" onclick="AuditHelpOpen()" style="margin-right: 20px;"></a>
+						<?php if($item->state_app!=7 && $item->state_app>1):?>
 						<a id="" href="#" class="" onclick="" style="cursor: pointer; margin-right: 10px; float: right; text-decoration: underline; color: rgb(82, 102, 127);">地址下载及推广</a>
+						<?php endif;?>
 					<?php else:?>
 						<a id="" href="Javascript:modify('app_validity','<?php echo $item->id_app;?>','up');" class="btn60" style="margin-right: 20px;">清除</a>
 						<a id="" href="Javascript:modify('app_drop','<?php echo $item->id_app;?>','up');" class="btn60" style="margin-right: 20px;">恢复</a>
@@ -69,9 +71,13 @@
 					</div>
 					<div class="app-ft">
 						APP下载地址：
-						<a href="<?php echo $item->android_link_app;?>" style="cursor:pointer; margin-right:10px;" onclick="DownloadTitle(this);">安卓 V6.0.1下载</a>
-						<a href="<?php echo $item->ios_link_app;?>" style="cursor:pointer; margin-right:10px;" onclick="DownloadTitle(this);">IOS V4.2.1下载</a>
+						<?php if($item->state_app!=7 && $item->state_app>1):?>
+						<a href="<?php echo $item->android_link_app;?>" style="cursor:pointer; margin-right:10px;" onclick="DownloadTitle(this);">安卓 app下载</a>
+						<a href="<?php echo $item->ios_link_app;?>" style="cursor:pointer; margin-right:10px;" onclick="DownloadTitle(this);">IOS app下载</a>
 						<a id="" href="#" style="cursor:pointer; margin-right:20px;float: right;" onclick="GoToSummaryPage(this);">查看统计</a>
+						<?php elseif($item->state_app!=7):?>
+						等待排队生成中，大约还有<?php echo $item->left_time_app;?>分钟
+						<?php endif;?>
 					</div>
 				</div>
 			</li>

@@ -184,15 +184,16 @@
 .slider .ico-tsxx {
 	background-position: 0 -300px;
 }
+.slider .ico-fkgl {
+	background-position: 0 -200px;
+}
 .slider .ico-jbgl {
 	background-position: -2px -396px;
 }
 .modify_main{
-	padding-left:50px;
-	padding-top:60px;
 }
 .modify_main .form-modify{
-	width: 550px;
+	width: 350px;
 	margin: 0 auto;
 }
 .modify_main .form-modify .item {

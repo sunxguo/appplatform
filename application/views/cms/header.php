@@ -17,7 +17,7 @@
 		</a>
         <ul class="menu-cms">
             <li class="name">
-                <img id="userPhoto" src="/assets/images/cms/defaulthead.png" width="35" height="35">
+                <img id="userPhoto" src="<?php echo $_SESSION['useravatar']==""?"/assets/images/cms/defaulthead.png":$_SESSION['useravatar'];?>" width="35" height="35">
 				<span id="userShowName"><?php echo $_SESSION['username'];?></span>
 			</li>
 			<li class="message">

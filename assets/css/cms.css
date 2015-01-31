@@ -244,3 +244,68 @@ tbody tr:hover{
 	display: inline-block;
 	color: #333333;
 }
+.account-div .tabs-box {
+	height: 50px;
+	margin-top: -10px;
+}
+.account-div .tabs-box .tabs-top {
+	background: #F6F7F9;
+	height: 30px;
+	padding-top: 19px;
+	border-bottom: 1px solid #CCD3DC;
+	padding-left: 20px;
+}
+.account-div .tabs-box .tabs-top .current {
+	background: #294B6E;
+	color: #fff;
+	border: 1px solid #8FA1B3;
+	height: 29px;
+	padding: 0 24px;
+}
+.account-div .tabs-box .tabs-top a {
+	display: block;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	padding: 0 25px;
+	font-size: 14px;
+	color: #405164;
+}
+.account-div .form-modify .top-header{
+	
+}
+.account-div .form-modify .top-header .head{
+	width:80px;
+	height:102px;
+	float:left;
+}
+.account-div .form-modify .top-header .base-info{
+	width:250px;
+	height:102px;
+	float:left;
+	margin-left:20px;
+}
+.account-div .form-modify .item{
+	padding-left:0px;
+}
+.account-div .form-modify .label{
+	width:40px;
+	display:inline-block;
+}
+.apply-msg-div{
+	width: 450px;
+	margin: 10px auto;
+	padding-bottom:20px;
+	border-bottom:1px dotted #CCC;
+}
+.apply-msg-div .apply-msg{
+	font-size:14px;
+}
+.apply-msg-div .item {
+	line-height: 28px;
+	margin-bottom: 20px;
+}
+.apply-msg-div .ac-bt{
+	text-decoration:underline;
+}

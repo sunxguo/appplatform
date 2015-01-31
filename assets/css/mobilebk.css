@@ -1,0 +1,117 @@
+/* CSS Document */
+body{
+	overflow: hidden;
+}
+.all{
+	width:100%;
+	height:100%;
+	position:absolute;
+}
+.sider{
+	width:70%;
+	height:100%;
+	background-color:rgb(19,40,35);
+	position:absolute;
+	display:none;
+	z-index:100000;
+}
+.sider ul{
+	min-height:400px;
+}
+.sider .search{
+	width:90%;
+	height:5%;
+	margin:3% auto;
+}
+.sider .search input{
+	width:100%;
+	background-color:rgb(8,18,18);
+	border:none;
+	height:100%;
+	line-height:100%;
+	padding-left:5px;
+	-moz-border-radius: 2px;      /* Gecko browsers */
+    -webkit-border-radius: 2px;   /* Webkit browsers */
+    border-radius:2px;            /* W3C syntax */
+}
+.sider .close-sider{
+	position:relative;
+	left:110%;
+	top:-100%;
+}
+.sider .close-sider img{
+	width:
+}
+.sider .nav{
+	padding-left:6px;
+}
+.sider ul li{
+	float:left;
+	width:45%;
+	height:95px;
+	background-color:rgb(213,175,76);
+	margin:2%;
+	-moz-border-radius: 2px;      /* Gecko browsers */
+    -webkit-border-radius: 2px;   /* Webkit browsers */
+    border-radius:2px;            /* W3C syntax */
+}
+.sider ul li img{
+	width:90%;
+	height:58px;
+	margin:8% 10% 0 10%;
+	display:inline-block;
+}
+.sider ul li a{
+	display:inline-block;
+	width:100%;
+	text-align:center;
+	color:#FFF;
+	font-size:1.3em;
+}
+.sider ul li a:hover{
+	text-decoration:none;
+	color:#FFF;
+}
+.sider .ad{
+	width:95%;
+	margin:5px auto;
+	-moz-border-radius: 2px;      /* Gecko browsers */
+    -webkit-border-radius: 2px;   /* Webkit browsers */
+    border-radius:2px;            /* W3C syntax */
+}
+.sider .ad img{
+	width:100%;
+	-moz-border-radius: 2px;      /* Gecko browsers */
+    -webkit-border-radius: 2px;   /* Webkit browsers */
+    border-radius:2px;            /* W3C syntax */
+}
+.main{
+	width:100%;
+	height:100%;
+}
+.main img{
+	max-width:100%;
+}
+.main .header{
+	height:11%;
+	background-color:rgb(166,8,0);
+	color:#FFF;
+	text-align:center;
+	padding:5px;
+	z-index:1000;
+}
+.main .header img{
+	width:30px;
+	height:30px;
+}
+.main .header .bt-div{
+	width:15%;
+	float:left;
+}
+.main .header .tit-div{
+	margin-top:3px;
+	font-size:16px;
+}
+.main  .main-body .slider { position: relative; overflow: auto; top:0px;}
+.main  .main-body .slider li { list-style: none; }
+.main  .main-body .slider ul li { float: left; }

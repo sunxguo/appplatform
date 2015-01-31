@@ -5,12 +5,14 @@
 		主页
 	</a>
 </h3>
+<!--
 <h3>
 	<a href="/cms/index/app" id="menu_promotionManage">
 		<span class="ico ico-tggl"></span>
 		推广管理
 	</a>
 </h3>
+-->
 <h3 <?php echo isset($appManager) && $appManager?'class="current"':'';?>>
 	<a href="/cms/index/app" id="menu_manageApp">
 		<span class="ico ico-yygl"></span>
@@ -34,19 +36,27 @@
 	<li><a href="/cms/index/users?appid=<?php echo $info->id_app;?>" <?php echo isset($users) && $users?'class="current"':'';?>>用户管理</a></li>
 </ul>
 <?php endif;?>
+<!--
 <h3>
 	<a href="" id="menu_portal">
 		<span class="ico ico-gggl"></span>
 		广告管理
 	</a>
 </h3>
+-->
 <h3>
 	<a href="" id="menu_portal">
 		<span class="ico ico-tsxx"></span>
 		推送消息
 	</a>
 </h3>
-<h3>
+<h3 <?php echo isset($log) && $log?'class="current"':'';?>>
+	<a href="/cms/index/checklog" id="menu_accountInfo">
+		<span class="ico ico-fkgl"></span>
+		操作日志
+	</a>
+</h3>
+<h3 <?php echo isset($account) && $account?'class="current"':'';?>>
 	<a href="/cms/index/account" id="menu_accountInfo">
 		<span class="ico ico-zhxx"></span>
 		账户信息

@@ -236,9 +236,11 @@
 		<div class="catelist">
 			<dl class="clearfix">
 				<dt>软件分类：</dt>
+				<?php foreach($categories as $c):?>
 				<dd>
-					<a href="" target="_blank">生活</a>
+					<a href="" target="_blank"><?php echo $c->name_category;?></a>
 				</dd>
+				<?php endforeach;?>
 			</dl>
 		</div>
 	</div>

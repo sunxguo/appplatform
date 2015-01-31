@@ -233,6 +233,14 @@ class Home extends CI_Controller {
 			}
 		}
 	}
+	public function create_order(){
+		foreach($_SESSION["cart"] as $key=>$item){
+			if($item["checked"]){
+				
+			}
+		}
+		$info=array();
+	}
 }
 
 /* End of file home.php */

@@ -463,6 +463,9 @@ element.style {
 	border: 1px solid #CCD3DC;
 	border-left: none;
 }
+.e-n-tab-c{
+	border: 1px solid #CCD3DC;
+}
 .app-warp h2 .active {
 	background: #CCD3DC;
 	cursor:default;
@@ -1262,4 +1265,11 @@ element.style {
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
+}
+.preview-div{
+	height:765px;
+	width:370px;
+	background: url(/assets/images/cms/iphone_blank_big.png) no-repeat;
+	padding:112px 0 0 33px;
+	margin:0 auto;
 }

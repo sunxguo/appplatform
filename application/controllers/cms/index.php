@@ -117,6 +117,21 @@ class Index extends CI_Controller {
 			));
 		$this->load->view('cms/footer');
 	}
+	public function preview(){
+		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
+			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"app的id不正确"));
+			return false;
+		}
+		$this->load->view('cms/header',
+			array( 
+				'title' => WEBSITE_NAME."-编辑app",
+			)
+		);
+		$this->load->view('cms/preview',array(
+			"appid"=>$_GET["appid"]
+		));
+		$this->load->view('cms/footer');
+	}
 	public function login(){
 		$this->load->view('header',
 			array( 

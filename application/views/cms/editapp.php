@@ -1,6 +1,10 @@
 <div class="app-warp">
 	<div class="h2-wrap">
-		<h2><span class="en-tab e-n-tab-l active">APP编辑</span><a class="en-tab e-n-tab-r goto" href="/cms/index/navedit?appid=<?php echo $info->id_app?>">APP导航设计</a></h2>
+		<h2>
+			<span class="en-tab e-n-tab-l active">APP编辑</span>
+			<a class="en-tab e-n-tab-c goto" href="/cms/index/navedit?appid=<?php echo $info->id_app?>">APP导航设计</a>
+			<a class="en-tab e-n-tab-r goto" href="/cms/index/preview?appid=<?php echo $info->id_app?>">预览</a>
+		</h2>
 	</div>
     <div class="app-con">
 		<div id="left" class="app-side">

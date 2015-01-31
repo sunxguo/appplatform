@@ -127,7 +127,7 @@ body{
 	clear:both;
 }
 .productlist li{
-	width: 100%;
+	width: 98%;
 	height: 105px;
 	font-size: 26px;
 	border-bottom: 1px solid #DDD;
@@ -143,7 +143,9 @@ body{
 	height:100%;
 }
 .productlist li .detail{
+	position:absolute;
 	width:70%;
+	right: 0px;
 	height:95px;
 	margin:5px;
 	float:left;
@@ -152,7 +154,7 @@ body{
 	width:95%;
 	height:32px;
 	line-height:32px;
-	font-size: 18px;
+	font-size: 16px;
 	padding:2px 2px 0 10px;
 	white-space: nowrap;
 	text-overflow:ellipsis;
@@ -162,7 +164,7 @@ body{
 	width:95%;
 	height:30px;
 	line-height:30px;
-	font-size: 18px;
+	font-size: 15px;
 	padding:2px 2px 0 10px;
 }
 .productlist li .detail .buy{
@@ -176,6 +178,7 @@ body{
 .productlist li .detail .price .ori-price{
 	float:left;
 	width:40%;
+	margin-left:5px;
 	height:100%;
 }
 .productlist li .detail .price .now-price{
@@ -185,7 +188,7 @@ body{
 }
 .productlist li .detail .price .ori-price{
 	text-decoration: line-through;
-	font-size: 16px;
+	font-size: 13px;
 }
 .subnavlist li{
 	width: 100%;
@@ -246,17 +249,17 @@ body{
 /*	border-bottom: 1px dotted #DDD;*/
 }
 .formlist li .label{
-	width:100px;
+	width:20%;
 	display:inline-block;
 	vertical-align:top;
 	text-align:right;
 }
 .formlist li input{
-	width:200px;
+	width:70%;
 	height:25px;
 }
 .formlist li textarea{
-	width:200px;
+	width:70%;
 	height:80px;
 }
 .formlist li .btnfa120 {

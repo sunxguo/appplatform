@@ -10,10 +10,10 @@ class Market extends CI_Controller {
 		$data["marketscroll"]=$this->dbHandler->selectalldatadesc("marketscroll","order_marketscroll","ASC");
 		$this->load->view('header',
 			array(
-				'title' => WEBSITE_NAME."-首页",
+				'title' => WEBSITE_NAME."-首页"
 			)
 		);
-		$data=array();
+		$data["categories"]=$this->get_categories();
 		$this->load->view('index', $data);
 		$this->load->view('footer');
 	}
@@ -46,6 +46,9 @@ class Market extends CI_Controller {
 		$data=array();
 		$this->load->view('app', $data);
 		$this->load->view('footer');
+	}
+	public function get_categories(){
+		 return $this->dbHandler->selectalldatadesc("category","id_category","ASC");
 	}
 }
 ?>

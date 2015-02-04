@@ -33,7 +33,9 @@
 	<li><a href="/cms/index/publish?appid=<?php echo $info->id_app;?>" <?php echo isset($publish) && $publish?'class="current"':'';?>>内容发布</a></li>
 	<li><a href="/cms/index/contents?appid=<?php echo $info->id_app;?>" <?php echo isset($contents) && $contents?'class="current"':'';?>>内容查询</a></li>
 	<li><a href="/cms/index/form?appid=<?php echo $info->id_app;?>" <?php echo isset($form) && $form?'class="current"':'';?>>表单信息</a></li>
+	<li><a href="/cms/index/orders?appid=<?php echo $info->id_app;?>" <?php echo isset($orders) && $orders?'class="current"':'';?>>订单管理</a></li>
 	<li><a href="/cms/index/users?appid=<?php echo $info->id_app;?>" <?php echo isset($users) && $users?'class="current"':'';?>>用户管理</a></li>
+	<li><a href="/cms/index/accountconfig?appid=<?php echo $info->id_app;?>" <?php echo isset($accountconfig) && $accountconfig?'class="current"':'';?>>账号配置</a></li>
 </ul>
 <?php endif;?>
 <!--

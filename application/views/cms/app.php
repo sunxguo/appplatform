@@ -59,7 +59,7 @@
 						<a id="" href="/cms/index/editapp?appid=<?php echo $item->id_app;?>" class="btn60" target="_blank" style="margin-right: 20px;">设计</a>
 						<a id="" href="Javascript:modify('app_drop','<?php echo $item->id_app;?>','down');" class="btn60" style="margin-right: 20px;">删除</a>
 						<a id="" name="" href="/cms/index/publish?appid=<?php echo $item->id_app;?>" class="btn60 recreate">内容管理</a>
-						<a id="" name="" href="#" class="btn80s publish" onclick="AuditApp(this)" style="margin-right: 20px;">发布到市场</a>
+						<a id="" name="" href="/cms/index/publishapp?appid=<?php echo $item->id_app;?>" class="btn80s publish" style="margin-right: 20px;">发布到市场</a>
 						<a class="ico-help" href="###" onclick="AuditHelpOpen()" style="margin-right: 20px;"></a>
 						<?php if($item->state_app!=7 && $item->state_app>1):?>
 						<a id="" href="#" class="" onclick="" style="cursor: pointer; margin-right: 10px; float: right; text-decoration: underline; color: rgb(82, 102, 127);">地址下载及推广</a>

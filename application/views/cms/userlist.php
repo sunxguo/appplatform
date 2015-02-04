@@ -18,6 +18,7 @@
                 <option value="0">全部</option>
                 <option value="male" <?php echo isset($_GET["gender"]) && $_GET["gender"]=="male"?'selected = "selected"':'';?>>男</option>
                 <option value="female" <?php echo isset($_GET["gender"]) && $_GET["gender"]=="female"?'selected = "selected"':'';?>>女</option>
+                <option value="unknown" <?php echo isset($_GET["gender"]) && $_GET["gender"]=="unknown"?'selected = "selected"':'';?>>未知</option>
             </select>
 		</div>
 		<div class="clear">
@@ -41,7 +42,7 @@
 			<tr>
 				<td><a href="/cms/index/user?userid=<?php echo $u->id_user;?>"><?php echo $u->username_user;?></a></td>
 				<td><?php echo $u->realname_user;?></td>
-				<td><?php echo $u->gender_user==0?"男":"女";?></td>
+				<td><?php if($u->gender_user==0) echo "男"; elseif($u->gender_user==1) echo "女"; else echo "未知";?></td>
 				<td><?php echo $u->address_user;?></td>
 				<td><?php echo $u->lasttime_user;?></td>
 				<td><?php echo $u->time_user;?></td>

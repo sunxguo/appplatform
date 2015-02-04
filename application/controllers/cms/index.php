@@ -42,6 +42,27 @@ class Index extends CI_Controller {
 		$this->load->view('cms/account',array("merchant"=>$merchant[0]));
 		$this->load->view('cms/footer');
 	}
+	public function accountconfig()
+	{
+		$this->checkMerchantLogin();
+		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
+			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"app的id不正确"));
+			return false;
+		}
+		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
+		$app=$app[0];
+		$this->load->view('cms/header',
+			array( 
+				'showSlider' => true,
+				'app' => true,
+				'accountconfig' => true,
+				'info' => $app,
+				'title' => WEBSITE_NAME."-账号配置",
+			)
+		);
+		$this->load->view('cms/accountconfig',array("app"=>$app));
+		$this->load->view('cms/footer');
+	}
 	public function pwd()
 	{
 		$this->load->view('cms/header',
@@ -57,7 +78,7 @@ class Index extends CI_Controller {
 	public function checklog()
 	{
 		$this->checkMerchantLogin();
-		$limit=8;
+		$limit=18;
 		$amount=$this->dbHandler->ADU('log',array("merchant_log"=>$_SESSION['userid']));
 		$page_amount=ceil($amount/$limit);
 		$page=isset($_GET['page']) && is_numeric($_GET['page'])?$_GET['page']:1;
@@ -226,7 +247,31 @@ class Index extends CI_Controller {
 			break;
 		}
 		return $state_cn;
-	}	
+	}
+	public function publishapp(){
+		$this->checkMerchantLogin();
+		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
+			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"app的id不正确"));
+			return false;
+		}
+		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
+		$app=$app[0];
+		$previewimgs=$this->dbHandler->SDUNR('previewimg',array("appid_previewimg"=>$_GET['appid']),array("col"=>'ordernum_previewimg',"by"=>'asc'));
+		$this->load->view('cms/header',
+			array(
+				'showSlider' => true,
+				'appManager' => true,
+				'title' => WEBSITE_NAME."-应用管理-app提交",
+			)
+		);
+		$this->load->view('cms/publishapp',
+			array(
+				"app"=>$app,
+				"previewimgs"=>$previewimgs
+			)
+		);
+		$this->load->view('cms/footer');
+	}
 	public function createapp(){
 		$this->load->view('cms/header',
 			array( 
@@ -515,6 +560,8 @@ class Index extends CI_Controller {
 		$page_amount=ceil($amount/$limit);
 		if($page>$page_amount) $page=1;
 		$offset=($page-1)*$limit;
+//		$sql = "SELECT * FROM user WHERE id = ? AND status = ? AND author = ?";
+//		$sql = "SELECT * FROM (`user`) WHERE `appid_user` = '?' AND `username_user` LIKE '%孙行者%' OR `realname_user` LIKE '%孙行者%' ORDER BY `lasttime_user` desc";
 		$user=$this->dbHandler->SDSDlike('user',$condition,array("limit"=>$limit,"offset"=>$offset),array("col"=>'lasttime_user',"by"=>'desc'),$like,$orlike);
 		
 		$ex_url="";
@@ -543,6 +590,82 @@ class Index extends CI_Controller {
 			));
 		$this->load->view('cms/footer');
 	}
+	public function get_order_state(){
+		//0:创建未支付1：已支付 2：确认并发货 3：交易成功 4：取消
+		return array("创建未支付","已支付","确认并发货","交易成功","取消");
+	}
+	public function orders(){
+		$this->checkMerchantLogin();
+		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
+			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"app的id不正确"));
+			return false;
+		}
+		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
+		$app=$app[0];
+		if($_SESSION['userid']!=$app->merchant_id_app){
+			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"抱歉你没有设置该app的权限！"));
+			return false;
+		}
+		$this->load->view('cms/header',
+			array( 
+				'showSlider' => true,
+				'app' => true,
+				'orders' => true,
+				'info' => $app,
+				'title' => WEBSITE_NAME."-订单管理",
+			)
+		);
+		$page=isset($_GET["page"]) && is_numeric($_GET['page']) && $_GET['page']>0?$_GET["page"]:1;
+		$users=array();
+		$amount=0;//总条数
+		$limit=30;//每页显示
+		$page_amount=0;//总页数
+		
+		$condition=array("appid_order"=>$_GET['appid']);
+		if(isset($_GET["state"]) && is_numeric($_GET['state'])) $condition["state_order"]=$_GET['state'];
+		if(isset($_GET['search']) && $_GET['search']!=""){
+//			$like["username_order"]=$_GET['search'];
+//			$orlike["realname_order"]=$_GET['search'];
+		}
+		else{
+			$like=array();
+			$orlike=array();
+		}
+		$amount=$this->dbHandler->ADUlike('order',$condition,$like,$orlike);
+		$page_amount=ceil($amount/$limit);
+		if($page>$page_amount) $page=1;
+		$offset=($page-1)*$limit;
+		$order=$this->dbHandler->SDSDlike('order',$condition,array("limit"=>$limit,"offset"=>$offset),array("col"=>'time_order',"by"=>'desc'),$like,$orlike);
+		
+		$ex_url="";
+		if(isset($_GET["state"]))$ex_url.="&state=".$_GET["state"];
+		if(isset($_GET["search"]))$ex_url.="&search=".$_GET["search"];
+		$prev_link=$page>1?"/cms/index/orders?appid=".$_GET['appid']."&page=".($page-1).$ex_url:"no";
+		$next_link=$page<$page_amount?"/cms/index/orders?appid=".$_GET['appid']."&page=".($page+1).$ex_url:"no";
+		$first_link=($page!=1)?"/cms/index/orders?appid=".$_GET['appid']."&page=1".$ex_url:"no";
+		$last_link=($page!=$page_amount)?"/cms/index/orders?appid=".$_GET['appid']."&page=".$page_amount.$ex_url:"no";
+		$jump_link="/cms/index/orders?appid=".$_GET['appid'].$ex_url."&page=";
+		$select_link="/cms/index/orders?appid=".$_GET['appid'];
+		$this->load->view('cms/orderlist',
+			array(
+				"info"=>$app,
+				"order"=>$order,
+				"state"=>$this->get_order_state(),
+				"prev_link"=>$prev_link,
+				"next_link"=>$next_link,
+				"first_link"=>$first_link,
+				"jump_link"=>$jump_link,
+				"last_link"=>$last_link,
+				"select_link"=>$select_link,
+				"page"=>$page,
+				"page_amount"=>$page_amount,
+				"amount"=>$amount
+			));
+		$this->load->view('cms/footer');
+	}
+	public function get_formItems($navid){
+		return $this->dbHandler->selectPartData('form','navid_form',$navid);
+	}
 	public function form(){
 		$this->checkMerchantLogin();
 		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
@@ -569,38 +692,47 @@ class Index extends CI_Controller {
 		$form=array();
 		$product=array();
 		$navdata=array();
+		$forms=array();
 		$amount=0;//总条数
 		$limit=30;//每页显示
 		$page_amount=0;//总页数
-		$app->navs=$this->dbHandler->SDUNR('nav',array('app_id_nav'=>$app->id_app,'type_nav'=>4),array("col"=>'order_nav',"by"=>'asc'));
+		if(isset($_GET['nav']) && is_numeric($_GET['nav'])) $app->navs=$this->dbHandler->selectPartData('nav','id_nav',$_GET['nav']);
+		else $app->navs=$this->dbHandler->SDUNR('nav',array('app_id_nav'=>$app->id_app,'type_nav'=>4),array("col"=>'order_nav',"by"=>'asc'));
 		$ordata=array();
 		foreach($app->navs as $key=>$nav){
-			$ordata[$key]=$nav->id_nav;
+//			$ordata[$key]=$nav->id_nav;
 			$navdata[$nav->id_nav]=$nav->name_nav;
+			$formitem=$this->get_formItems($nav->id_nav);
+			foreach($formitem as $fi){
+				$forms[$fi->id_form]=$fi;
+				$ordata[]=$fi->id_form;
+			}
 		}
-		if(isset($_GET['nav']) && is_numeric($_GET['nav'])) $ordata=array($_GET['nav']);
+//		print_r($app);
 		$condition=array();
 		if(isset($_GET['search']) && $_GET['search']!="") $like["title_essay"]=$_GET['search'];
 		else $like=array();
-		$amount=$this->dbHandler->ADUOR('formdata',$condition,"navid_formdata",$ordata,$like);
+		if(sizeof($ordata)>0) $amount=$this->dbHandler->ADUOR('formdata',$condition,"formid_formdata",$ordata,$like);
+		else $amount=0;
 		$page_amount=ceil($amount/$limit);
 		if($page>$page_amount) $page=1;
 		$offset=($page-1)*$limit;
-		$form=$this->dbHandler->SDSDOR('formdata',$condition,array("limit"=>$limit,"offset"=>$offset),"navid_formdata",$ordata,array("col"=>'time_formdata',"by"=>'desc'),$like);
-		
+		if(sizeof($ordata)>0) $form=$this->dbHandler->SDSDOR('formdata',$condition,array("limit"=>$limit,"offset"=>$offset),"formid_formdata",$ordata,array("col"=>'time_formdata',"by"=>'desc'),$like);
+		else $form=array();
 		$ex_url="";
 		if(isset($_GET["nav"]))$ex_url.="&nav=".$_GET["nav"];
 		if(isset($_GET["search"]))$ex_url.="&search=".$_GET["search"];
-		$prev_link=$page>1?"/cms/index/contents?appid=".$_GET['appid']."&page=".($page-1).$ex_url:"no";
-		$next_link=$page<$page_amount?"/cms/index/contents?appid=".$_GET['appid']."&page=".($page+1).$ex_url:"no";
-		$first_link=($page!=1)?"/cms/index/contents?appid=".$_GET['appid']."&page=1".$ex_url:"no";
-		$last_link=($page!=$page_amount)?"/cms/index/contents?appid=".$_GET['appid']."&page=".$page_amount.$ex_url:"no";
-		$jump_link="/cms/index/contents?appid=".$_GET['appid'].$ex_url."&page=";
-		$select_link="/cms/index/contents?appid=".$_GET['appid'];
+		$prev_link=$page>1?"/cms/index/form?appid=".$_GET['appid']."&page=".($page-1).$ex_url:"no";
+		$next_link=$page<$page_amount?"/cms/index/form?appid=".$_GET['appid']."&page=".($page+1).$ex_url:"no";
+		$first_link=($page!=1)?"/cms/index/form?appid=".$_GET['appid']."&page=1".$ex_url:"no";
+		$last_link=($page!=$page_amount)?"/cms/index/form?appid=".$_GET['appid']."&page=".$page_amount.$ex_url:"no";
+		$jump_link="/cms/index/form?appid=".$_GET['appid'].$ex_url."&page=";
+		$select_link="/cms/index/form?appid=".$_GET['appid'];
 		$this->load->view('cms/formlist',
 			array(
 				"info"=>$app,
 				"form"=>$form,
+				"forms"=>$forms,
 				"navdata"=>$navdata,
 				"prev_link"=>$prev_link,
 				"next_link"=>$next_link,
@@ -785,6 +917,15 @@ class Index extends CI_Controller {
 				);
 				$log="添加商品【".$_POST['title']."】";
 			break;
+			case "previewimg":
+				$table="previewimg";
+				$info=array(
+					"appid_previewimg"=>$_POST['appid'],
+					"src_previewimg"=>$_POST['src'],
+					"ordernum_previewimg"=>$_POST['order']
+				);
+				$log="添加id为".$_POST['appid']."的APP的预览图【<img width='50' height='100' src='".$_POST['src']."'>】";
+			break;
 		}
 		$this->log($log);
 		$result=$this->dbHandler->insertdata($table,$info);
@@ -801,6 +942,15 @@ class Index extends CI_Controller {
 				$where="id_app";
 				$content=$_POST['id'];
 				$log="删除id为【".$_POST['id']."】的APP";
+			break;
+			case "publish_app":
+				$table='app';
+				$info=array(
+					"state_app"=>4
+				);
+				$where="id_app";
+				$content=$_POST['id'];
+				$log="发布id为【".$_POST['id']."】的APP到市场";
 			break;
 			case "app_validity":
 				$table='app';
@@ -994,6 +1144,36 @@ class Index extends CI_Controller {
 				$content=$_SESSION['userid'];
 				$log="同意成为子帐号";
 			break;
+			case "cancel_order":
+				$table="order";
+				$info=array(
+					"state_order"=>4
+				);
+				$where="id_order";
+				$content=$_POST['orderid'];
+				$log="取消订单id【".$_POST['orderid']."】";
+			break;
+			case "account_config_alipay":
+				$table="app";
+				$info=array(
+					"alipay_app"=>$_POST["alipay"]
+				);
+				$where="id_app";
+				$content=$_POST['appid'];
+				$log="修改APP【".$_POST['appid']."】的支付宝收款账号";
+			break;
+			case "previewimg_order":
+				$table='previewimg';
+				if($_POST['direction']=="forward") $dst_order=$_POST['order']-1;
+				else $dst_order=$_POST['order']+1;
+				$info=$this->dbHandler->UD('previewimg',array("ordernum_previewimg"=>$_POST['order']),array("appid_previewimg"=>$_POST['appid'],"ordernum_previewimg"=>$dst_order));
+				$info=array(
+					"ordernum_previewimg"=>$dst_order
+				);
+				$where="id_previewimg";
+				$content=$_POST['previewimgid'];
+				$log="修改预览图id为【".$_POST['previewimgid']."】的顺序";
+			break;
 		}
 		$this->log($log);
 		$result=$this->dbHandler->updatedata($table,$info,$where,$content);
@@ -1039,6 +1219,20 @@ class Index extends CI_Controller {
 					$info=$this->dbHandler->UD('homeslider',array("ordernum_homeslider"=>($i-1)),array("appid_homeslider"=>$_POST['appid'],"ordernum_homeslider"=>$i));
 				}
 				$log="删除滚动图id".$_POST['sliderid'];
+			break;
+			case 'previewimg':
+				$app=$this->dbHandler->selectPartData('app','id_app',$_POST['appid']);
+				if($_SESSION['userid']!=$app[0]->merchant_id_app){
+					echo json_encode(array("result"=>"failed","message"=>"抱歉，你没有权限修改"));
+					return false;
+				}
+				$table="previewimg";
+				$condition=array("id_previewimg"=>$_POST['previewimgid']);
+				//更新之后的序号
+				for($i=($_POST['order']+1);$i<=$_POST['amount'];$i++){
+					$info=$this->dbHandler->UD('previewimg',array("ordernum_previewimg"=>($i-1)),array("appid_previewimg"=>$_POST['appid'],"ordernum_previewimg"=>$i));
+				}
+				$log="删除预览图".$_POST['previewimgid'];
 			break;
 		}
 		$this->log($log);
@@ -1141,6 +1335,13 @@ class Index extends CI_Controller {
 			$message=json_encode($formitems);
 			break;
 			case 5://商城
+			$mall=new stdClass();
+			if($nav->hasmallcat_nav==0) $mall->type="no";
+			else{
+				$mall->type="yes";
+				$mall->cat=$this->dbHandler->SDUNR('mall_category',array("navid_mall_category"=>$navid),array("col"=>'order_mall_category',"by"=>'desc'));
+			}
+			$message=json_encode($mall);
 			break;
 			case 6://链接
 			$link=$this->dbHandler->selectPartData('link','navid_link',$navid);
@@ -1183,8 +1384,13 @@ class Index extends CI_Controller {
 				$condition=array("navid_form"=>$navid);
 			break;
 			case 5://商城
-				$table="";
-				//$condition=array("navid_mall"=>$navid);
+				if($nav->hasmallcat_nav==1 && $_POST['hascat']){
+					$table="mall_category";
+					$condition=array("navid_mall_category"=>$navid);
+				}else{
+					$table="mall_category";
+					$condition=array("id_mall_category"=>-110);
+				}
 			break;
 			case 6://链接
 				$table="link";
@@ -1234,6 +1440,19 @@ class Index extends CI_Controller {
 				}
 			break;
 			case 5://商城
+				if($_POST['hascat']) $hascat=1;
+				else $hascat=0;
+				if($hascat==1 && isset($_POST['mallcat']) && $_POST['mallcat']!=""){
+					foreach($_POST['mallcat'] as $key=>$value){
+						$info=array(
+							"navid_mall_category"=>$navid,
+							"name_mall_category"=>$value["name"],
+							"order_mall_category"=>$key
+						);
+						$result=$this->dbHandler->insertdata("mall_category",$info);
+					}
+				}
+				$this->dbHandler->UD('nav',array("hasmallcat_nav"=>$hascat),array("id_nav"=>$navid));
 			break;
 			case 6://链接
 				$table="link";

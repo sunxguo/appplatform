@@ -137,7 +137,7 @@ class Home extends CI_Controller {
 						$pro[0]->checked=$_SESSION["cart"][$key]["checked"];
 						$products[]=$pro[0];
 						if($_SESSION["cart"][$key]["checked"]){
-							$total_price+=$pro[0]->price_product;
+							$total_price+=($pro[0]->price_product)*$pro[0]->countnum;
 							$total+=$pro[0]->countnum;
 							$unit=$pro[0]->unit_product;
 						}else $is_all_checked=false;
@@ -149,6 +149,22 @@ class Home extends CI_Controller {
 					"total"=>$total,
 					"is_all_checked"=>$is_all_checked
 				);
+			break;
+			case "user":
+				$userid=$_SESSION['appuserid'];
+				$user=$this->dbHandler->selectPartData('user','id_user',$userid);
+				$msg=$user[0];
+			break;
+			case "orderlist":
+				$msg=$this->dbHandler->SDUNR('order',array("userid_order"=>$_SESSION["appuserid"]),array("col"=>'time_order',"by"=>'desc'));
+			break;
+			case "order":
+				$orderid=$_POST['orderid'];
+				$order=$this->dbHandler->selectPartData('order','id_order',$orderid);
+				$msg=$order[0];
+			break;
+			case "msglist":
+				$msg=$this->dbHandler->SDSDUNROR('message',array("type_message"=>"3"),"to_message",array(0,$_SESSION["appuserid"]),array("col"=>'time_message',"by"=>'desc'));
 			break;
 		}
 		echo json_encode(array("result"=>"success","message"=>$msg));
@@ -234,13 +250,145 @@ class Home extends CI_Controller {
 		}
 	}
 	public function create_order(){
+		$products=array();
+		$total=0;
 		foreach($_SESSION["cart"] as $key=>$item){
 			if($item["checked"]){
-				
+				$product=new stdClass();
+				$pro=$this->dbHandler->selectPartData('product','id_product',$key);
+				$product->info=$pro[0];
+				$product->countnum=$item["countnum"];
+				$products[]=$product;
+				$total+=($pro[0]->price_product)*$item["countnum"];
 			}
 		}
-		$info=array();
+//		print_r($_SESSION["cart"]);
+		$info=array(
+			"userid_order"=>$_SESSION["appuserid"],
+			"total_order"=>$total,
+			"products_order"=>json_encode($products),
+			"address_order"=>$_POST["address"],
+			"phone_order"=>$_POST["phone"],
+			"name_order"=>$_POST["name"],
+			"time_order"=>date("Y-m-d H:i:s"),
+			"state_order"=>0,
+			"appid_order"=>$_POST["appid"],
+			"num_order"=>$this->get_order_num(),
+		);
+		$result=$this->dbHandler->insertdata("order",$info);
+		if($_POST["saveAsDefault"]){
+			$addressInfo=array(
+				"realname_user"=>$_POST["name"],
+				"phone_user"=>$_POST["phone"],
+				"address_user"=>$_POST["address"]
+			);
+			$this->dbHandler->updatedata("user",$addressInfo,"id_user",$_SESSION["appuserid"]);
+		}
+		if($result==1){
+			unset($_SESSION["cart"]);
+			echo json_encode(array("result"=>"success","message"=>"信息写入成功"));
+		}
+		else echo json_encode(array("result"=>"failed","message"=>"信息写入失败"));
 	}
+	public function get_order_num(){
+		$order_num = time();
+		return $order_num .= rand(1000,9999);
+	}
+	public function register(){
+		$table="user";
+		if(!$this->check_unique("user",array("appid_user"=>$_POST['appid'],"username_user"=>$_POST['username']))){
+			echo json_encode(array("result"=>"failed","message"=>"该用户名已经被注册"));
+			return false;
+		}
+		$info=array(
+			"appid_user"=>$_POST['appid'],
+			"username_user"=>$_POST['username'],
+			"pwd_user"=>MD5("kmkj".$_POST['pwd']),
+			"state_user"=>0,
+			"time_user"=>date("Y-m-d H:i:s"),
+			"lasttime_user"=>date("Y-m-d H:i:s")
+		);
+		$result=$this->dbHandler->insertdata($table,$info);
+		if($result==1) echo json_encode(array("result"=>"success","message"=>"信息写入成功"));
+		else echo json_encode(array("result"=>"failed","message"=>"信息写入失败"));
+	}
+	
+	public function check_unique($type,$value){
+		$result=false;
+		switch($type){
+			case "user":
+				$count=$this->dbHandler->ADU('user',$value);
+				if($count<1) $result=true;
+			break;
+		}
+		return $result;
+	}
+	public function check_user_login(){
+		if($this->checkLogin()) $msg="login";
+		else $msg="unlogin";
+		echo json_encode(array("result"=>"success","message"=>$msg));
+	}
+	public function login(){
+		if(isset($_POST["username"]) && isset($_POST["pwd"])){
+			$info=$this->dbHandler->sel_data_by_mul_condition('user',array("username_user"=>$_POST["username"],"appid_user"=>$_POST["appid"]));
+			if(count($info,0)==1){
+				$post_pwd=MD5("kmkj".$_POST["pwd"]);
+				$db_pwd=$info[0]->pwd_user;
+				if($post_pwd==$db_pwd){
+					$_SESSION['appusername']=$info[0]->username_user;
+					$_SESSION['appuserid']=$info[0]->id_user;
+//					$_SESSION['appuseravatar']=$info[0]->avatar_merchant;
+//					$_SESSION['appusertype']="appuser";
+					if($_POST["rememberMe"]){
+						setcookie("appusername",$info[0]->username_user, time()+2600000);
+						setcookie("appuserid",$info[0]->id_user, time()+2600000);
+					}
+					$this->dbHandler->updatedata("user",array("lasttime_user"=>date("Y-m-d H:i:s")),"id_user",$_SESSION["appuserid"]);
+					echo json_encode(array("result"=>"success","message"=>"登录成功"));
+				}
+				else{
+					echo json_encode(array("result"=>"failed","message"=>"密码错误"));
+				}
+			}
+			else{
+				echo json_encode(array("result"=>"failed","message"=>"用户名不存在"));
+			}
+		}else{
+			echo json_encode(array("result"=>"failed","message"=>"请输入用户名和密码"));
+		}
+	}
+	function logout(){
+		setcookie("appusername");
+		setcookie("appuserid");
+		unset($_SESSION["appusername"]);
+		unset($_SESSION["appuserid"]);
+	}
+	/**
+	 * 检查用户登录状态
+	 * @return boolean 是否已登录
+	 */
+	function checkLogin(){
+		if(isset($_SESSION['appuserid']) && $_SESSION['appuserid']!=""){
+			return true;
+		} else {
+			if (isset($_COOKIE["appusername"])&& isset($_COOKIE["appuserid"]) && $_COOKIE["appuserid"]!="") {
+				$_SESSION["appusername"] = $_COOKIE["appusername"];
+				$_SESSION["appuserid"] = $_COOKIE["appuserid"];
+				return true;
+			}
+			return false;
+		}
+	}
+	public function change_pwd(){
+		$user=$this->dbHandler->selectPartData('user','id_user',$_SESSION["appuserid"]);
+		$user=$user[0];
+		if($user->pwd_user==MD5("kmkj".$_POST['oldpwd'])){
+			$condition=array("id_user"=>$_SESSION["appuserid"]);
+			$this->dbHandler->UD("user",array("pwd_user"=>MD5("kmkj".$_POST['newpwd'])),$condition);
+			echo json_encode(array("result"=>"success","message"=>"修改成功！"));
+		}else echo json_encode(array("result"=>"failed","message"=>"密码输入错误"));
+	}
+
 }
 
 /* End of file home.php */

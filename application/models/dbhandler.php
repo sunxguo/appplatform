@@ -176,6 +176,10 @@ class DbHandler extends CI_Model{
 		$this->load->database();
 		return $total = $this->db->count_all($table);
 	 }
-
+	public function custom_query($sql,$data){
+		$this->load->database();
+		$this->db->query($sql,$data);
+		return $query = $this->db->get()->result();
+	}
 }
 ?>

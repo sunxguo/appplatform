@@ -20,7 +20,9 @@
 		<thead>
 			<tr class="table-head">
 				<th style="width:100px;">导航</th>
-				<th style="width:360px;">用户</th>
+				<th style="width:100px;">字段</th>
+				<th style="width:300px;">数据</th>
+				<th style="width:100px;">用户</th>
 				<th style="width:150px;">反馈时间</th>
 				<th style="width:100px;">操作</th>
 			</tr>
@@ -28,10 +30,12 @@
 		<tbody>
 			<?php foreach($form as $f):?>
 			<tr>
-				<td><?php echo $navdata[$f->navid_formdata];?></td>
+				<td><?php echo $navdata[$forms[$f->formid_formdata]->navid_form];?></td>
+				<td><?php echo $forms[$f->formid_formdata]->name_form;?></td>
+				<td><?php echo $f->data_formdata;?></td>
 				<td><?php echo $f->userid_formdata;?></td>
 				<td><?php echo $f->time_formdata;?></td>
-				<td>详细信息</td>
+				<td></td>
 			</tr>
 			<?php endforeach;?>
 		</tbody>

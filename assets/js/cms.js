@@ -32,6 +32,9 @@ function delclick(obj){
 function sliderAdd(){
 	$("#file").click();
 }
+function previewimgAdd(){
+	$("#file").click();
+}
 function upload_slider(appid){
 	$('#uploadSliderForm').ajaxSubmit({
 		success: function (data) {
@@ -44,6 +47,25 @@ function upload_slider(appid){
 		},
 		url: "/cms/index/upload_img",
 		data: $('#uploadSliderForm').formSerialize(),
+		type: 'POST',
+		beforeSubmit: function () {
+			$("#loading").show();
+		}
+	});
+	return false;
+}
+function upload_previewimg(appid){
+	$('#uploadPreviewImgForm').ajaxSubmit({
+		success: function (data) {
+			var result=$.parseJSON(data);
+			if(result.code){
+				add_new_previewimg(appid,result.message);
+			}else{
+				alert(result.message);
+			}
+		},
+		url: "/cms/index/upload_img",
+		data: $('#uploadPreviewImgForm').formSerialize(),
 		type: 'POST',
 		beforeSubmit: function () {
 			$("#loading").show();
@@ -70,6 +92,24 @@ function add_new_slider(appid,src){
 			}
 		});
 }
+function add_new_previewimg(appid,src){
+	$.post(
+	"/cms/index/add_info",
+	{
+		'info_type':"previewimg",
+		'appid':appid,
+		'src':src,
+		'order':$("#new_order_num").val()
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			location.reload();
+		}else{
+			alert(result.message);
+		}
+	});
+}
 function slider_order(direction,ordernum,appid,sliderid){
 	$.post(
 	"/cms/index/modify_info",
@@ -89,6 +129,25 @@ function slider_order(direction,ordernum,appid,sliderid){
 		}
 	});
 }
+function previewimg_order(direction,ordernum,appid,previewimgid){
+	$.post(
+	"/cms/index/modify_info",
+	{
+		'info_type':"previewimg_order",
+		'direction':direction,
+		'order':ordernum,
+		'appid':appid,
+		'previewimgid':previewimgid
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			location.reload();
+		}else{
+			alert(result.message);
+		}
+	});
+}
 function slider_delete(appid,sliderid,order,amount){
 	if(confirm("确定删除该滚动图片？")){
 		$.post(
@@ -97,6 +156,27 @@ function slider_delete(appid,sliderid,order,amount){
 				'info_type':"slider",
 				'appid':appid,
 				'sliderid':sliderid,
+				'order':order,
+				'amount':amount
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					location.reload();
+				}else{
+					alert(result.message);
+				}
+			});
+	}
+}
+function previewimg_delete(appid,previewimgid,order,amount){
+	if(confirm("确定删除该预览图？")){
+		$.post(
+			"/cms/index/del_info",
+			{
+				'info_type':"previewimg",
+				'appid':appid,
+				'previewimgid':previewimgid,
 				'order':order,
 				'amount':amount
 			},
@@ -318,4 +398,27 @@ function get_cat(){
 			$("#category").hide();
 		}
 	});
+}
+function publish_app(appid){
+	if($("#previewimgPic .slider-item").length<1){
+		alert("请上传至少一张预览图！");
+		return false;
+	}
+	if(confirm("确定发布该应用？")){
+		$.post(
+		"/cms/index/modify_info",
+		{
+			'info_type':"publish_app",
+			'id':appid
+		},
+		function(data){
+			var result=$.parseJSON(data);
+			if(result.result=="success"){
+				alert("提交成功！等待审核");
+				location.reload();
+			}else{
+				alert(result.message);
+			}
+		});
+	}
 }

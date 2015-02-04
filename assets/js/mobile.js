@@ -145,6 +145,7 @@ function sub_nav_click(subnavid){
 	$("#show_sider_bt").hide();
 	$("#goBackSub_bt").show();
 	goBack=true;
+	$("#tit_con").text(currentNavName);
 	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
 	$("#main_body").html(waitDiv);
 	$("#main_body").addClass("con-pd");
@@ -174,6 +175,18 @@ function goBackCat(){
 	$("#goBackSub_bt").show();
 	$("#show_sider_bt").hide();
 	$("#goBackCat_bt").hide();
+}
+function goBackUC(){
+	showUC();
+	$("#goBackUC_bt").hide();
+	$("#goBackSub_bt").show();
+	$("#show_sider_bt").hide();
+	$("#goBackCat_bt").hide();
+}
+function goBackUCOrders(){
+	checkOrders();
+	$("#goBackUCOrders_bt").hide();
+	$("#goBackUC_bt").show();
 }
 function essay_click(essayid){
 	$("#show_sider_bt").hide();
@@ -276,6 +289,7 @@ function product_click(productid,cat){
 		var result=$.parseJSON(data);
 		if(result.result=="success"){
 			var productinfo=result.message;
+			$("#tit_con").text(productinfo.name_product);
 			var thumbnails=$.parseJSON(productinfo.thumbnail_product);
 			var product=''+
 			'<div class="product">'+
@@ -313,6 +327,9 @@ function show_cart(){
 	$("#show_sider_bt").hide();
 	$("#goBackCat_bt").hide();
 	$("#goBackSub_bt").hide();
+	$("#goBackUC_bt").hide();
+	$("#goBackUCOrders_bt").hide();
+	$("#tit_con").text("购物车");
 	if(currentCatHas=="has") $("#goBackCat_bt").show();
 	else $("#goBackSub_bt").show();
 	goBack=true;
@@ -381,7 +398,7 @@ function show_cart(){
 			'			<strong class="shp-cart-total">总计:'+unit+'<span class="" id="cart_realPrice">'+total_price+'</span></strong>'+
 			'			<span class="sale-off">商品总额:'+unit+'<span class="bottom-bar-price" id="cart_oriPrice">'+total_price+'</span> </span>'+
 			'		</div>'+
-			'		<a class="btn-right-block" id="submit" style="background: rgb(192, 0, 0);">结算(<span id="checkedNum">'+total+'</span>)</a>'+
+			'		<a class="btn-right-block" onclick="goto_order()" id="submit" style="background: rgb(192, 0, 0);">结算(<span id="checkedNum">'+total+'</span>)</a>'+
 			'	</div>';
 			$("#main_body .cart").append(counter);
 		}else{
@@ -472,5 +489,471 @@ function changeSelected(pid){
 	},
 	function(data){
 		show_cart();
+	});
+}
+function register(){
+	if($("#username").val().length<3 || $("#username").val().length>20){//3-20位
+		alert("用户名位数应在3～20"); return false;
+	}else if($("#password").val().length<3 || $("#password").val().length>30){//3-30位
+		alert("密码位数应在3～20"); return false;
+	}
+	var appid=$("#appid").val();
+	var username=$("#username").val();
+	var password=$("#password").val();
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$.post(
+	"/mobile/home/register",
+	{
+		'appid':appid,
+		'username':username,
+		'pwd':password
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			alert("注册成功！请登录");
+			showLogin();
+		}else{
+			alert(result.message);
+		}
+	});
+}
+function showRegister(){
+	$("#tit_con").text("注册");
+	var register_div=''+
+	'	<div class="mobile-common-wrapper uc" style="min-height:300px;">	'+
+	'		<div class="uc-main">	'+
+	'			<div class="item item-phone">	'+
+	'				<input id="username" class="txt-input txt-phone" type="text" placeholder="请输入用户名" autofocus="">	'+
+	'			</div>	'+
+	'			<div class="item item-phone">	'+
+	'				<input id="password" class="txt-input txt-phone" type="password" placeholder="请输入密码">	'+
+	'			</div>	'+
+	'			<div class="item item-btns" style="margin-top:30px;">	'+
+	'				<a class="btn-next" href="javascript:register();">注册</a>	'+
+	'			</div>	'+
+	'			<div style="text-align:right;">	'+
+	'				<a style="font-size: 14px; color: rgb(37, 37, 37); text-decoration: underline;" href="javascript:showLogin();">登录	'+
+	'				</a>	'+
+	'			</div>	'+
+	'		</div>	'+
+	'	</div>	';
+	$("#main_body").html(register_div);
+}
+var rememberMeValue=true;
+var saveAsDefault=true;
+function rememberMe(){
+	rememberMeValue=!rememberMeValue;
+	if(rememberMeValue) $("#rmdiv").addClass("login-free-selected");
+	else $("#rmdiv").removeClass("login-free-selected");
+}
+function saveDefault(){
+	saveAsDefault=!saveAsDefault;
+	if(saveAsDefault) $("#sddiv").addClass("login-free-selected");
+	else $("#sddiv").removeClass("login-free-selected");
+}
+function showLogin(){
+	rememberMeValue=true;
+	$("#tit_con").text("登录");
+	var login_div=''+
+	'	<div class="mobile-common-wrapper uc" style="min-height:300px;">	'+
+	'		<div class="uc-main">	'+
+	'			<div class="item item-phone">	'+
+	'				<input id="username" class="txt-input txt-phone" type="text" placeholder="请输入用户名" autofocus="">	'+
+	'			</div>	'+
+	'			<div class="item item-phone">	'+
+	'				<input id="password" class="txt-input txt-phone" type="password" placeholder="请输入密码">	'+
+	'			</div>	'+
+	'			<div id="rmdiv" onclick="rememberMe()" class="login-free login-free-selected"><b></b>一个月内免登录</div>	'+
+	'			<div class="item item-btns" style="margin-top:30px;">	'+
+	'				<a class="btn-next" href="javascript:login();">登录</a>	'+
+	'			</div>	'+
+	'			<div class="item item-login-option">	'+
+	'				<span class="register-free">	'+
+	'					<a rel="nofollow" href="javascript:showRegister()">免费注册</a>	'+
+	'				</span>	'+
+	'			</div>	'+
+	'		</div>	'+
+	'	</div>	';
+	$("#main_body").html(login_div);
+}
+function usercenter(){
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$.post(
+	"/mobile/home/check_user_login",
+	{},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success" && result.message=="login"){
+			showUC();
+		}else{
+			showLogin();
+		}
+	});
+}
+
+function login(){
+	if($("#username").val().length<3 || $("#username").val().length>20){//3-20位
+		alert("用户名位数应在3～20"); return false;
+	}else if($("#password").val().length<3 || $("#password").val().length>30){//3-30位
+		alert("密码位数应在3～20"); return false;
+	}
+	var appid=$("#appid").val();
+	var username=$("#username").val();
+	var password=$("#password").val();
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$.post(
+	"/mobile/home/login",
+	{
+		'appid':appid,
+		'username':username,
+		'pwd':password,
+		'rememberMe':rememberMeValue
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			showUC();
+		}else{
+			alert(result.message);
+		}
+	});
+}
+function showUC(){
+	$("#tit_con").text("个人中心");
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$.post(
+	"/mobile/home/get_info",
+	{"info_type":"user"},
+	function(data){
+		var result=$.parseJSON(data);
+		var ucDiv=''+
+		'	<div class="common-wrapper uc">	'+
+		'		<div class="head-img">	'+
+		'			<span class="my-img" style="background-image:url(\'/assets/images/mobile/photo.jpg\')"></span>	'+
+		'			<p>'+result.message.username_user+'</p>	'+
+		'		</div>	'+
+		'		<ul class="menu-list">	'+
+		'			<li>	'+
+		'				<a href="javascript:checkOrders()">	'+
+		'					<img src="/assets/images/mobile/orders.png" alt="">	'+
+		'					<p>全部订单</p>	'+
+		'				</a>	'+
+		'			</li>	'+
+		'			<li>	'+
+		'				<a href="javascript:checkAccount()">	'+
+		'					<img src="/assets/images/mobile/account.png" alt="">	'+
+		'					<p>修改密码</p>	'+
+		'				</a>	'+
+		'			</li>	'+
+		'			<li>	'+
+		'				<a href="javascript:checkMessages()">	'+
+		'					<img src="/assets/images/mobile/messages.png" alt="">	'+
+		'					<p>我的消息</p>	'+
+		'				</a>	'+
+		'			</li>	'+
+		'			<li>	'+
+		'				<a href="javascript:logout()">	'+
+		'					<img src="/assets/images/mobile/logout.png" alt="">	'+
+		'					<p>退出</p>	'+
+		'				</a>	'+
+		'			</li>	'+
+		'		</ul>	'+
+		'	</div>	';
+		$("#main_body").html(ucDiv);
+	});
+}
+function goto_order(){
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$.post(
+	"/mobile/home/check_user_login",
+	{},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success" && result.message=="login"){
+			showOrderInfo();
+		}else{
+			showLogin();
+		}
+	});
+}
+function showOrderInfo(){
+	$("#tit_con").text("下单");
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$.post(
+	"/mobile/home/get_info",
+	{"info_type":"user"},
+	function(data){
+		saveAsDefault=true;
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			var userInfo=result.message;
+			var orderInfo=''+
+			'	<div class="order-info">	'+
+			'		<div class="new-set-info">	'+
+			'			<span class="new-txt2 new-mg-b5">收货人姓名</span>	'+
+			'			<span class="new-input-span new-mg-b10">	'+
+			'				<input type="text" id="address_name" maxlength="30" class="new-input" value="'+((userInfo.realname_user==null)?"":userInfo.realname_user)+'">	'+
+			'			</span>	'+
+			'			<span class="new-txt2 new-mg-b5">手机号码</span>	'+
+			'			<span class="new-span-block">	'+
+			'				<span class="new-input-span new-mg-b10"><input type="text" id="address_mobile" class="new-input" value="'+((userInfo.phone_user==null)?"":userInfo.phone_user)+'"></span>	'+
+			'			</span>	'+
+			'			<span class="new-txt2 new-mg-b5">详细收货地址</span>	'+
+			'			<span class="new-input-span new-mg-b10">	'+
+			'				<input type="text" id="address" class="new-input" value="'+((userInfo.address_user==null)?"":userInfo.address_user)+'">	'+
+			'			</span>	'+
+			'			<div id="sddiv" onclick="saveDefault()" class="login-free login-free-selected"><b></b>保存为默认地址</div>	'+
+			'			<a href="javascript:submitOrder();" class="new-abtn-type new-mg-t15">提交订单</a>	'+
+			'		</div>	'+
+			'	</div>	';
+			$("#main_body").html(orderInfo);
+		}else{
+			alert(result.message);
+		}
+	});
+}
+function submitOrder(){
+	if($("#address_name").val()=="" || $("#address_mobile").val()=="" || $("#address").val()==""){
+		alert("请填写完整！"); return false;
+	}
+//	alert($("#address_name").val()+$("#address_mobile").val()+$("#address").val());
+	var name=$("#address_name").val();
+	var phone=$("#address_mobile").val();
+	var address=$("#address").val();
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$.post(
+	"/mobile/home/create_order",
+	{
+		'appid':$("#appid").val(),
+		'name':name,
+		'phone':phone,
+		'address':address,
+		'saveAsDefault':saveAsDefault
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			showUC();
+		}else{
+			alert(result.message);
+		}
+	});
+}
+function checkOrders(){
+	$("#show_sider_bt").hide();
+	$("#goBackSub_bt").hide();
+	$("#goBackCat_bt").hide();
+	$("#goBackUC_bt").show();
+	goBack=true;
+	$("#tit_con").text("所有订单");
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$("#main_body").addClass("con-pd");
+	$.post(
+	"/mobile/home/get_info",
+	{
+		'info_type':"orderlist"
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			$("#main_body").html("");
+			$("#main_body").removeClass("con-pd");
+			var orders=result.message;
+			$("#main_body").append("<ul class='orderlist productlist'></ul>");
+			for(var i=0;i<orders.length;i++){
+				var products=$.parseJSON(orders[i].products_order);
+				var thumbnails=$.parseJSON(products[0].info.thumbnail_product);
+				var orderLi=''+
+				'	<li onclick="order_click(\''+orders[i].id_order+'\')">	'+
+				'		<div class="thumbnail"><img src="'+thumbnails[0].src+'"></div>	'+
+				'		<div class="detail" style="font-size:14px;">	'+
+				'			<div class="title">订单号：'+orders[i].num_order+'</div>	'+
+				'			<div class="title">'+orders[i].time_order+'</div>	'+
+				'			<div class="buy">	'+
+				'				<div class="now-price">'+products[0].info.unit_product+orders[i].total_order+'</div>	'+
+				'				<a class="btnred120">查看详情</a>	'+
+				'			</div>	'+
+				'		</div>	'+
+				'	</li>	';
+				$("#main_body .orderlist").append(orderLi);
+			}
+		}else{
+			alert("获取订单失败，请重试！");
+		}
+	});
+}
+function order_click(orderid){
+	$("#goBackUC_bt").hide();
+	$("#goBackUCOrders_bt").show();
+	$("#tit_con").text("订单");
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$.post(
+	"/mobile/home/get_info",
+	{
+		'info_type':"order",
+		'orderid':orderid
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			var orderinfo=result.message;
+			var products=$.parseJSON(orderinfo.products_order);
+			var order=''+
+			'	<div class="common-wrapper">	'+
+			'		<ul class="order">	'+
+			'			<li>	'+
+			'				<div class="order-box">	'+
+			'					<div class="order-width">	'+
+			'						<p>订单编号：'+orderinfo.num_order+'</p>	'+
+			'						<p>订单金额：'+products[0].info.unit_product+orderinfo.total_order+'</p>	'+
+			'						<p>订单日期：'+orderinfo.time_order+'</p>	'+
+			'					</div>	'+
+			'				</div>	'+
+			'			</li>	';
+			for(var i=0;i<products.length;i++){
+				var thumbnails=$.parseJSON(products[i].info.thumbnail_product);
+				order+=''+
+				'		<li>	'+
+				'			<div class="order-box">	'+
+				'				<ul class="book-list">	'+
+				'					<li class="border-bottom">	'+
+				'					   <a href="javascript:product_click('+products[i].id_product+',\'no\')">	'+
+				'					   	<div class="order-msg">	'+
+				'							<img src="'+thumbnails[0].src+'" class="img_ware">	'+
+				'							<div class="order-msg">	'+
+				'								<p class="title"> '+products[i].info.name_product+'</p>	'+
+				'								<p class="price">'+products[i].info.unit_product+products[i].info.price_product+'<span></span></p>	'+
+				'								<p class="order-data">X'+products[i].countnum+'</p>	'+
+				'							</div>	'+
+				'						 </div>	'+
+				'						</a>	'+
+				'						</li>	'+
+				'					</ul>	'+
+				'				</div>	'+
+				'			</li>	';
+			}
+			order+=''+
+			'			<li>	'+
+			'				<div class="order-box">	'+
+			'					<div class="order-width">	'+
+			'						<p class="border-bottom usr-name">	'+
+			'							'+orderinfo.name_order+'	'+
+			'							<span class="fr">'+orderinfo.phone_order+'</span>	'+
+			'						</p>	'+
+			'						<p class="usr-addr">'+orderinfo.address_order+'</p>	'+
+			'					</div>	'+
+			'				</div>	'+
+			'			</li>	'+
+			'		</ul>	'+
+			'	</div>	';
+			$("#main_body").html(order);
+		}else{
+			alert("获取订单失败，请重试！");
+		}
+	});
+}
+function checkAccount(){
+	$("#show_sider_bt").hide();
+	$("#goBackSub_bt").hide();
+	$("#goBackCat_bt").hide();
+	$("#goBackUC_bt").show();
+	goBack=true;
+	$("#tit_con").text("修改密码");
+	var changepwd=''+
+	'	<div class="order-info">	'+
+	'		<div class="new-set-info">	'+
+	'			<span class="new-txt2 new-mg-b5">旧密码</span>	'+
+	'			<span class="new-input-span new-mg-b10">	'+
+	'				<input type="password" id="old_pwd" maxlength="30" class="new-input">	'+
+	'			</span>	'+
+	'			<span class="new-txt2 new-mg-b5">新密码</span>	'+
+	'			<span class="new-span-block">	'+
+	'				<span class="new-input-span new-mg-b10"><input type="password" id="new_pwd" class="new-input"></span>	'+
+	'			</span>	'+
+	'			<a href="javascript:change_pwd();" class="new-abtn-type new-mg-t15">修改</a>	'+
+	'		</div>	'+
+	'	</div>	';
+	$("#main_body").html(changepwd);
+}
+function change_pwd(){
+	var old_pwd=$("#old_pwd").val();
+	var new_pwd=$("#new_pwd").val();
+	if(new_pwd.length<3 || new_pwd.length>30){//3-30位
+		alert("密码位数应在3～20"); return false;
+	}
+	$.post(
+	"/mobile/home/change_pwd",
+	{
+		'oldpwd':old_pwd,
+		'newpwd':new_pwd
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			alert("修改成功！");
+			showUC();
+		}else{
+			alert(result.message);
+		}
+	});
+}
+function checkMessages(){
+	$("#show_sider_bt").hide();
+	$("#goBackSub_bt").hide();
+	$("#goBackCat_bt").hide();
+	$("#goBackUC_bt").show();
+	goBack=true;
+	$("#tit_con").text("我的消息");
+	var waitDiv="<img src='/assets/images/cms/loading.gif'>";
+	$("#main_body").html(waitDiv);
+	$("#main_body").addClass("con-pd");
+	$.post(
+	"/mobile/home/get_info",
+	{
+		'info_type':"msglist"
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			$("#main_body").html("");
+			$("#main_body").removeClass("con-pd");
+			var messages=result.message;
+			$("#main_body").append('<div class="new-msg-center messagelist"></div>');
+			for(var i=0;i<messages.length;i++){
+				var msgLi=''+
+				'	<div class="new-msg-section">	'+
+				'		<div class="new-tit">	'+
+				'			<span class="new-user">	'+
+				'				<span class="new-elps">'+messages[i].title_message+'</span>	'+
+				'			</span>	'+
+				'			<span class="new-time">'+messages[i].time_message+'</span>	'+
+				'		</div>	'+
+				'		<div class="new-cont">	'+
+				'			<span class="new-cont-txt">内容：'+messages[i].msg_message+'</span>	'+
+				'		</div>	'+
+				'	</div>	';
+				$("#main_body .messagelist").append(msgLi);
+			}
+		}else{
+			alert("获取消息失败，请重试！");
+		}
+	});
+}
+function logout(){
+	$.post(
+	"/mobile/home/logout",
+	{},
+	function(data){
+		showLogin();
 	});
 }

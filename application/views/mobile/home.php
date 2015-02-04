@@ -17,6 +17,7 @@
 		<div class="search">
 			<input type="text" placeholder="搜索">
 		</div>
+		<input type="hidden" id="appid" value="<?php echo $_GET["appid"];?>">
 		<ul class="nav clearfix">
 			<?php foreach($navs as $key=>$item):?>
 			<li>
@@ -48,6 +49,16 @@
 					<img src="/assets/images/cms/scroll_left.png"/>
 				</a>
 			</div>
+			<div id="goBackUC_bt" class="bt-div" onclick="goBackUC()" style="display:none;">
+				<a href="javascript:void()">
+					<img src="/assets/images/cms/scroll_left.png"/>
+				</a>
+			</div>
+			<div id="goBackUCOrders_bt" class="bt-div" onclick="goBackUCOrders()" style="display:none;">
+				<a href="javascript:void()">
+					<img src="/assets/images/cms/scroll_left.png"/>
+				</a>
+			</div>
 			<div class="tit-div" id="tit_div">
 				<span class="title" id="tit_con">蔻美APP首页</span>
 			</div>
@@ -58,7 +69,7 @@
 			</div>
 		</div>
 		<div class="mall-more clearfix" id="mall_more">
-			<a href="" class="new-tbl-cell">
+			<a href="javascript:usercenter()" class="new-tbl-cell">
 				<span class="icon icon4">个人中心</span>
 				<p>个人中心</p>
 			</a>

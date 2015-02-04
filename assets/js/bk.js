@@ -275,3 +275,25 @@ function accept_apply(type){
 			});
 	}
 }
+function save_account_config_info(type,appid){
+	switch(type){
+		case "alipay":
+			$.post(
+			"/cms/index/modify_info",
+			{
+				'info_type':"account_config_alipay",
+				'appid':appid,
+				'alipay':$("#alipayaccount").val()
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					alert("保存成功");
+					location.reload();
+				}else{
+					alert(result.message+"或与原账号相同");
+				}
+			});
+		break;
+	}
+}

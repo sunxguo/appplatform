@@ -140,11 +140,18 @@
 					<span>内容在“应用管理->应用->内容管理”增加</span>
 				</div>
 				<div id="mall" style="display:none;">
-					<input type="radio" value="0" name="hascat" checked="true">无分类
-					<input type="radio" value="1" name="hascat">有分类
-					<div>
-						<input type="text" id="new_cat">
-						<input type="button" value="添加">
+					<input type="radio" value="0" name="hascat" checked="true" onclick="select_has_cat('no')">无分类
+					<input id="hascatradio" type="radio" value="1" name="hascat" onclick="select_has_cat('has')">有分类
+					<input id="mall_cat_num" type="hidden" value="0">
+					<div id="mall_cat_info">
+						<input type="text" id="new_cat" class="inp-txt">
+						<input type="button" value="添加" onclick="add_new_mallcat()" class="add-bt">
+						<ul id="mallcat_list" class="clearfix"></ul>
+						<div id="update_mallcat" style="margin-top:8px;display:none;">
+							<input id="update_mallcatname_input" type="text">
+							<img onclick="update_mallcat()" src="/assets/images/cms/update.png" width="21" height="21" title="修改" class="update-nav-bt">
+							<img onclick="delete_mallcat()" src="/assets/images/cms/del.png" width="20" height="20" title="删除" class="update-nav-bt">
+						</div>
 					</div>
 				</div>
 				<div id="form" class="nav-form" style="display:none;">

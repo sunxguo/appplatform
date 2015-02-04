@@ -1128,7 +1128,8 @@ element.style {
 	
 }
 #edit_nav_dialog .subCategory .add-bt,
-#edit_nav_dialog .nav-form .add-bt {
+#edit_nav_dialog .nav-form .add-bt,
+#edit_nav_main #mall .add-bt {
 	width: 110px;
 	height: 30px;
 	font-size: 14px;
@@ -1152,6 +1153,7 @@ element.style {
 }
 #edit_nav_dialog .subCategory #new_input,
 #edit_nav_dialog .nav-form #new_formitem_input,
+#edit_nav_dialog #mall #update_mallcatname_input,
 #edit_nav_dialog .nav-form #update_formitemname_input{
 	width: 110px;
 	height: 30px;
@@ -1222,7 +1224,8 @@ element.style {
 	border-radius: 3px;
 }
 #edit_nav_dialog .subCategory #sub_nav_list li,
-#edit_nav_dialog .nav-form #form_item_list li{
+#edit_nav_dialog .nav-form #form_item_list li,
+#edit_nav_dialog  #mallcat_list li{
 	float:left;
 	margin-left:5px;
 	border: 1px solid rgb(150,190,70);
@@ -1240,12 +1243,14 @@ element.style {
 	border-radius: 3px;
 }
 #edit_nav_dialog .subCategory #sub_nav_list li:hover,
-#edit_nav_dialog .nav-form #form_item_list li:hover{
+#edit_nav_dialog .nav-form #form_item_list li:hover,
+#edit_nav_dialog  #mallcat_list li:hover{
 	color: white;
 	background-color: rgb(150,190,70);
 }
 #edit_nav_dialog .subCategory #sub_nav_list .active,
-#edit_nav_dialog .nav-form #form_item_list .active{
+#edit_nav_dialog .nav-form #form_item_list .active,
+#edit_nav_dialog  #mallcat_list .active{
 	color: white;
 	background-color: rgb(150,190,70);
 }

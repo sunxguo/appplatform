@@ -148,3 +148,26 @@ function selectform(url){
 	if($("#keyword").val()!="") url+="&search="+$("#keyword").val();
 	location.href=url;
 }
+function selectorder(url){
+	if($("#state").val()!=-1) url+="&state="+$("#state").val();
+	if($("#keyword").val()!="") url+="&search="+$("#keyword").val();
+	location.href=url;
+}
+function cancel_order(orderid){
+	if(confirm("确定取消该订单？")){
+		$.post(
+			"/cms/index/modify_info",
+			{
+				'info_type':"cancel_order",
+				'orderid':orderid
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					location.reload();
+				}else{
+					alert(result.message);
+				}
+			});
+	}
+}

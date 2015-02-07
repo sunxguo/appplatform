@@ -164,6 +164,39 @@ body{
 	background: url(/assets/images/market/stars.png) no-repeat;
 	overflow: hidden;
 }
+.star5{
+	background-position: 0 -120px;
+}
+.star45{
+	background-position: 0 -108px;
+}
+.star4{
+	background-position: 0 -96px;
+}
+.star35{
+	background-position: 0 -84px;
+}
+.star3{
+	background-position: 0 -72px;
+}
+.star25{
+	background-position: 0 -60px;
+}
+.star2{
+	background-position: 0 -48px;
+}
+.star15{
+	background-position: 0 -36px;
+}
+.star1{
+	background-position: 0 -24px;
+}
+.star05{
+	background-position: 0 -12px;
+}
+.star0{
+	background-position: 0 -0px;
+}
 .down {
 	width: 62px;
 	height: 20px;
@@ -954,6 +987,62 @@ font-size: 26px;
 	background: #FFF;
 	box-shadow: 0 1px 3px #ddd;
 }
+.app .app-comments{
+	width: 705px;
+	margin-top:10px;
+	float: left;
+	background: #FFF;
+	box-shadow: 0 1px 3px #ddd;
+}
+.app .app-comments .comments-container{
+	margin: 14px 20px 0;
+	overflow: hidden;
+	position: relative;
+	padding-bottom:20px;
+	border-bottom:1px dashed #CCC;
+}
+.app .app-comments .mycomment{
+	margin: 14px auto;
+	overflow: hidden;
+	position: relative;
+	width:470px;
+}
+.app .app-comments .mycomment li{
+	margin-top:10px;
+}
+.app .app-comments .mycomment li .label{
+	height:28px;
+	line-height:28px;
+	vertical-align:top;
+}
+.app .app-comments .det-intro-tit {
+	display: block;
+	font-size: 16px;
+	font-weight: 700;
+	margin: 0 0 4px;
+}
+.app .app-comments ul .commentList{
+	border-bottom: 1px solid #dcdcdc;
+	padding: 15px 0;
+}
+.app .app-comments ul .commentList .comment-name-line {
+	line-height: 20px;
+}
+.app .app-comments ul .commentList .comment-name-line .comment-name {
+	display: block;
+	font-weight: 700;
+	float: left;
+}
+.app .app-comments ul .commentList .comment-name-line .comment-date {
+	float: right;
+	color: #b0b0b0;
+}
+.app .app-comments ul .commentList .comment-datatext {
+	line-height: 20px;
+	margin: 6px 0 0;
+	word-break: break-all;
+	word-wrap: break-word;
+}
 .app .app-recommend{
 	width: 230px;
 	float: right;
@@ -1047,6 +1136,7 @@ font-size: 26px;
 }
 .app .app-detail-container .app-div-detail .pic-turn-hidden-box img{
 	height: 330px;
+	width:198px;
 }
 ul.carousel-list {
 	width: 10000000px;
@@ -1088,4 +1178,18 @@ ul.carousel-list li {
 	line-height: 30px;
 	font-size: 14px;
 	margin-bottom:20px;
+}
+.btnfa120 {
+	display: inline-block;
+	width: 120px;
+	height: 28px;
+	line-height: 28px;
+	background: url(/assets/images/cms/btnfa120.png) no-repeat;
+	text-align: center;
+	vertical-align: middle;
+	color: white;
+	box-shadow: 1px 1px 2px #DBDBDB;
+}
+.btnfa120:hover{
+	color:#EEE;
 }

@@ -44,7 +44,7 @@
 			<?php foreach($app as $a):?>
 			<tr>
 				<td><img class="appicon" src="<?php echo $a->icon_app;?>"/></td>
-				<td><a href="?appid=<?php echo $a->id_app;?>"><?php echo $a->name_app;?></a></td>
+				<td><a href="/market/app?appid=<?php echo $a->id_app;?>" target="_blank" title="点击查看详情"><?php echo $a->name_app;?></a></td>
 				<td><?php echo $a->username_merchant;?></td>
 				<td><?php echo $category[$a->cat_app];?></td>
 				<td><?php echo $a->update_time_app;?></td>
@@ -52,12 +52,12 @@
 				<td><?php echo $state[$a->state_app];?></td>
 				<td>
 					<?php if($a->state_app==4):?>
-					<a class="del-essay" href="javascript:check_app('<?php echo $a->id_app;?>');">审核通过</a>
-					<a class="del-essay" href="javascript:check_app('<?php echo $a->id_app;?>');">审核不通过</a>
+					<a class="del-essay" href="javascript:check_app('<?php echo $a->id_app;?>',5);">审核通过</a>
+					<a class="del-essay" href="javascript:check_app('<?php echo $a->id_app;?>',6);">审核不通过</a>
 					<?php elseif($a->state_app==5):?>
-					<a class="del-essay" href="javascript:check_app('<?php echo $a->id_app;?>');">下架</a>
+					<a class="del-essay" href="javascript:check_app('<?php echo $a->id_app;?>',3);">下架</a>
 					<?php elseif($a->state_app==6):?>
-					<a class="del-essay" href="javascript:check_app('<?php echo $a->id_app;?>');">审核通过</a>
+					<a class="del-essay" href="javascript:check_app('<?php echo $a->id_app;?>',5);">审核通过</a>
 					<?php endif;?>
 					<a class="del-essay" href="javascript:app_per('<?php echo $a->id_app;?>');">权限</a>
 					<a class="del-essay" href="javascript:app_union_click('<?php echo $a->id_app;?>');">添加到</a>

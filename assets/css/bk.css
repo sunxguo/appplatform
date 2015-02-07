@@ -67,7 +67,7 @@
 .header-cms .menu-cms .logout a:hover{
 	color:#FF7373;
 }
-.header-cms .menu-cms .language{
+.header-cms .menu-cms .language .active{
 	color:#4CFF4C;
 }
 .header-cms .menu-cms .language span{
@@ -201,6 +201,34 @@
 	margin-bottom: 20px;
 	min-height: 28px;
 	padding-left: 160px;
+}
+.modify_main .tabs-box {
+	height: 50px;
+	margin-top: -10px;
+}
+.modify_main .tabs-box .tabs-top {
+	background: #F6F7F9;
+	height: 30px;
+	padding-top: 19px;
+	border-bottom: 1px solid #CCD3DC;
+	padding-left: 20px;
+}
+.modify_main .tabs-box .tabs-top .current {
+	background: #294B6E;
+	color: #fff;
+	border: 1px solid #8FA1B3;
+	height: 29px;
+	padding: 0 24px;
+}
+.modify_main .tabs-box .tabs-top a {
+	display: block;
+	float: left;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	padding: 0 25px;
+	font-size: 14px;
+	color: #405164;
 }
 .tabDiv {
 	width: 380px;

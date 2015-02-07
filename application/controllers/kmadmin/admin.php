@@ -34,10 +34,28 @@ class Admin extends CI_Controller {
 		$this->load->view('kmadmin/header',
 			array( 
 				'showSlider' => true,
+				'account' => true,
 				'title' => WEBSITE_NAME."-后台管理系统",
 			)
 		);
 		$this->load->view('kmadmin/account');
+		$this->load->view('kmadmin/footer');
+	}
+	public function accountconfig()
+	{
+		$this->checkAdminLogin();
+		$appleDeveloperAccount=$this->dbHandler->selectPartData("websiteconfig","key_websiteconfig","appleDeveloperAccount");
+		$this->load->view('kmadmin/header',
+			array( 
+				'showSlider' => true,
+				'account' => true,
+				'title' => WEBSITE_NAME."-后台管理系统",
+			)
+		);
+		$data=array(
+			"appleDeveloperAccount"=>$appleDeveloperAccount[0]
+		);
+		$this->load->view('kmadmin/accountconfig',$data);
 		$this->load->view('kmadmin/footer');
 	}
 	
@@ -712,6 +730,14 @@ class Admin extends CI_Controller {
 				$where="id_merchant";
 				$content=$_POST['merchantid'];
 			break;
+			case "app_state":
+				$table="app";
+				$info=array(
+					"state_app"=>$_POST['state']
+				);
+				$where="id_app";
+				$content=$_POST['appid'];
+			break;
 			case "app_permission":
 				$table="app";
 				$info=array(
@@ -832,6 +858,14 @@ class Admin extends CI_Controller {
 				);
 				$where="id_marketunion";
 				$content=$_POST['unionid'];
+			break;
+			case "appleaccount":
+				$table="websiteconfig";
+				$info=array(
+					"value_websiteconfig"=>$_POST["account"]
+				);
+				$where="key_websiteconfig";
+				$content="appleDeveloperAccount";
 			break;
 		}
 		$result=$this->dbHandler->updatedata($table,$info,$where,$content);

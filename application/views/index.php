@@ -1,15 +1,21 @@
 <div class="part-content">
 	<div class="slider box-shadow" id="slider">
 		<ul>
-			<li><a href="/shopping?cat=1"><img src="/assets/images/market/slider3.jpg"/></a></li>
-			<li><a href="/shopping?cat=1"><img src="/assets/images/market/slider1.jpg"/></a></li>
-			<li><a href="/shopping?cat=8"><img src="/assets/images/market/slider2.jpg"/></a></li>
+			<?php foreach($marketscroll as $img):?>
+			<li>
+				<a href="<?php echo $img->link_marketscroll;?>" title="<?php echo $img->title_marketscroll;?>">
+					<img src="<?php echo $img->src_marketscroll;?>"/>
+				</a>
+			</li>
+			<?php endforeach;?>
 		</ul>
 	</div>
 	<div class="market-ad box-shadow">
 		<ul>
 			<li class="ad">
-				<img src="/assets/images/market/ad-market.jpg">
+				<a href="<?php echo $marketad->link_marketad;?>" title="<?php echo $marketad->title_marketad;?>">
+					<img src="<?php echo $marketad->src_marketad;?>">
+				</a>
 			</li>
 		</ul>
 	</div>
@@ -23,20 +29,20 @@
 		</a>
 		<div class="necessary-app-box" id="html-carousel">
 			<ul class="carousel-list" id="carousel_list" style="margin-left: 0px;">
-				<?php for($i=29;$i>0;$i--):?>
+				<?php foreach($necessaryapps as $app):?>
 				<li class="app-container">
 					<div class="vertical-app">
-						<a href="" target="_blank" class="vertical-icon">
-							<img src="/assets/images/market/icon/<?php echo $i;?>.png" alt="京东商城">
+						<a href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" class="vertical-icon">
+							<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>">
 						</a>
-						<a href="" class="vertical-tit-nes" title="蔻美软件" target="_blank">蔻美软件</a>
-						<div class="stars center" style="display: block;background-position: 0px -96px;"></div>
+						<a href="/market/app?appid=<?php echo $app->id_app;?>" class="vertical-tit-nes" title="<?php echo $app->name_app;?>" target="_blank"><?php echo $app->name_app;?></a>
+						<div class="stars center star<?php echo $app->star?>" style="display: block;"></div>
 						<div class="down">
-							<span onclick="opendown(2034787);" style="top: 0px;">下载</span>
+							<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="top: 0px;">下载</span>
 						</div>
 					</div>
 				</li>
-				<?php endfor;?>
+				<?php endforeach;?>
 			</ul>
 		</div>
 		<a class="turn-right-btn" id="next_arrow" href="javascript:void(0)"></a>
@@ -48,21 +54,21 @@
 		<div>
 			<div class="title">精品软件</div>
 			<ul class="software-list box-shadow" style="margin-left: 0px;">
-				<?php for($i=9;$i<21;$i++):?>
+				<?php foreach($selectapps as $app):?>
 				<li class="app-container">
 					<div class="vertical-app">
-						<a href="" target="_blank" class="vertical-icon">
-							<img src="/assets/images/market/icon/<?php echo $i;?>.png" alt="京东商城" width="72" height="72">
+						<a href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" class="vertical-icon">
+							<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>" width="72" height="72">
 						</a>
-						<a href="" class="vertical-tit" title="蔻美软件" target="_blank">蔻美软件</a>
-						<span class="vertical-type">教育</span>
-						<div class="stars center" style="display: block;background-position: 0px -96px;"></div>
+						<a href="/market/app?appid=<?php echo $app->id_app;?>" class="vertical-tit" title="<?php echo $app->name_app;?>" target="_blank"><?php echo $app->name_app;?></a>
+						<span class="vertical-type"><?php echo $categories[$app->cat_app];?></span>
+						<div class="stars center star<?php echo $app->star?>" style="display: block;"></div>
 						<div class="down">
-							<span onclick="opendown(2034787);" style="top: 0px;">下载</span>
+							<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="top: 0px;">下载</span>
 						</div>
 					</div>
 				</li>
-				<?php endfor;?>
+				<?php endforeach;?>
 			</ul>
 		</div>
 		<div class="category  box-shadow">
@@ -85,76 +91,76 @@
 			<div class="category-tab-body">
 				<ul id="CategoryTabBody">
 					<li class="selected">
-						<?php for($i=1;$i<10;$i++):?>
+						<?php foreach($lifeapps as $app):?>
 						<div class="crosswise-app app-container">
-							<a href="" class="icon" target="_blank">
-								<img src="/assets/images/market/icon/<?php echo $i;?>.png" width="72" height="72" alt="">
+							<a href="/market/app?appid=<?php echo $app->id_app;?>" class="icon" target="_blank">
+								<img src="<?php echo $app->icon_app;?>" width="72" height="72" alt="<?php echo $app->name_app;?>">
 							</a>
 							<div class="app-info">
-								<a class="name" href="" target="_blank" title="">京东商城</a>
-								<span class="down-count">下载次</span>
-								<div class="stars center" ></div>
+								<a class="name" href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" title="<?php echo $app->name_app;?>"><?php echo $app->name_app;?></a>
+								<span class="down-count">下载<?php echo $app->download_time_app;?>次</span>
+								<div class="stars center star<?php echo $app->star?>" ></div>
 								<div class="down">
-									<span onclick="opendown(2034787);" style="left: 0px;">下载</span>
+									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;">下载</span>
 								</div>
 							</div>
 							<div class="clearboth"></div>
 						</div>
-						<?php endfor;?>
+						<?php endforeach;?>
 					</li>
 					<li class="unselected">
-						<?php for($i=10;$i<19;$i++):?>
+						<?php foreach($newsapps as $app):?>
 						<div class="crosswise-app app-container">
-							<a href="" class="icon" target="_blank">
-								<img src="/assets/images/market/icon/<?php echo $i;?>.png" width="72" height="72" alt="">
+							<a href="/market/app?appid=<?php echo $app->id_app;?>" class="icon" target="_blank">
+								<img src="<?php echo $app->icon_app;?>" width="72" height="72" alt="<?php echo $app->name_app;?>">
 							</a>
 							<div class="app-info">
-								<a class="name" href="" target="_blank" title="">京东商城</a>
-								<span class="down-count">下载次</span>
-								<div class="stars center" ></div>
+								<a class="name" href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" title="<?php echo $app->name_app;?>"><?php echo $app->name_app;?></a>
+								<span class="down-count">下载<?php echo $app->download_time_app;?>次</span>
+								<div class="stars center star<?php echo $app->star?>" ></div>
 								<div class="down">
-									<span onclick="opendown(2034787);" style="left: 0px;">下载</span>
+									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;">下载</span>
 								</div>
 							</div>
 							<div class="clearboth"></div>
 						</div>
-						<?php endfor;?>
+						<?php endforeach;?>
 					</li>
 					<li class="unselected">
-						<?php for($i=19;$i<28;$i++):?>
+						<?php foreach($entertainmentapps as $app):?>
 						<div class="crosswise-app app-container">
-							<a href="" class="icon" target="_blank">
-								<img src="/assets/images/market/icon/<?php echo $i;?>.png" width="72" height="72" alt="">
+							<a href="/market/app?appid=<?php echo $app->id_app;?>" class="icon" target="_blank">
+								<img src="<?php echo $app->icon_app;?>" width="72" height="72" alt="<?php echo $app->name_app;?>">
 							</a>
 							<div class="app-info">
-								<a class="name" href="" target="_blank" title="">京东商城</a>
-								<span class="down-count">下载次</span>
-								<div class="stars center" ></div>
+								<a class="name" href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" title="<?php echo $app->name_app;?>"><?php echo $app->name_app;?></a>
+								<span class="down-count">下载<?php echo $app->download_time_app;?>次</span>
+								<div class="stars center star<?php echo $app->star?>" ></div>
 								<div class="down">
-									<span onclick="opendown(2034787);" style="left: 0px;">下载</span>
+									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;">下载</span>
 								</div>
 							</div>
 							<div class="clearboth"></div>
 						</div>
-						<?php endfor;?>
+						<?php endforeach;?>
 					</li>
 					<li class="unselected">
-						<?php for($i=1;$i<10;$i++):?>
+						<?php foreach($shoppingapps as $app):?>
 						<div class="crosswise-app app-container">
-							<a href="" class="icon" target="_blank">
-								<img src="/assets/images/market/icon/<?php echo $i;?>.png" width="72" height="72" alt="">
+							<a href="/market/app?appid=<?php echo $app->id_app;?>" class="icon" target="_blank">
+								<img src="<?php echo $app->icon_app;?>" width="72" height="72" alt="<?php echo $app->name_app;?>">
 							</a>
 							<div class="app-info">
-								<a class="name" href="" target="_blank" title="">京东商城</a>
-								<span class="down-count">下载次</span>
-								<div class="stars center" ></div>
+								<a class="name" href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" title="<?php echo $app->name_app;?>"><?php echo $app->name_app;?></a>
+								<span class="down-count">下载<?php echo $app->download_time_app;?>次</span>
+								<div class="stars center star<?php echo $app->star?>" ></div>
 								<div class="down">
-									<span onclick="opendown(2034787);" style="left: 0px;">下载</span>
+									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;">下载</span>
 								</div>
 							</div>
 							<div class="clearboth"></div>
 						</div>
-						<?php endfor;?>
+						<?php endforeach;?>
 					</li>
 				</ul>
 			</div>
@@ -164,81 +170,89 @@
 			<div class="title">精选专题</div>
 			<div class="union-left">
 				<div class="union-banner">
-					<a href="" target="_blank">
-						<img src="/assets/images/market/gamebook.png" alt="精选专题">
+					<a href="/market/appunion?uid=<?php echo $selectUnions[0]->id_marketunion;?>" target="_blank">
+						<img src="<?php echo $selectUnions[0]->img_marketunion;?>" alt="精选专题">
 					</a>
 				</div>
 				<div class="union-app">
 					<ul>
-						<?php for($i=1;$i<9;$i++):?>
+						<?php if(isset($selectUnionsApps[0])):
+						foreach($selectUnionsApps[0] as $app):?>
 						<li>
 							<div class="vertical-lit-app">
-								<a class="vertical-lit-icon" target="_blank" href="">
-									<img src="/assets/images/market/icon/<?php echo $i;?>.png" alt="天天酷跑最新辅助">
+								<a class="vertical-lit-icon" target="_blank" href="/market/app?appid=<?php echo $app->id_app;?>">
+									<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>">
 								</a>
-								<a class="vertical-lit-tit" target="_blank" href="" title="天天酷跑最新辅助" style="display: block;">天天酷跑最新辅助</a>
-								<a class="install-lit-btn" href="" onclick="" style="display: none;" target="_blank">详情</a>
+								<a class="vertical-lit-tit" target="_blank" href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" style="display: block;"><?php echo $app->name_app;?></a>
+								<a class="install-lit-btn" href="/market/app?appid=<?php echo $app->id_app;?>" onclick="" style="display: none;" target="_blank">详情</a>
 							</div>
 						</li>
-						<?php endfor;?>
+						<?php endforeach;endif;?>
 					</ul>
 				</div>
 			</div>
 			<div class="union-right">
 				<div class="union-banner">
-					<a href="" target="_blank">
-						<img src="/assets/images/market/travel.png" alt="精选专题">
+					<a href="/market/appunion?uid=<?php echo $selectUnions[0]->id_marketunion;?>" target="_blank">
+						<img src="<?php echo $selectUnions[1]->img_marketunion;?>" alt="<?php echo $selectUnions[0]->name_marketunion;?>">
 					</a>
 				</div>
 				<div class="union-app">
 					<ul>
-						<?php for($i=9;$i<17;$i++):?>
+						<?php if(isset($selectUnionsApps[1])):
+						foreach($selectUnionsApps[1] as $app):?>
 						<li>
 							<div class="vertical-lit-app">
-								<a class="vertical-lit-icon" target="_blank" href="">
-									<img src="/assets/images/market/icon/<?php echo $i;?>.png" alt="天天酷跑最新辅助">
+								<a class="vertical-lit-icon" target="_blank" href="/market/app?appid=<?php echo $app->id_app;?>">
+									<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>">
 								</a>
-								<a class="vertical-lit-tit" target="_blank" href="" title="天天酷跑最新辅助" style="display: block;">天天酷跑最新辅助</a>
-								<a class="install-lit-btn" href="" onclick="" style="display: none;" target="_blank">详情</a>
+								<a class="vertical-lit-tit" target="_blank" href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" style="display: block;"><?php echo $app->name_app;?></a>
+								<a class="install-lit-btn" href="/market/app?appid=<?php echo $app->id_app;?>" onclick="" style="display: none;" target="_blank">详情</a>
 							</div>
 						</li>
-						<?php endfor;?>
+						<?php endforeach;endif;?>
 					</ul>
 				</div>
 			</div>
 			<div class="clearboth"></div>
 			<!-- 更多精选专题banner -->
 			<div class="union-more-banner">
+				<?php if(isset($selectUnions[2])):?>
 				<div class="union-banner-cell">
-					<a href="" target="_blank">
-						<img  src="/assets/images/market/food.png" alt="">
+					<a href="/market/appunion?uid=<?php echo $selectUnions[2]->id_marketunion;?>" target="_blank">
+						<img  src="<?php echo $selectUnions[2]->img_marketunion;?>" alt="<?php echo $selectUnions[2]->name_marketunion;?>" title="<?php echo $selectUnions[2]->name_marketunion;?>">
 					</a>
 				</div>
+				<?php endif;?>
+				<?php if(isset($selectUnions[3])):?>
 				<div class="union-banner-cell ml15">
-					<a href="" target="_blank">
-						<img  src="/assets/images/market/corporation.png" alt="">
+					<a href="/market/appunion?uid=<?php echo $selectUnions[3]->id_marketunion;?>" target="_blank">
+						<img  src="<?php echo $selectUnions[3]->img_marketunion;?>" alt="<?php echo $selectUnions[3]->name_marketunion;?>" title="<?php echo $selectUnions[3]->name_marketunion;?>">
 					</a>
 				</div>
+				<?php endif;?>
+				<?php if(isset($selectUnions[4])):?>
 				<div class="union-banner-cell ml15">
-					<a href="" target="_blank">
-						<img  src="/assets/images/market/CET.png" alt="">
+					<a href="/market/appunion?uid=<?php echo $selectUnions[4]->id_marketunion;?>" target="_blank">
+						<img  src="<?php echo $selectUnions[4]->img_marketunion;?>" alt="<?php echo $selectUnions[4]->name_marketunion;?>" title="<?php echo $selectUnions[4]->name_marketunion;?>">
 					</a>
 				</div>
+				<?php endif;?>
 				<div class="clearboth"></div>
 			</div>
 		</div>
 		<div class="union-link-all">
-			<a href=""><span>更多软件专题</span><i class="arrow-right"></i></a>
-			<a href="" class="ml15"><span>更多游戏专题</span><i class="arrow-right"></i></a>
+			<a href="/market/appunion"><span>更多软件专题</span><i class="arrow-right"></i></a>
+			<a href="/market/appunion" class="ml15"><span>更多游戏专题</span><i class="arrow-right"></i></a>
 			<div class="clearboth"></div>
 		</div>
 		<!-- 分类列表 -->
 		<div class="catelist">
 			<dl class="clearfix">
 				<dt>软件分类：</dt>
-				<?php foreach($categories as $c):?>
+				<?php foreach($categories as $key=>$c):?>
 				<dd>
-					<a href="" target="_blank"><?php echo $c->name_category;?></a>
+					<a href="/market/appcategory?cid=<?php echo $key;?>" target="_blank"><?php echo $c;?></a>
 				</dd>
 				<?php endforeach;?>
 			</dl>
@@ -258,19 +272,19 @@
 				<div class="clearboth"></div>
 			</div>
 			<ul class="rank-tab-body rank-body">
-				<?php for($i=1;$i<8;$i++):?>
+				<?php foreach($comprehensiveList as $key=>$app):?>
 				<li>
-					<span class="rank-num rank-num<?php echo $i;?>"><?php echo $i;?></span>
+					<span class="rank-num rank-num<?php echo ($key+1);?>"><?php echo ($key+1);?></span>
 					<div class="rank-info">
-						<a href="" title="国学经典诵读" class="name" target="_blank">国学经典诵读</a>
+						<a href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" class="name" target="_blank"><?php echo $app->name_app;?></a>
 						<div class="down-count">
-							<span>8万+</span>下载
+							<span><?php echo $app->download_time_app;?>次</span>下载
 						</div>
 					</div>
-					<img src="/assets/images/market/icon/<?php echo $i;?>.png" alt="国学经典诵读"></a>
+					<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>"></a>
 					<div class="clearboth"></div>
 				</li>
-				<?php endfor;?>
+				<?php endforeach;?>
 			</ul>
 		</div>
 		<!-- 下载排行 -->
@@ -286,19 +300,19 @@
 				<div class="clearboth"></div>
 			</div>
 			<ul class="rank-tab-body rank-body">
-				<?php for($i=1;$i<8;$i++):?>
+				<?php foreach($downloadList as $key=>$app):?>
 				<li>
-					<span class="rank-num rank-num<?php echo $i;?>"><?php echo $i;?></span>
+					<span class="rank-num rank-num<?php echo ($key+1);?>"><?php echo ($key+1);?></span>
 					<div class="rank-info">
-						<a href="" title="国学经典诵读" class="name" target="_blank">国学经典诵读</a>
+						<a href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" class="name" target="_blank"><?php echo $app->name_app;?></a>
 						<div class="down-count">
-							<span>8万+</span>下载
+							<span><?php echo $app->download_time_app;?>次</span>下载
 						</div>
 					</div>
-					<img src="/assets/images/market/icon/<?php echo $i;?>.png" alt="国学经典诵读"></a>
+					<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>"></a>
 					<div class="clearboth"></div>
 				</li>
-				<?php endfor;?>
+				<?php endforeach;?>
 			</ul>
 		</div>
 		<!-- 上升排行 -->
@@ -314,19 +328,19 @@
 				<div class="clearboth"></div>
 			</div>
 			<ul class="rank-tab-body rank-body">
-				<?php for($i=1;$i<8;$i++):?>
+				<?php foreach($riseList as $key=>$app):?>
 				<li>
-					<span class="rank-num rank-num<?php echo $i;?>"><?php echo $i;?></span>
+					<span class="rank-num rank-num<?php echo ($key+1);?>"><?php echo ($key+1);?></span>
 					<div class="rank-info">
-						<a href="" title="国学经典诵读" class="name" target="_blank">国学经典诵读</a>
+						<a href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" class="name" target="_blank"><?php echo $app->name_app;?></a>
 						<div class="down-count">
-							<span>8万+</span>下载
+							<span><?php echo $app->download_time_app;?>次</span>下载
 						</div>
 					</div>
-					<img src="/assets/images/market/icon/<?php echo $i;?>.png" alt="国学经典诵读"></a>
+					<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>"></a>
 					<div class="clearboth"></div>
 				</li>
-				<?php endfor;?>
+				<?php endforeach;?>
 			</ul>
 		</div>
 	</div>

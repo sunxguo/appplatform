@@ -381,3 +381,41 @@ function set_union_home(unionid,direction){
 		}
 	});
 }
+function save_website_config(type){
+	switch(type){
+		case "appleaccount":
+			$.post(
+			"/kmadmin/admin/modify_info",
+			{
+				'info_type':"appleaccount",
+				'account':$("#appleaccount").val()
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					location.reload();
+				}else{
+					alert(result.message);
+				}
+			});
+			
+		break;
+	}
+}
+function check_app(appid,state){
+	$.post(
+		"/kmadmin/admin/modify_info",
+		{
+			'info_type':"app_state",
+			'state':state,
+			'appid':appid
+		},
+		function(data){
+			var result=$.parseJSON(data);
+			if(result.result=="success"){
+				location.reload();
+			}else{
+				alert(result.message);
+			}
+		});
+}

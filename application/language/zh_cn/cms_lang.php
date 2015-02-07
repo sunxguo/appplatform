@@ -1,0 +1,60 @@
+<?php
+//简体中文-cms
+	$lang['cms_website_name']="蔻美";
+	$lang['cms_corporation_name']="蔻美资讯科技有限公司";
+	$lang['cms_user_logout']="退出";
+	$lang['cms_user_message']="消息";
+	//浏览器title
+	$lang['cms_title_preview']="预览";
+	$lang['cms_title_login']="登录";
+	$lang['cms_title_register']="注册";
+	$lang['cms_sider_publishapp']="发布App";
+	$lang['cms_title_createapp']="创建App";
+	$lang['cms_title_editapp']="编辑App";
+	$lang['cms_title_publish']="发布内容/商品";
+	//侧边导航
+	$lang['cms_sider_home']="主页";
+	$lang['cms_sider_app']="应用管理";
+	$lang['cms_sider_pushmsg']="推送消息";
+	$lang['cms_sider_log']="操作日志";
+	$lang['cms_sider_account']="账户信息";
+	//内部title
+	$lang['cms_internal_all']="全部";
+	$lang['cms_internal_recyclebin']="我的回收站";
+	$lang['cms_internal_preview']="预览";
+	//button
+	$lang['cms_button_design']="设计";
+	$lang['cms_button_delete']="删除";
+	$lang['cms_button_content']="内容管理";
+	$lang['cms_button_release']="发布到市场";
+	//cms/app
+	$lang['cms_app_createmyapp']="我要制作APP";
+	$lang['cms_app_appstate']="应用状态";
+	$lang['cms_app_clicktoview']="点击查看";
+	$lang['cms_app_updatetime']="更新于";
+	$lang['cms_app_downloadtime']="下载量";
+	$lang['cms_app_downloadtimeunit']="次";
+	$lang['cms_app_downloadlink']="地址下载及推广";
+	$lang['cms_app_clear']="清除";
+	$lang['cms_app_restore']="恢复";
+	$lang['cms_app_appdownloadlink']="APP下载地址";
+	$lang['cms_app_appandroiddownloadlink']="安卓 app下载";
+	$lang['cms_app_appiosdownloadlink']="IOS app下载";
+	$lang['cms_app_viewstatistics']="查看统计";
+	$lang['cms_app_waitforgenerating']="等待排队生成中，大约还有";
+	$lang['cms_app_minute']="分钟";
+	$lang['cms_app_total']="共";
+	$lang['cms_app_countapp']="个应用";
+	$lang['cms_app_previouspage']="上一页";
+	$lang['cms_app_nextpage']="下一页";
+	//cms/publishapp
+	$lang['cms_app_release']="发布到市场";
+	//cms/editapp
+	$lang['cms_editapp_editapp']="APP编辑";
+	$lang['cms_editapp_designappnav']="APP导航设计";
+	$lang['cms_editapp_preview']="预览";
+	$lang['cms_editapp_appinfo']="应用信息";
+	$lang['cms_editapp_launchimg']="启动图片";
+	$lang['cms_editapp_skin']="界面皮肤";
+	
+?>

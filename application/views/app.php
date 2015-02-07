@@ -2,45 +2,44 @@
 	<div class="app-detail-container">
 		<div class="app-div-base">
 			<div class="app-icon-box">
-				<img src="/assets/images/market/icon/8.png" alt="" title="">
+				<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>" title="<?php echo $app->name_app;?>">
 			</div>
 			<div class="app-data-box">
 				<div class="app-name">
-					网络助手
+					<?php echo $app->name_app;?>
 				</div>
 				<div class="app-data">
-					<span>分类：系统工具</span>
-					<span>下载次数：5万+</span>
-					<span>时间：2015年01月10日</span>
-					<span>大小：7.5M</span>
-					<span>作者：孙行者</span>
-					<span class="stars center"></span>
+					<span>分类：<?php echo $categories[$app->cat_app];?></span>
+					<span>下载次数：<?php echo $app->download_time_app;?></span>
+					<span>时间：<?php echo $app->create_time_app;?></span>
+					<span>大小：4.5M</span>
+					<span>作者：<?php echo $merchant->username_merchant;?></span>
+					<span class="stars center star<?php echo $app->star?>"></span>
 				</div>
 				<div class="dowmloadBtnDiv">
-					<a href="" class="bigAndroidBtn"></a>
-					<a href="" class="bidIosBtn"></a>
+					<a href="<?php echo $app->android_link_app;?>" target="_blank" class="bigAndroidBtn"></a>
+					<a href="<?php echo $app->ios_link_app;?>" target="_blank" class="bidIosBtn"></a>
 				</div>
 			</div>
 			<div class="app-2dcode-box">
-				<img src="/assets/images/market/2dcode.png">
+				<img src="<?php echo $app->two_code_app;?>">
 				<span>扫描二维码下载</span>
 			</div>
 		</div>
 		<div class="app-div-detail">
-			<div class="pic-turn-hidden-box" id="html-carousel">
+			<div class="pic-turn-hidden-box" id="html-carousel" style="min-height:330px;">
 				<span class="pic-turn-left-btn picTurnBtn" id="scroll_prev_arrow"></span>
-				<ul class="carousel-list" id="scroll_list">
-					<?php for($i=1;$i<6;$i++):?>
-					<li><img src="/assets/images/market/scroll<?php echo $i;?>.png" alt=""></li>
-					<?php endfor;?>
+				<ul class="carousel-list clearfix" id="scroll_list">
+					<?php foreach($previewImgs as $img):?>
+					<li><img src="<?php echo $img->src_previewimg?>" alt="预览图"></li>
+					<?php endforeach;?>
 				</ul>
                 <span class="pic-turn-right-btn picTurnBtn" id="scroll_next_arrow"></span>
 				<div class="clearboth"></div>
 			</div>
 			<div class="description">
 				<span class="det-intro-tit">应用简介：</span>
-				<div class="desc-text">QQ手机版，致力于更完美的移动社交、娱乐与生活体验――乐在沟通15年，聊天欢乐8亿人！【主要功能】-乐在沟通：语音通话，视频聊天，图片分享，趣味表情-多人聊天：免费建讨论组、200人QQ群-实用贴心：手机、电脑文件互传，查看关联QQ号消息，通讯录备份，位置分享-个性主张：丰富主题，多彩气泡，自定义聊天背景，自定义资料卡背景【意见反馈】-帮助与反馈：进入QQ设置->关于QQ->帮助与反馈，把你的宝贵建议反馈给QQ项目组，我们会认真倾听你的每一条建议。-QQ客服：0755-61369988
-				</div>
+				<div class="desc-text"><?php echo $app->desc_app;?></div>
 			</div>
 		</div>
 	</div>
@@ -51,21 +50,76 @@
 				<div class="clearboth"></div>
 			</div>
 			<ul class="rank-tab-body rank-body">
-				<?php for($i=1;$i<8;$i++):?>
+				<?php foreach($recommendapps as $key=>$a):?>
 				<li>
-					<span class="rank-num rank-num<?php echo $i;?>"><?php echo $i;?></span>
+					<span class="rank-num rank-num<?php echo ($key+1);?>"><?php echo ($key+1);?></span>
 					<div class="rank-info">
-						<a href="" title="国学经典诵读" class="name" target="_blank">国学经典诵读</a>
+						<a href="/market/app?appid=<?php echo $a->id_app;?>" title="<?php echo $a->name_app;?>" class="name" target="_blank"><?php echo $a->name_app;?></a>
 						<div class="down-count">
-							<span>8万+</span>下载
+							<span><?php echo $a->download_time_app;?>次</span>下载
 						</div>
 					</div>
-					<img src="/assets/images/market/icon/<?php echo $i;?>.png" alt="国学经典诵读"></a>
+					<img src="<?php echo $a->icon_app;?>" alt="<?php echo $a->name_app;?>"></a>
 					<div class="clearboth"></div>
 				</li>
-				<?php endfor;?>
+				<?php endforeach;?>
 			</ul>
 		</div>
+	</div>
+	<div class="clearboth"></div>
+	<div class="app-comments">
+		<div class="comments-container">
+			<span class="det-intro-tit">用户评论：</span>
+			<ul>
+				<?php foreach($comments as $c):?>
+				<li class="commentList">
+					<div class="comment-name-line">
+						<span class="comment-name"><?php echo $c->user_comment;?></span>
+						
+						<div class="comment-date"><span class="stars center star<?php echo $c->star_comment?>" style="display:inline-block;margin-right:10px;"></span> <?php echo $c->time_comment;?></div>
+						<div class="clearboth"></div>
+					</div>
+					<div class="comment-datatext"><?php echo $c->text_comment;?></div>
+				</li>
+				<?php endforeach;?>
+			</ul>
+			<div class="page-box">
+				<div class="inlineblock clearfix pagin">
+					<a href="<?php echo $prev_link=="no"?"javascript:void()":$prev_link;?>" class="prev"><i></i>上一页</a>
+					<?php for($i=$start;$i<=$end;$i++):?>
+					<a href="<?php echo $jump_link.$i;?>" <?php echo $i==$page?'class="current"':"";?>><?php echo $i;?></a>
+					<?php endfor;?>
+					<a href="<?php echo $next_link=="no"?"javascript:void()":$next_link;?>" class="next">下一页<i></i></a>
+				</div>
+			</div>
+		</div>
+		<ul class="mycomment">
+			<li>
+				<span class="label">评分：</span>
+				<span id="star" style="cursor: pointer; width: 110px;vertical-align: -webkit-baseline-middle;">
+					<img src="/assets/images/market/star-on.png" alt="1" title="1">&nbsp;
+					<img src="/assets/images/market/star-on.png" alt="2" title="2">&nbsp;
+					<img src="/assets/images/market/star-on.png" alt="3" title="3">&nbsp;
+					<img src="/assets/images/market/star-on.png" alt="4" title="4">&nbsp;
+					<img src="/assets/images/market/star-on.png" alt="5" title="5">
+					<input type="hidden" id="score" value="5">
+				</span>
+			</li>
+			<li>
+				<span class="label">昵称：</span><input type="text" id="nickname" placeholder="请输入1-15个字" class="inp-txt width200">
+			</li>
+			<!--
+			<li>
+				<span class="label">标题：</span><input type="text" id="title" placeholder="请输入1-30个字" class="inp-txt width400">
+			</li>
+			-->
+			<li>
+				<span class="label">评论：</span><textarea id="comment" class="areaBig width400" style="color: rgb(0, 0, 0);"></textarea>
+			</li>
+			<li>
+				<a href="javascript:publish_comment('<?php echo $app->id_app;?>')" class="btnfa120" style="margin:0 auto;display:block;">发表</a>
+			</li>
+		</ul>
 	</div>
 	<div class="clearboth"></div>
 </div>

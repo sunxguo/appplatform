@@ -1,4 +1,10 @@
 <div class="modify_main">
+	<div class="tabs-box">
+		<div class="tabs-top">
+			<a href="#" class="current">密码修改</a>
+			<a href="/kmadmin/admin/accountconfig">账号配置</a>
+		</div>
+	</div>
 	<div class="titA">修改密码</div>
 	<form class="form-modify" action="/kmadmin/admin/modify" method="post" enctype="multipart/form-data">
 		<div class="tips-error w230" style="margin-left: 160px; width: 200px;" id="errorInfo"></div>

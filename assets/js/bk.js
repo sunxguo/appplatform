@@ -239,21 +239,32 @@ function modify_avatar(src){
 		
 	}
 function add_correlation(){
-	$.post(
-		"/cms/index/modify_info",
-		{
-			'info_type':"merchant_correlation",
-			'username':$("#username").val(),
-			'apply_msg':$("#apply_msg").val()
-		},
-		function(data){
-			var result=$.parseJSON(data);
-			if(result.result=="success"){
-				location.reload();
-			}else{
-				alert("该账号不存在，可注册后再添加");
-			}
-		});
+	if($("#username").val()!=""){
+		$.post(
+			"/cms/index/modify_info",
+			{
+				'info_type':"merchant_correlation",
+				'username':$("#username").val(),
+				'apply_msg':$("#apply_msg").val(),
+				'pAddApp':$("#permission1").is(":checked"),
+				'pDelApp':$("#permission2").is(":checked"),
+				'pClearApp':$("#permission3").is(":checked"),
+				'pSetApp':$("#permission4").is(":checked"),
+				'pAddContent':$("#permission5").is(":checked"),
+				'pDelContent':$("#permission6").is(":checked"),
+				'pChangeContent':$("#permission7").is(":checked"),
+				'pPushMsg':$("#permission8").is(":checked"),
+				'pNewSon':$("#permission9").is(":checked")
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					location.reload();
+				}else{
+					alert("该账号不存在(可注册后再添加)，或您已申请过该账号");
+				}
+			});
+	}else alert("请输入要添加的子账号");
 }
 function accept_apply(type){
 	if(confirm("接受该申请后只有上一级账号赋予的权限，确定接受？")){
@@ -296,4 +307,14 @@ function save_account_config_info(type,appid){
 			});
 		break;
 	}
+}
+function language(language){
+	$.post(
+	"/cms/index/set_language",
+	{
+		'language':language
+	},
+	function(data){
+		location.reload();
+	});
 }

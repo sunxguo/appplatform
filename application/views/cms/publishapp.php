@@ -10,7 +10,7 @@
 	</div>-->
 	<div class="partContent" style="">
 		<div class="title">
-			预览图
+			<?php echo lang('cms_internal_preview');?>
 		</div>
 		<div id="Div1">
 			<div class="slider-pic">
@@ -41,7 +41,7 @@
 		</div>
 	</div>
 	<div class="btn-center">
-		<a href="javascript:publish_app('<?php echo $app->id_app;?>')" class="btnfa120">发布到市场</a>
+		<a href="javascript:publish_app('<?php echo $app->id_app;?>')" class="btnfa120"><?php echo lang('cms_app_release');?></a>
 	</div>
 </div>
 <script charset="utf-8" src="/assets/js/jquery.form.js"></script>

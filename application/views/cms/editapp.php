@@ -1,9 +1,9 @@
 <div class="app-warp">
 	<div class="h2-wrap">
 		<h2>
-			<span class="en-tab e-n-tab-l active">APP编辑</span>
-			<a class="en-tab e-n-tab-c goto" href="/cms/index/navedit?appid=<?php echo $info->id_app?>">APP导航设计</a>
-			<a class="en-tab e-n-tab-r goto" href="/cms/index/preview?appid=<?php echo $info->id_app?>">预览</a>
+			<span class="en-tab e-n-tab-l active"><?php echo lang('cms_editapp_editapp');?></span>
+			<a class="en-tab e-n-tab-c goto" href="/cms/index/navedit?appid=<?php echo $info->id_app?>"><?php echo lang('cms_editapp_designappnav');?></a>
+			<a class="en-tab e-n-tab-r goto" href="/cms/index/preview?appid=<?php echo $info->id_app?>"><?php echo lang('cms_editapp_preview');?></a>
 		</h2>
 	</div>
     <div class="app-con">
@@ -40,9 +40,9 @@
 						<span></span>
 					</div>
 					<ul id="top">
-						<li id="info" class="item1"><span class="num">1</span>应用信息</li>
-						<li id="start" class="item2"><span class="num">2</span>启动图片</li>
-						<li id="skin" class="item3"><span class="num">3</span>界面皮肤</li>
+						<li id="info" class="item1"><span class="num">1</span><?php echo lang('cms_editapp_appinfo');?></li>
+						<li id="start" class="item2"><span class="num">2</span><?php echo lang('cms_editapp_launchimg');?></li>
+						<li id="skin" class="item3"><span class="num">3</span><?php echo lang('cms_editapp_skin');?></li>
 						<li id="user" class="item4" style="display: none;"><span class="num">4</span>用户信息</li>
 					</ul>
 				</div>

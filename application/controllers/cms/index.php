@@ -2,12 +2,102 @@
 @session_start();
 
 class Index extends CI_Controller {
-
+	
 	function __construct(){
 		parent::__construct();
 		$this->load->helper("base");
 		$this->load->helper("upload");
+		$this->load->helper("phpqrcode");
 		$this->load->model("dbHandler");
+		$this->language();
+	}
+	public function language(){
+		$this->load->helper('language');
+		if(isset($_SESSION['language'])){
+			if($_SESSION['language']=="english"){
+				$this->config->set_item('language', 'english');
+				$this->load->language('cms','english');
+				return true;
+			}elseif($_SESSION['language']=="tw_cn"){
+				$this->config->set_item('language', 'tw_cn');
+				$this->load->language('cms','tw_cn');
+				return true;
+			}else{
+				$this->config->set_item('language', 'zh_cn');
+				$this->load->language('cms','zh_cn');
+				return true;
+			}
+		}
+		//判断浏览器语言
+		$default_lang_arr = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		$strarr = explode(",",$default_lang_arr);
+		$default_lang = $strarr[0];
+//		echo '1'.$default_lang;
+		$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4); //只取前4位，这样只判断最优先的语言。如果取前5位，可能出现en,zh的情况，影响判断。  
+		if (preg_match("/en/i", $lang)){ 
+			$this->config->set_item('language', 'english');
+			// 根据设置的语言类型加载语言包
+			$this->load->language('cms','english');
+		}
+		elseif (preg_match("/zh-c/i", $lang)){
+			$this->config->set_item('language', 'zh_cn');
+			$this->load->language('cms','zh_cn');
+		}
+		elseif (preg_match("/zh/i", $lang)){ 
+			$this->config->set_item('language', 'tw_cn');
+			$this->load->language('cms','tw_cn');
+		}else{
+			$this->config->set_item('language', 'zh_cn');
+			$this->load->language('cms','zh_cn');
+		}
+/*		// 根据浏览器类型设置语言
+		if( $default_lang == 'en-us' || $default_lang == 'en'){
+			$this->config->set_item('language', 'english');
+			// 根据设置的语言类型加载语言包
+			$this->load->language('cms','english');
+		}elseif( $default_lang == 'en-us' || $default_lang=='zh-CN'){
+			$this->config->set_item('language', 'zh_cn');
+			$this->load->language('cms','zh_cn');
+		}
+		// 当前语言
+		echo $this->config->item('language');*/
+	}
+	public function set_language(){
+		$_SESSION['language']=$_POST['language'];
+	}
+	public function twoDimensionCode($text,$appid,$logoSrc){
+		$value = $text; //二维码内容   
+		$errorCorrectionLevel = 'H';//容错级别   
+		$matrixPointSize = 10;//生成图片大小    
+		$QR = $_SERVER['DOCUMENT_ROOT'].'/uploads/2dcode/'.$appid.'qrcode.png';//已经生成的原始二维码图    
+		
+		//生成二维码图片
+		QRcode::png($value,$QR, $errorCorrectionLevel, $matrixPointSize, 2);   
+		$logo = $_SERVER['DOCUMENT_ROOT'].$logoSrc;//准备好的logo图片 
+
+		if ($logo !== FALSE) {
+			$QR = imagecreatefromstring(file_get_contents($QR));   
+			$logo = imagecreatefromstring(file_get_contents($logo));   
+			$QR_width = imagesx($QR);//二维码图片宽度   
+			$QR_height = imagesy($QR);//二维码图片高度   
+			$logo_width = imagesx($logo);//logo图片宽度   
+			$logo_height = imagesy($logo);//logo图片高度   
+			$logo_qr_width = $QR_width / 4;
+			$scale = $logo_width/$logo_qr_width;
+			$logo_qr_height = $logo_height/$scale;
+			$from_width = ($QR_width - $logo_qr_width) / 2;
+			//重新组合图片并调整大小   
+			imagecopyresampled($QR, $logo, $from_width, $from_width, 0, 0, $logo_qr_width,   
+			$logo_qr_height, $logo_width, $logo_height);   
+		}   
+		//输出图片地址
+		$dstLocation='/uploads/2dcode/'.$appid.'withlogo.png';
+		//输出图片   
+		imagepng($QR,$_SERVER['DOCUMENT_ROOT'].$dstLocation);   
+		return  $dstLocation; 
+	}
+	public function test(){
+		echo $this->twoDimensionCode("bbbbb",1212,"/uploads/image/20150107/20150107151144_45678.jpg");
 	}
 	public function checkMerchantLogin(){
 		if (!checkLogin() || strcmp($_SESSION["usertype"], "merchant")) {
@@ -22,7 +112,7 @@ class Index extends CI_Controller {
 		$this->load->view('cms/header',
 			array( 
 				'showSlider' => true,
-				'title' => WEBSITE_NAME."-app管理",
+				'title' => lang('cms_website_name')."-".lang('cms_sider_home')
 			)
 		);
 		$data=array();
@@ -36,7 +126,7 @@ class Index extends CI_Controller {
 			array( 
 				'showSlider' => true,
 				'account' => true,
-				'title' => WEBSITE_NAME."-基本信息-账号管理",
+				'title' => lang('cms_website_name')."-".lang('cms_sider_account'),
 			)
 		);
 		$this->load->view('cms/account',array("merchant"=>$merchant[0]));
@@ -57,7 +147,7 @@ class Index extends CI_Controller {
 				'app' => true,
 				'accountconfig' => true,
 				'info' => $app,
-				'title' => WEBSITE_NAME."-账号配置",
+				'title' => lang('cms_website_name')."-".lang('cms_sider_account'),
 			)
 		);
 		$this->load->view('cms/accountconfig',array("app"=>$app));
@@ -69,7 +159,7 @@ class Index extends CI_Controller {
 			array( 
 				'showSlider' => true,
 				'account' => true,
-				'title' => WEBSITE_NAME."-修改密码-账号管理",
+				'title' => lang('cms_website_name')."-".lang('cms_sider_account'),
 			)
 		);
 		$this->load->view('cms/pwd');
@@ -98,7 +188,7 @@ class Index extends CI_Controller {
 			array( 
 				'showSlider' => true,
 				'log' => true,
-				'title' => WEBSITE_NAME."-操作日志",
+				'title' => lang('cms_website_name')."-".lang('cms_sider_log'),
 				"prev_link"=>$prev_link,
 				"next_link"=>$next_link,
 				"first_link"=>$first_link,
@@ -127,7 +217,7 @@ class Index extends CI_Controller {
 			array( 
 				'showSlider' => true,
 				'account' => true,
-				'title' => WEBSITE_NAME."-设置子帐号-账号管理",
+				'title' => lang('cms_website_name')."-".lang('cms_sider_account')
 			)
 		);
 		$this->load->view('cms/correlation',
@@ -145,7 +235,7 @@ class Index extends CI_Controller {
 		}
 		$this->load->view('cms/header',
 			array( 
-				'title' => WEBSITE_NAME."-编辑app",
+				'title' => lang('cms_website_name')."-".lang('cms_title_preview')
 			)
 		);
 		$this->load->view('cms/preview',array(
@@ -156,20 +246,59 @@ class Index extends CI_Controller {
 	public function login(){
 		$this->load->view('header',
 			array( 
-				'title' => WEBSITE_NAME."-商户登录",
+				'title' => lang('cms_website_name')."-".lang('cms_title_login')
 			)
 		);
-		$this->load->view('cms/login',array('title'=>"商户登录"));
+		$this->load->view('cms/login');
 		$this->load->view('cms/footer');
 	}
 	public function register(){
 		$this->load->view('header',
 			array(
-				'title' => WEBSITE_NAME."-商户注册",
+				'title' => lang('cms_website_name')."-".lang('cms_title_register')
 			)
 		);
 		$this->load->view('cms/register');
 		$this->load->view('cms/footer');
+	}
+	public function get_authority($type){
+		switch($type){
+			case "pAddApp":
+				$authid=1;
+			break;
+			case "pDelApp":
+				$authid=2;
+			break;
+			case "pClearApp":
+				$authid=3;
+			break;
+			case "pSetApp":
+				$authid=4;
+			break;
+			case "pAddContent":
+				$authid=5;
+			break;
+			case "pDelContent":
+				$authid=6;
+			break;
+			case "pChangeContent":
+				$authid=7;
+			break;
+			case "pPushMsg":
+				$authid=8;
+			break;
+			case "pNewSon":
+				$authid=9;
+			break;
+		}
+		$authority=$this->dbHandler->SDUNR('auth_merc',array('merchantid_auth_merc'=>$_SESSION['userid'],'authid_auth_merc'=>$authid),array());
+		if(!isset($_SESSION['Fuserid']) || !is_numeric($_SESSION['Fuserid'])) return true;
+		if(sizeof($authority)>0) return true;
+		else return false;
+	}
+	public function checkAuhority(){
+		if($this->get_authority($_POST["type"])) echo "true";
+		else echo "false";
 	}
 	/**
 	 ** 应用管理
@@ -177,12 +306,14 @@ class Index extends CI_Controller {
 	public function app(){
 		$this->checkMerchantLogin();
 		$limit=8;
+		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
 		$del=isset($_GET['type']) && $_GET['type']=="del"?'state_app':'state_app !=';
-		$amount=$this->dbHandler->ADU('app',array("merchant_id_app"=>$_SESSION['userid'],$del=>7,"validity_app"=>1));
+		$amount=$this->dbHandler->ADU('app',array("merchant_id_app"=>$byMerchantId,$del=>7,"validity_app"=>1));
 		$page_amount=ceil($amount/$limit);
 		$page=isset($_GET['page']) && is_numeric($_GET['page'])?$_GET['page']:1;
 		$offset=($page-1)*$limit;
-		$apps=$this->dbHandler->SDU('app',array("merchant_id_app"=>$_SESSION['userid'],$del=>7,"validity_app"=>1),array("limit"=>$limit,"offset"=>$offset),array("col"=>'update_time_app',"by"=>'desc'));
+		$apps=$this->dbHandler->SDU('app',array("merchant_id_app"=>$byMerchantId,$del=>7,"validity_app"=>1),array("limit"=>$limit,"offset"=>$offset),array("col"=>'update_time_app',"by"=>'desc'));
+		
 		foreach($apps as $item){
 			$item->state_app_cn=$this->state_convert($item->state_app);
 			$create_time_app=strtotime($item->create_time_app);
@@ -203,7 +334,7 @@ class Index extends CI_Controller {
 			array(
 				'showSlider' => true,
 				'appManager' => true,
-				'title' => WEBSITE_NAME."-应用管理-app管理",
+				'title' => lang('cms_website_name')."-".lang('cms_sider_app')
 			)
 		);
 		$this->load->view('cms/app',
@@ -220,33 +351,54 @@ class Index extends CI_Controller {
 	public function state_convert($num){
 //	0未生成1生成中2已生成3待发布4发布审核中5已发布6发布审核不通过7删除
 		$state_cn="";
+		$state_tw="";
+		$state_en="";
 		switch($num){
 			case 0:
 				$state_cn="未生成";
+				$state_tw="未生成";
+				$state_en="Did Not Generate";
 			break;
 			case 1:
 				$state_cn="生成中";
+				$state_tw="生成中";
+				$state_en="Generating";
 			break;
 			case 2:
 				$state_cn="已生成";
+				$state_tw="已生成";
+				$state_en="Generated";
 			break;
 			case 3:
 				$state_cn="待发布";
+				$state_tw="待發布";
+				$state_en="To Be Released";
 			break;
 			case 4:
 				$state_cn="发布审核中";
+				$state_tw="發布審核中";
+				$state_en="Auditing";
 			break;
 			case 5:
 				$state_cn="已发布";
+				$state_tw="已發布";
+				$state_en="Published";
 			break;
 			case 6:
 				$state_cn="发布审核不通过";
+				$state_tw="未生成";
+				$state_en="Did Not Generate";
 			break;
 			case 7:
 				$state_cn="删除";
+				$state_tw="刪除";
+				$state_en="Deleted";
 			break;
 		}
-		return $state_cn;
+		$language=$this->config->item('language');
+		if($language=="zh_cn") return $state_cn;
+		if($language=="tw_cn") return $state_tw;
+		if($language=="english") return $state_en;
 	}
 	public function publishapp(){
 		$this->checkMerchantLogin();
@@ -261,7 +413,7 @@ class Index extends CI_Controller {
 			array(
 				'showSlider' => true,
 				'appManager' => true,
-				'title' => WEBSITE_NAME."-应用管理-app提交",
+				'title' => lang('cms_website_name')."-".lang('cms_sider_publishapp')
 			)
 		);
 		$this->load->view('cms/publishapp',
@@ -273,9 +425,13 @@ class Index extends CI_Controller {
 		$this->load->view('cms/footer');
 	}
 	public function createapp(){
+		if(!$this->get_authority("pAddApp")){
+			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"抱歉，你的账号没有权限创建App"));
+			return false;
+		}
 		$this->load->view('cms/header',
 			array( 
-				'title' => WEBSITE_NAME."-创建app",
+				'title' => lang('cms_website_name')."-".lang('cms_title_createapp'),
 			)
 		);
 		$this->load->view('cms/createapp',array("category"=>$this->get_category()));
@@ -291,13 +447,14 @@ class Index extends CI_Controller {
 	}
 	public function editapp(){
 		$this->checkMerchantLogin();
+		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
 		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
 			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"app的id不正确"));
 			return false;
 		}
 		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
 		$app=$app[0];
-		if($_SESSION['userid']!=$app->merchant_id_app){
+		if($byMerchantId!=$app->merchant_id_app || !$this->get_authority("pSetApp")){
 			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"抱歉你没有设置该app的权限！"));
 			return false;
 		}
@@ -310,7 +467,7 @@ class Index extends CI_Controller {
 		$app->poslaunch=array_search($app->launch_app,$launch);
 		$this->load->view('cms/header',
 			array( 
-				'title' => WEBSITE_NAME."-编辑app",
+				'title' => lang('cms_website_name')."-".lang('cms_title_editapp')
 			)
 		);
 		$this->load->view('cms/editapp',array("info"=>$app,"category"=>$this->get_category()));
@@ -325,9 +482,10 @@ class Index extends CI_Controller {
 			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"app的id不正确"));
 			return false;
 		}
+		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
 		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
 		$app=$app[0];
-		if($_SESSION['userid']!=$app->merchant_id_app){
+		if($byMerchantId!=$app->merchant_id_app || !$this->get_authority("pAddContent")){
 			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"抱歉你没有设置该app的权限！"));
 			return false;
 		}
@@ -337,7 +495,7 @@ class Index extends CI_Controller {
 				'app' => true,
 				'publish' => true,
 				'info' => $app,
-				'title' => WEBSITE_NAME."-发布内容/商品",
+				'title' => lang('cms_website_name')."-".lang('cms_title_publish'),
 			)
 		);
 		$view="home";
@@ -364,7 +522,8 @@ class Index extends CI_Controller {
 		}
 		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
 		$app=$app[0];
-		if($_SESSION['userid']!=$app->merchant_id_app){
+		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
+		if($byMerchantId!=$app->merchant_id_app || !$this->get_authority("pChangeContent")){
 			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"抱歉你没有设置该app的权限！"));
 			return false;
 		}
@@ -374,7 +533,7 @@ class Index extends CI_Controller {
 				'app' => true,
 				'contents' => true,
 				'info' => $app,
-				'title' => WEBSITE_NAME."-内容查询",
+				'title' => lang('cms_website_name')."-内容查询",
 			)
 		);
 		$view="";
@@ -482,7 +641,7 @@ class Index extends CI_Controller {
 		$app->navs=$this->dbHandler->SDUNR('nav',array('app_id_nav'=>$app->id_app,'type_nav'=>3),array("col"=>'order_nav',"by"=>'asc'));
 		$this->load->view('cms/header',
 			array( 
-				'title' => WEBSITE_NAME."-编辑文章",
+				'title' => lang('cms_website_name')."-编辑文章",
 				'showSlider' => true,
 				'app' => true,
 				'contents' => true,
@@ -505,7 +664,7 @@ class Index extends CI_Controller {
 		$app->navs=$this->dbHandler->SDUNR('nav',array('app_id_nav'=>$app->id_app,'type_nav'=>5),array("col"=>'order_nav',"by"=>'asc'));
 		$this->load->view('cms/header',
 			array( 
-				'title' => WEBSITE_NAME."-编辑商品",
+				'title' => lang('cms_website_name')."-编辑商品",
 				'showSlider' => true,
 				'app' => true,
 				'contents' => true,
@@ -523,7 +682,8 @@ class Index extends CI_Controller {
 		}
 		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
 		$app=$app[0];
-		if($_SESSION['userid']!=$app->merchant_id_app){
+		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
+		if($byMerchantId!=$app->merchant_id_app || !$this->get_authority("pChangeContent")){
 			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"抱歉你没有设置该app的权限！"));
 			return false;
 		}
@@ -533,7 +693,7 @@ class Index extends CI_Controller {
 				'app' => true,
 				'users' => true,
 				'info' => $app,
-				'title' => WEBSITE_NAME."-用户管理",
+				'title' => lang('cms_website_name')."-用户管理",
 			)
 		);
 		$page=isset($_GET["page"]) && is_numeric($_GET['page']) && $_GET['page']>0?$_GET["page"]:1;
@@ -602,7 +762,8 @@ class Index extends CI_Controller {
 		}
 		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
 		$app=$app[0];
-		if($_SESSION['userid']!=$app->merchant_id_app){
+		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
+		if($byMerchantId!=$app->merchant_id_app || !$this->get_authority("pChangeContent")){
 			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"抱歉你没有设置该app的权限！"));
 			return false;
 		}
@@ -612,7 +773,7 @@ class Index extends CI_Controller {
 				'app' => true,
 				'orders' => true,
 				'info' => $app,
-				'title' => WEBSITE_NAME."-订单管理",
+				'title' => lang('cms_website_name')."-订单管理",
 			)
 		);
 		$page=isset($_GET["page"]) && is_numeric($_GET['page']) && $_GET['page']>0?$_GET["page"]:1;
@@ -674,7 +835,8 @@ class Index extends CI_Controller {
 		}
 		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
 		$app=$app[0];
-		if($_SESSION['userid']!=$app->merchant_id_app){
+		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
+		if($byMerchantId!=$app->merchant_id_app || !$this->get_authority("pChangeContent")){
 			$this->load->view('redirect',array("url"=>"/cms/index/app","info"=>"抱歉你没有设置该app的权限！"));
 			return false;
 		}
@@ -684,7 +846,7 @@ class Index extends CI_Controller {
 				'app' => true,
 				'form' => true,
 				'info' => $app,
-				'title' => WEBSITE_NAME."-内容查询",
+				'title' => lang('cms_website_name')."-内容查询",
 			)
 		);
 		$view="";
@@ -757,6 +919,7 @@ class Index extends CI_Controller {
 					$_SESSION['userid']=$info[0]->id_merchant;
 					$_SESSION['useravatar']=$info[0]->avatar_merchant;
 					$_SESSION['usertype']="merchant";
+					if($info[0]->accept_apply_merchant==2) $_SESSION['Fuserid']=$info[0]->correlation_merchant;
 					$this->load->view('redirect',array("url"=>"/cms/index"));
 				}
 				else{
@@ -775,6 +938,7 @@ class Index extends CI_Controller {
 		unset($_SESSION["userid"]);
 		unset($_SESSION["usertype"]);
 		unset($_SESSION["useravatar"]);
+		unset($_SESSION['Fuserid']);
 		$this->load->view('redirect',array("url"=>"/cms/index/login"));
 	}
 	public function modify(){
@@ -1133,7 +1297,46 @@ class Index extends CI_Controller {
 				);
 				$where="username_merchant";
 				$content=$_POST["username"];
-				$log="申请添加子帐号";
+				$merchant=$this->dbHandler->selectPartData('merchant',$where,$content);
+				$auth_info["merchantid_auth_merc"]=$merchant[0]->id_merchant;
+				$result=$this->dbHandler->deletedata("auth_merc",array("merchantid_auth_merc"=>$merchant[0]->id_merchant));
+				if($_POST["pAddApp"]=="true"){
+					$auth_info["authid_auth_merc"]=1;
+					$result=$this->dbHandler->insertdata("auth_merc",$auth_info);
+				}
+				if($_POST["pDelApp"]=="true"){
+					$auth_info["authid_auth_merc"]=2;
+					$result=$this->dbHandler->insertdata("auth_merc",$auth_info);
+				}
+				if($_POST["pClearApp"]=="true"){
+					$auth_info["authid_auth_merc"]=3;
+					$result=$this->dbHandler->insertdata("auth_merc",$auth_info);
+				}
+				if($_POST["pSetApp"]=="true"){
+					$auth_info["authid_auth_merc"]=4;
+					$result=$this->dbHandler->insertdata("auth_merc",$auth_info);
+				}
+				if($_POST["pAddContent"]=="true"){
+					$auth_info["authid_auth_merc"]=5;
+					$result=$this->dbHandler->insertdata("auth_merc",$auth_info);
+				}
+				if($_POST["pDelContent"]=="true"){
+					$auth_info["authid_auth_merc"]=6;
+					$result=$this->dbHandler->insertdata("auth_merc",$auth_info);
+				}
+				if($_POST["pChangeContent"]=="true"){
+					$auth_info["authid_auth_merc"]=7;
+					$result=$this->dbHandler->insertdata("auth_merc",$auth_info);
+				}
+				if($_POST["pPushMsg"]=="true"){
+					$auth_info["authid_auth_merc"]=8;
+					$result=$this->dbHandler->insertdata("auth_merc",$auth_info);
+				}
+				if($_POST["pNewSon"]=="true"){
+					$auth_info["authid_auth_merc"]=9;
+					$result=$this->dbHandler->insertdata("auth_merc",$auth_info);
+				}
+				$log="申请添加子帐号【".$_POST["username"]."】";
 			break;
 			case "merchant_apply":
 				$table="merchant";
@@ -1308,7 +1511,7 @@ class Index extends CI_Controller {
 		}
 		$this->load->view('cms/header',
 			array( 
-				'title' => WEBSITE_NAME."-APP导航设计",
+				'title' => lang('cms_website_name')."-APP导航设计",
 			)
 		);
 		$this->load->view('cms/editnav',array("app"=>$app[0],"navs"=>$navs));

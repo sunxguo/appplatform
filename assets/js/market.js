@@ -66,4 +66,60 @@ $(document).ready(function(){
 	$("#scroll_next_arrow").click(function(){
 		$("#scroll_list").animate({"margin-left":"-"+($("#scroll_list li").length*228-760)+"px"},"slow");
 	});
+	$("#orderType li").click(function(){
+		location.href=$("#select_link").val()+"&order="+$(this).attr("data-sort");
+	});
+	$("#star img").hover(function(){
+		showStar(parseInt($(this).attr("title")));
+	},function(){
+		showStar(parseInt($("#score").val()));
+	});
+	$("#star img").click(function(){
+		var score=parseInt($(this).attr("title"));
+		$("#score").val(score);
+	});
 });
+function showStar(currentNum){
+	for(var i=0;i<5;i++){
+		var imgSrc="";
+		if(i<currentNum) imgSrc="/assets/images/market/star-on.png";
+		else imgSrc="/assets/images/market/star-off.png";
+		$('#star').children().eq(i).attr("src",imgSrc);
+	}
+}
+function publish_comment(appid){
+	var nickname=$("#nickname").val();
+//	var title=$("#title").val();
+	var comment=$("#comment").val();
+	var score=$("#score").val();
+	if(nickname.length<1 || nickname.length>15){
+		alert("请重新确认昵称长度（1～15）！");
+		return false;
+	}
+/*	if(title.length<1 || title.length>30){
+		alert("请重新确认标题长度（1～30）！");
+		return false;
+	}*/
+	if(comment==""){
+		alert("请输入评论内容！");
+		return false;
+	}
+	$.post(
+	"/market/add_info",
+	{
+		'info_type':"comment",
+		'appid':appid,
+		'user':nickname,
+		'star':score,
+		'text':comment
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			alert("发表成功");
+			location.reload();
+		}else{
+			alert("发表失败，请稍后重试！");
+		}
+	});
+}

@@ -21,16 +21,17 @@
 				<span id="userShowName"><?php echo $_SESSION['username'];?></span>
 			</li>
 			<li class="message">
-				<a href="#nogo" title="消息" id="js-openmsg">
+				<a href="#nogo" title="<?php echo lang('cms_user_message');?>" id="js-openmsg">
                 <img src="/assets/images/cms/ico_mail.png" width="24" height="24"></a>
 				<span id="unreadMesNumber"></span>
 			</li>
 			<li class="logout">
-				<a href="/cms/index/logout" title="退出">退出</a>
+				<a href="/cms/index/logout" title="<?php echo lang('cms_user_logout');?>"><?php echo lang('cms_user_logout');?></a>
 			</li>
 			<li class="language">
-				中文 <span>|</span>
-				<a href="" target="_blank" title="切换英文版">English</a>
+				<a href="javascript:language('zh_cn')" class="<?php echo (!isset($_SESSION['language']) || $_SESSION['language']=="zh_cn")?"active":""?>" target="_blank" title="切换简体中文版">简中</a> <span>|</span>
+				<a href="javascript:language('tw_cn')" class="<?php echo (!isset($_SESSION['language']) || $_SESSION['language']=="tw_cn")?"active":""?>" target="_blank" title="切換繁體中文版">繁中</a> <span>|</span>
+				<a href="javascript:language('english')" class="<?php echo (!isset($_SESSION['language']) || $_SESSION['language']=="english")?"active":""?>" target="_blank" title="Switch to the English version">English</a>
 			</li>
         </ul>
     </div>

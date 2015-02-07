@@ -46,7 +46,7 @@
 		推送消息
 	</a>
 </h3>
-<h3>
+<h3 <?php echo isset($account) && $account?'class="current"':'';?>>
 	<a href="/kmadmin/admin/account" id="menu_accountInfo">
 		<span class="ico ico-zhxx"></span>
 		账户信息

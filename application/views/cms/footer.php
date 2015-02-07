@@ -1,6 +1,6 @@
 ﻿	</div>
 	<div class="footer">
-		蔻美资讯科技有限公司
+		<?php echo lang('cms_corporation_name');?>
 	</div>
 </body>
 </html>

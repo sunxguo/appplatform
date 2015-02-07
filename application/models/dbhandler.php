@@ -42,6 +42,15 @@ class DbHandler extends CI_Model{
 		$this->db->order_by($ordercol,$orderby);
 	 	return $query = $this->db->get()->result();
 	 }
+	 public function selectdatacustomorder($table,$where,$content,$limit,$offset,$order)
+	 {
+		$this->load->database();
+		$this->db->where($where,$content);
+		$this->db->limit($limit,$offset);
+		$this->db->from($table);
+		$this->db->order_by($order);
+	 	return $query = $this->db->get()->result();
+	 }
 	 public function SDU($table,$condition,$range,$order){
 		$this->load->database();
 		$this->db->where($condition);
@@ -54,7 +63,7 @@ class DbHandler extends CI_Model{
 		$this->load->database();
 		$this->db->where($condition);
 		$this->db->from($table);
-		$this->db->order_by($order['col'],$order['by']);
+		if(sizeof($order)>0) $this->db->order_by($order['col'],$order['by']);
 	 	return $query = $this->db->get()->result();
 	 }
 	 public function SDSDUNROR($table,$condition,$orfield,$ordata,$order){
@@ -73,6 +82,16 @@ class DbHandler extends CI_Model{
 		$this->db->limit($range['limit'],$range['offset']);
 		$this->db->from($table);
 		$this->db->order_by($order['col'],$order['by']);
+	 	return $query = $this->db->get()->result();
+	}	
+	 public function SDSDlikeCusOrder($table,$condition,$range,$order,$like=array(),$orlike=array()){
+		$this->load->database();
+		$this->db->where($condition);
+		if(sizeof($like)>0) $this->db->like($like);
+		if(sizeof($orlike)>0) $this->db->or_like($orlike);
+		$this->db->limit($range['limit'],$range['offset']);
+		$this->db->from($table);
+		$this->db->order_by($order);
 	 	return $query = $this->db->get()->result();
 	}	
 	 public function SDSDOR($table,$condition,$range,$orfield,$ordata,$order,$like=array(),$table2="",$eqution="",$or_like=array()){

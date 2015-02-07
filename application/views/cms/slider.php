@@ -2,7 +2,7 @@
 <h3>
 	<a href="/cms/index" id="menu_portal">
 		<span class="ico ico-sy"></span>
-		主页
+		<?php echo lang('cms_sider_home');?>
 	</a>
 </h3>
 <!--
@@ -16,7 +16,7 @@
 <h3 <?php echo isset($appManager) && $appManager?'class="current"':'';?>>
 	<a href="/cms/index/app" id="menu_manageApp">
 		<span class="ico ico-yygl"></span>
-		应用管理
+		<?php echo lang('cms_sider_app');?>
 	</a>
 </h3>
 <?php if(isset($app) && $app):?>
@@ -49,19 +49,19 @@
 <h3>
 	<a href="" id="menu_portal">
 		<span class="ico ico-tsxx"></span>
-		推送消息
+		<?php echo lang('cms_sider_pushmsg');?>
 	</a>
 </h3>
 <h3 <?php echo isset($log) && $log?'class="current"':'';?>>
 	<a href="/cms/index/checklog" id="menu_accountInfo">
 		<span class="ico ico-fkgl"></span>
-		操作日志
+		<?php echo lang('cms_sider_log');?>
 	</a>
 </h3>
 <h3 <?php echo isset($account) && $account?'class="current"':'';?>>
 	<a href="/cms/index/account" id="menu_accountInfo">
 		<span class="ico ico-zhxx"></span>
-		账户信息
+		<?php echo lang('cms_sider_account');?>
 	</a>
 </h3>
 </div>

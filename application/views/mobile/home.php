@@ -85,8 +85,9 @@
 		<div class="main-body" id="main_body">
 			<div class="slider" id="slider">
 				<ul>
-					<li><a href="/shopping?cat=1"><img class="slider_img" src="/assets/images/mobile/slider1.png"/></a></li>
-					<li><a href="/shopping?cat=8"><img class="slider_img" src="/assets/images/mobile/slider2.png"/></a></li>
+					<?php foreach($sliders as $img):?>
+					<li><a href=""><img class="slider_img" src="<?php echo $img->src_homeslider;?>"/></a></li>
+					<?php endforeach;?>
 				</ul>
 			</div>
 		</div>

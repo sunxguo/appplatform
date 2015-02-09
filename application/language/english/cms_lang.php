@@ -33,6 +33,7 @@
 	$lang['cms_app_clicktoview']="Click to View";
 	$lang['cms_app_updatetime']="Update Time";
 	$lang['cms_app_downloadtime']="Downloads";
+	$lang['cms_app_mobilewebsite']="Mobile Website";
 	$lang['cms_app_downloadtimeunit']="";
 	$lang['cms_app_downloadlink']="Download Link";
 	$lang['cms_app_clear']="Clear";

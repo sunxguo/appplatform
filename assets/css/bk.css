@@ -318,10 +318,20 @@ a:hover {
 .app-list dt a {
 	color: #52667F;
 }
+.app-list dt a:hover{
+	text-decoration:underline;
+}
 .app-list dd {
 	height: 20px;
 	line-height: 20px;
 	overflow: hidden;
+}
+.app-list dd .mobileweb{
+	text-decoration:underline;
+	margin-left:10px;
+}
+.app-list dd .mobileweb:hover{
+	color:#1B1849;
 }
 .app-list .code {
 	width: 100px;

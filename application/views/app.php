@@ -12,7 +12,7 @@
 					<span>分类：<?php echo $categories[$app->cat_app];?></span>
 					<span>下载次数：<?php echo $app->download_time_app;?></span>
 					<span>时间：<?php echo $app->create_time_app;?></span>
-					<span>大小：4.5M</span>
+					<span><a href="/market/preview?appid=<?php echo $app->id_app;?>" target="_blank">手机网站</a></span>
 					<span>作者：<?php echo $merchant->username_merchant;?></span>
 					<span class="stars center star<?php echo $app->star?>"></span>
 				</div>

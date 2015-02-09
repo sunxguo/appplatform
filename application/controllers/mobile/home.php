@@ -17,12 +17,14 @@ class Home extends CI_Controller {
 		}
 		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
 		$navs=$this->dbHandler->SDUNR('nav',array("app_id_nav"=>$_GET['appid']),array("col"=>'order_nav',"by"=>'asc'));
+		$sliders=$this->dbHandler->SDUNR('homeslider',array("appid_homeslider"=>$_GET['appid']),array("col"=>'ordernum_homeslider',"by"=>'asc'));
 		$this->load->view('mobile/home',
 			array(
 				'showSlider' => true,
 				'title' => WEBSITE_NAME."-手机网站",
 				'app'=>$app[0],
-				'navs'=>$navs
+				'navs'=>$navs,
+				'sliders'=>$sliders
 			)
 		);
 	}

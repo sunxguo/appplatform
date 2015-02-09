@@ -4,6 +4,7 @@ class Market extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->helper("base");
+		$this->load->helper("phpqrcode");
 		$this->load->model("dbHandler");
 	}
 	public function index(){
@@ -289,6 +290,43 @@ class Market extends CI_Controller {
 		);
 		$this->load->view('footer');
 	}
+	public function preview(){
+		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
+			$this->load->view('redirect',array("url"=>"/","info"=>"app的id不正确"));
+			return false;
+		}
+		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
+		$app=$app[0];
+		if(file_exists("/uploads/2dcode/wap".$app->id_app.'withlogo.png')){
+			$app->mobilewebsite2dcode="/uploads/2dcode/wap".$app->id_app.'withlogo.png';
+		}else{
+			$text=WEBSITE_URL."/mobile/home?appid=".$app->id_app;
+			$appid="wap".$app->id_app;
+			$logoSrc=$app->icon_app;
+			$app->mobilewebsite2dcode=$this->twoDimensionCode($text,$appid,$logoSrc);
+		}
+		//推荐
+		$recommend=$this->dbHandler->selectPartData('marketunion','special_marketunion',6);
+		if($recommend[0]->appidarray_marketunion!="") $apps=json_decode($recommend[0]->appidarray_marketunion);
+		else $apps=array();
+		$recommendapps=array();
+		foreach($apps as $a){
+			$recommendapp=$this->dbHandler->selectPartData('app','id_app',$a->appid);
+			$recommendapps[]=$recommendapp[0];
+		}
+		$this->load->view('header',
+			array(
+				'title' => WEBSITE_NAME.$app->name_app."-手机网站预览",
+			)
+		);
+		$this->load->view('preview',
+			array(
+				"app"=>$app,
+				"recommendapps"=>$recommendapps
+			)
+		);
+		$this->load->view('footer');
+	}
 	public function download(){
 		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
 			$this->load->view('redirect',array("url"=>"/","info"=>"app的id不正确"));
@@ -301,7 +339,8 @@ class Market extends CI_Controller {
 		$ipad = (strpos($agent, 'ipad')) ? true : false;
 		$android = (strpos($agent, 'android')) ? true : false;
 		if($iphone || $ipad){
-			echo "<script>window.location.href='".$app->ios_link_app."'</script>";
+			if($app->ios_link_app=="null") echo "IOS应用暂未生成，请稍后！";
+			else echo "<script>window.location.href='".$app->ios_link_app."'</script>";
 		}elseif($android){
 			echo "<script>window.location.href='".$app->android_link_app."'</script>";  
 		}else{
@@ -385,6 +424,37 @@ class Market extends CI_Controller {
 		$result=$this->dbHandler->insertdata($table,$info);
 		if($result==1) echo json_encode(array("result"=>"success","message"=>"信息写入成功"));
 		else echo json_encode(array("result"=>"failed","message"=>"信息写入失败"));
+	}
+	public function twoDimensionCode($text,$appid,$logoSrc){
+		$value = $text; //二维码内容   
+		$errorCorrectionLevel = 'H';//容错级别   
+		$matrixPointSize = 10;//生成图片大小    
+		$QR = $_SERVER['DOCUMENT_ROOT'].'/uploads/2dcode/'.$appid.'qrcode.png';//已经生成的原始二维码图    
+		
+		//生成二维码图片
+		QRcode::png($value,$QR, $errorCorrectionLevel, $matrixPointSize, 2);   
+		$logo = $_SERVER['DOCUMENT_ROOT'].$logoSrc;//准备好的logo图片 
+
+		if ($logo !== FALSE) {
+			$QR = imagecreatefromstring(file_get_contents($QR));   
+			$logo = imagecreatefromstring(file_get_contents($logo));   
+			$QR_width = imagesx($QR);//二维码图片宽度   
+			$QR_height = imagesy($QR);//二维码图片高度   
+			$logo_width = imagesx($logo);//logo图片宽度   
+			$logo_height = imagesy($logo);//logo图片高度   
+			$logo_qr_width = $QR_width / 4;
+			$scale = $logo_width/$logo_qr_width;
+			$logo_qr_height = $logo_height/$scale;
+			$from_width = ($QR_width - $logo_qr_width) / 2;
+			//重新组合图片并调整大小   
+			imagecopyresampled($QR, $logo, $from_width, $from_width, 0, 0, $logo_qr_width,   
+			$logo_qr_height, $logo_width, $logo_height);   
+		}   
+		//输出图片地址
+		$dstLocation='/uploads/2dcode/'.$appid.'withlogo.png';
+		//输出图片   
+		imagepng($QR,$_SERVER['DOCUMENT_ROOT'].$dstLocation);   
+		return  $dstLocation; 
 	}
 }
 ?>

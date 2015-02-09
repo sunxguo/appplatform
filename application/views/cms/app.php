@@ -46,6 +46,7 @@
 							<dd>
 								<span class=""><?php echo lang('cms_app_downloadtime');?>：</span>
 								<?php echo $item->download_time_app;?><?php echo lang('cms_app_downloadtimeunit');?>
+								<a href="/market/preview?appid=<?php echo $item->id_app;?>" target="_blank" class="mobileweb"><?php echo lang('cms_app_mobilewebsite');?></a>
 							</dd>
 						</dl>
 						<?php if($item->state_app!=7 && $item->state_app>1):?>

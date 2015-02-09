@@ -34,6 +34,7 @@
 	$lang['cms_app_updatetime']="更新于";
 	$lang['cms_app_downloadtime']="下载量";
 	$lang['cms_app_downloadtimeunit']="次";
+	$lang['cms_app_mobilewebsite']="手機網站";
 	$lang['cms_app_downloadlink']="地址下载及推广";
 	$lang['cms_app_clear']="清除";
 	$lang['cms_app_restore']="恢复";

@@ -186,7 +186,7 @@ class Home extends CI_Controller {
 		echo json_encode(array("result"=>"success","message"=>"信息写入成功"));
 	}
 	public function check_push_msg(){
-/*		$condition=array("appid_message"=>$_GET["appid"]);
+		$condition=array("appid_message"=>$_GET["appid"]);
 		$orfield="type_message";
 		$ordata=array("0","2");
 		$order=array("col"=>"time_message","by"=>"asc");
@@ -195,8 +195,8 @@ class Home extends CI_Controller {
 			if(strtotime(date("Y-m-d H:i:s"))-strtotime($m->time_message)<120){
 				echo json_encode(array("title"=>$m->title_message,"message"=>$m->msg_message));
 			}else echo "";
-		}*/
-		echo json_encode(array("title"=>"放假了","message"=>"赶紧回家"));
+		}
+//		echo json_encode(array("title"=>"放假了","message"=>"赶紧回家"));
 	}
 	public function putin_cart(){
 		if(isset($_SESSION["cart"][$_POST["productid"]])){

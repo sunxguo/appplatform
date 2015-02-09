@@ -339,7 +339,7 @@ class Market extends CI_Controller {
 		$ipad = (strpos($agent, 'ipad')) ? true : false;
 		$android = (strpos($agent, 'android')) ? true : false;
 		if($iphone || $ipad){
-			if($app->ios_link_app=="null") echo "IOS应用暂未生成，请稍后！";
+			if($app->ios_link_app=="null" ||$app->ios_link_app==null) echo "IOS应用暂未生成，请稍后！";
 			else echo "<script>window.location.href='".$app->ios_link_app."'</script>";
 		}elseif($android){
 			echo "<script>window.location.href='".$app->android_link_app."'</script>";  

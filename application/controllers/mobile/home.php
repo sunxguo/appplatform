@@ -196,7 +196,7 @@ class Home extends CI_Controller {
 				echo json_encode(array("title"=>$m->title_message,"message"=>$m->msg_message));
 			}else echo "";
 		}*/
-		echo json_encode(array("title"=>$m->title_message,"message"=>$m->msg_message));
+		echo json_encode(array("title"=>"放假了","message"=>"赶紧回家"));
 	}
 	public function putin_cart(){
 		if(isset($_SESSION["cart"][$_POST["productid"]])){

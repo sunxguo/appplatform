@@ -29,7 +29,8 @@
 		</a>
 		<div class="necessary-app-box" id="html-carousel">
 			<ul class="carousel-list" id="carousel_list" style="margin-left: 0px;">
-				<?php foreach($necessaryapps as $app):?>
+				<?php if(isset($necessaryapps)):
+				foreach($necessaryapps as $app):?>
 				<li class="app-container">
 					<div class="vertical-app">
 						<a href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" class="vertical-icon">
@@ -42,7 +43,7 @@
 						</div>
 					</div>
 				</li>
-				<?php endforeach;?>
+				<?php endforeach;endif;?>
 			</ul>
 		</div>
 		<a class="turn-right-btn" id="next_arrow" href="javascript:void(0)"></a>
@@ -54,7 +55,8 @@
 		<div>
 			<div class="title">精品软件</div>
 			<ul class="software-list box-shadow" style="margin-left: 0px;">
-				<?php foreach($selectapps as $app):?>
+				<?php if(isset($selectapps)):
+				foreach($selectapps as $app):?>
 				<li class="app-container">
 					<div class="vertical-app">
 						<a href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" class="vertical-icon">
@@ -68,7 +70,7 @@
 						</div>
 					</div>
 				</li>
-				<?php endforeach;?>
+				<?php endforeach;endif;?>
 			</ul>
 		</div>
 		<div class="category  box-shadow">
@@ -91,7 +93,8 @@
 			<div class="category-tab-body">
 				<ul id="CategoryTabBody">
 					<li class="selected">
-						<?php foreach($lifeapps as $app):?>
+						<?php if(isset($lifeapps)):
+						foreach($lifeapps as $app):?>
 						<div class="crosswise-app app-container">
 							<a href="/market/app?appid=<?php echo $app->id_app;?>" class="icon" target="_blank">
 								<img src="<?php echo $app->icon_app;?>" width="72" height="72" alt="<?php echo $app->name_app;?>">
@@ -106,10 +109,11 @@
 							</div>
 							<div class="clearboth"></div>
 						</div>
-						<?php endforeach;?>
+						<?php endforeach;endif;?>
 					</li>
 					<li class="unselected">
-						<?php foreach($newsapps as $app):?>
+						<?php if(isset($newsapps)):
+						foreach($newsapps as $app):?>
 						<div class="crosswise-app app-container">
 							<a href="/market/app?appid=<?php echo $app->id_app;?>" class="icon" target="_blank">
 								<img src="<?php echo $app->icon_app;?>" width="72" height="72" alt="<?php echo $app->name_app;?>">
@@ -124,10 +128,11 @@
 							</div>
 							<div class="clearboth"></div>
 						</div>
-						<?php endforeach;?>
+						<?php endforeach;endif;?>
 					</li>
 					<li class="unselected">
-						<?php foreach($entertainmentapps as $app):?>
+						<?php if(isset($entertainmentapps)):
+						foreach($entertainmentapps as $app):?>
 						<div class="crosswise-app app-container">
 							<a href="/market/app?appid=<?php echo $app->id_app;?>" class="icon" target="_blank">
 								<img src="<?php echo $app->icon_app;?>" width="72" height="72" alt="<?php echo $app->name_app;?>">
@@ -142,10 +147,11 @@
 							</div>
 							<div class="clearboth"></div>
 						</div>
-						<?php endforeach;?>
+						<?php endforeach;endif;?>
 					</li>
 					<li class="unselected">
-						<?php foreach($shoppingapps as $app):?>
+						<?php if(isset($shoppingapps)):
+						foreach($shoppingapps as $app):?>
 						<div class="crosswise-app app-container">
 							<a href="/market/app?appid=<?php echo $app->id_app;?>" class="icon" target="_blank">
 								<img src="<?php echo $app->icon_app;?>" width="72" height="72" alt="<?php echo $app->name_app;?>">
@@ -160,7 +166,7 @@
 							</div>
 							<div class="clearboth"></div>
 						</div>
-						<?php endforeach;?>
+						<?php endforeach;endif;?>
 					</li>
 				</ul>
 			</div>

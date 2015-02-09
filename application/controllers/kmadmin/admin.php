@@ -266,6 +266,7 @@ class Admin extends CI_Controller {
 					$u->app[$key]=$this->get_info_return("app",$a->appid);
 				}
 			}else $u->app=array();
+			if(!isset($u->app)) $u->app=array();
 		}
 		$this->load->view('kmadmin/header',
 			array( 
@@ -304,6 +305,7 @@ class Admin extends CI_Controller {
 					$u->app[$key]=$this->get_info_return("app",$a->appid);
 				}
 			}else $u->app=array();
+			if(!isset($u->app)) $u->app=array();
 		}
 		$ex_url="";
 		if(isset($_GET["search"]))$ex_url.="&search=".$_GET["search"];
@@ -371,6 +373,7 @@ class Admin extends CI_Controller {
 				$selection->app[$key]->merchant=$merchant;
 			}
 		}else $selection->app=array();
+		if(!isset($selection->app))  $selection->app=array();
 		return $selection;
 	}
 	public function login(){

@@ -188,6 +188,7 @@ class Market extends CI_Controller {
 					$u->app[$key]->star=$this->getAverageStar($u->app[$key]->totalstar_app,$u->app[$key]->commentnum_app);
 				}
 			}else $u->app=array();
+			if(!isset($u->app)) $u->app=array();
 		}
 		$ex_url="";
 		if(isset($_GET["search"]))$ex_url.="&search=".$_GET["search"];
@@ -238,6 +239,7 @@ class Market extends CI_Controller {
 		$recommend=$this->dbHandler->selectPartData('marketunion','special_marketunion',6);
 		if($recommend[0]->appidarray_marketunion!="") $apps=json_decode($recommend[0]->appidarray_marketunion);
 		else $apps=array();
+		$recommendapps=array();
 		foreach($apps as $a){
 			$recommendapp=$this->dbHandler->selectPartData('app','id_app',$a->appid);
 			$recommendapps[]=$recommendapp[0];

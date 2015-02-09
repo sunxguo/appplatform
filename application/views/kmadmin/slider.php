@@ -5,12 +5,14 @@
 		主页
 	</a>
 </h3>
+<!--
 <h3>
 	<a href="" id="menu_promotionManage">
 		<span class="ico ico-tggl"></span>
 		推广管理
 	</a>
 </h3>
+-->
 <h3 <?php echo isset($market) && $market?'class="current"':'';?>>
 	<a href="/kmadmin/admin/market_home">
 		<span class="ico ico-jbgl"></span>

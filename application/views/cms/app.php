@@ -62,7 +62,7 @@
 						<a id="" name="" href="/cms/index/publishapp?appid=<?php echo $item->id_app;?>" class="btn80s publish" style="margin-right: 20px;"><?php echo lang('cms_button_release');?></a>
 						<a class="ico-help" href="###" onclick="AuditHelpOpen()" style="margin-right: 20px;"></a>
 						<?php if($item->state_app!=7 && $item->state_app>1):?>
-						<a id="" href="#" class="" onclick="" style="cursor: pointer; margin-right: 10px; float: right; text-decoration: underline; color: rgb(82, 102, 127);"><?php echo lang('cms_app_downloadlink');?></a>
+						<a target="_blank" href="/market/app?appid=<?php echo $item->id_app;?>" class="" onclick="" style="cursor: pointer; margin-right: 10px; float: right; text-decoration: underline; color: rgb(82, 102, 127);"><?php echo lang('cms_app_downloadlink');?></a>
 						<?php endif;?>
 					<?php else:?>
 						<a id="" href="Javascript:modify('app_validity','<?php echo $item->id_app;?>','up');" class="btn60" style="margin-right: 20px;"><?php echo lang('cms_app_clear');?></a>
@@ -74,7 +74,7 @@
 						<?php if($item->state_app!=7 && $item->state_app>1):?>
 						<a href="<?php echo $item->android_link_app;?>" style="cursor:pointer; margin-right:10px;" onclick="DownloadTitle(this);"><?php echo lang('cms_app_appandroiddownloadlink');?></a>
 						<a href="<?php echo $item->ios_link_app;?>" style="cursor:pointer; margin-right:10px;" onclick="DownloadTitle(this);"><?php echo lang('cms_app_appiosdownloadlink');?></a>
-						<a id="" href="#" style="cursor:pointer; margin-right:20px;float: right;" onclick="GoToSummaryPage(this);"><?php echo lang('cms_app_viewstatistics');?></a>
+						<a href="/cms/index/publish?appid=<?php echo $item->id_app;?>" style="cursor:pointer; margin-right:20px;float: right;" onclick="GoToSummaryPage(this);"><?php echo lang('cms_app_viewstatistics');?></a>
 						<?php elseif($item->state_app!=7):?>
 						<?php echo lang('cms_app_waitforgenerating');?> <?php echo $item->left_time_app;?> <?php echo lang('cms_app_minute');?>
 						<?php endif;?>

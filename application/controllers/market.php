@@ -287,6 +287,25 @@ class Market extends CI_Controller {
 		);
 		$this->load->view('footer');
 	}
+	public function download(){
+		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
+			$this->load->view('redirect',array("url"=>"/","info"=>"app的id不正确"));
+			return false;
+		}
+		$app=$this->dbHandler->selectPartData('app','id_app',$_GET['appid']);
+		$app=$app[0];
+		$agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+		$iphone = (strpos($agent, 'iphone')) ? true : false;
+		$ipad = (strpos($agent, 'ipad')) ? true : false;
+		$android = (strpos($agent, 'android')) ? true : false;
+		if($iphone || $ipad){
+			echo "<script>window.location.href='".$app->ios_link_app."'</script>";
+		}elseif($android){
+			echo "<script>window.location.href='".$app->android_link_app."'</script>";  
+		}else{
+			echo "未知设备...";
+		}
+	}
 	public function getAverageStar($totalStar,$commentNnum){
 		if($commentNnum==0) return "5";
 		$average=$totalStar/$commentNnum;

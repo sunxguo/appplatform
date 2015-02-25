@@ -14,12 +14,12 @@
 </head>
 <body scroll="no">
 <div id="all">
+	<input type="hidden" id="appid" value="<?php echo $_GET["appid"];?>">
 	<?php if($app->template_app==1):?>
 	<div class="sider" id="sider">
 		<div class="search">
 			<input type="text" placeholder="搜索">
 		</div>
-		<input type="hidden" id="appid" value="<?php echo $_GET["appid"];?>">
 		<ul class="nav clearfix">
 			<?php foreach($navs as $key=>$item):?>
 			<li>

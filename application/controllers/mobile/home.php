@@ -1,6 +1,4 @@
-<?php 
-error_reporting (E_ALL & ~E_NOTICE);
-if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 @session_start();
 
 class Home extends CI_Controller {
@@ -331,7 +329,7 @@ class Home extends CI_Controller {
 			array(
 				"order_no"  => $order->num_order,  //商户系统自己生成的订单号
 				"app"       => array("id" => $app->pingid_app),  //Ping++ 分配给商户的应用 ID
-				"amount"    => ($order->total_order)*100,  //交易金额
+				"amount"    => $order->total_order,  //交易金额
 				"channel"   => $_POST['channel'],  //交易渠道
 				"currency"  => "cny",
 				"client_ip" => $_SERVER["REMOTE_ADDR"],  //发起交易的客户端的 IP

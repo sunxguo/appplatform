@@ -186,11 +186,12 @@ class Home extends CI_Controller {
 		echo json_encode(array("result"=>"success","message"=>"信息写入成功"));
 	}
 	public function check_push_msg(){
-		$condition=array("appid_message"=>$_GET["appid"]);
-		$orfield="type_message";
-		$ordata=array("0","2");
+		$wherein[0]=array("orfield"=>"appid_message","ordata"=>array($_GET["appid"],0));
+		$wherein[1]=array("orfield"=>"type_message","ordata"=>array("0","2"));
+		$wherein[2]=array("orfield"=>"device_message","ordata"=>array("0",$_GET["device"]=="android"?1:2));
 		$order=array("col"=>"time_message","by"=>"asc");
-		$msg=$this->dbHandler->SDSDUNROR("message",$condition,$orfield,$ordata,$order);
+//		$msg=$this->dbHandler->SDSDUNROR("message",$condition,$orfield,$ordata,$order);
+		$msg=$this->dbHandler->msgSelect("message",$wherein,$order);
 		foreach($msg as $m){
 			if(strtotime(date("Y-m-d H:i:s"))-strtotime($m->time_message)<120){
 				echo json_encode(array("title"=>$m->title_message,"message"=>$m->msg_message));
@@ -292,6 +293,126 @@ class Home extends CI_Controller {
 			echo json_encode(array("result"=>"success","message"=>"信息写入成功"));
 		}
 		else echo json_encode(array("result"=>"failed","message"=>"信息写入失败"));
+	}
+	public function pay(){
+		$this->load->helper("pingpp");
+		$order=$this->dbHandler->selectPartData('order','id_order',$_POST['orderId']);
+		$order=$order[0];
+		$app=$this->dbHandler->selectPartData('app','id_app',$order->appid_order);
+		$app=$app[0];
+		$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$app->merchant_id_app);
+		$merchant=$merchant[0];
+		$products=json_decode($order->products_order);
+		$extra = array();
+		switch ($_POST['channel']) {
+			case 'alipay_wap':
+				$extra = array(
+					'success_url' => WEBSITE_URL.'/mobile/home/get_pay_result',
+					'cancel_url' => WEBSITE_URL.'/mobile/home/alipay_cancel'
+				);
+				break;
+			case 'upmp_wap':
+				$extra = array(
+					'result_url' => WEBSITE_URL.'/mobile/home/get_pay_result?code='
+				);
+				break;
+		}
+		
+		//获取客户端的参数，这里不能使用 $_POST 接收，所以我们提供了如下的参考方法接收
+		//$input_data = json_decode(file_get_contents("php://input"), true);
+		//TODO 客户在这里自行处理接收过来的交易所需的数据
+		//设置API KEY，如果是测试模式，这里填入 Test Key；如果是真实模式， 这里填入 Live Key。
+		Pingpp::setApiKey($merchant->pingkey_merchant);
+		//创建支付对象，发起交易
+		$ch = Pingpp_Charge::create(
+			//array 里需要哪些参数请阅读 API Reference 文档
+			array(
+				"order_no"  => $order->num_order,  //商户系统自己生成的订单号
+				"app"       => array("id" => $app->pingid_app),  //Ping++ 分配给商户的应用 ID
+				"amount"    => ($order->total_order)*100,  //交易金额
+				"channel"   => $_POST['channel'],  //交易渠道
+				"currency"  => "cny",
+				"client_ip" => $_SERVER["REMOTE_ADDR"],  //发起交易的客户端的 IP
+				"subject"   => ($products[0]->info->name_product)."...",
+				"body"      => $products[0]->info->name_product,
+				"extra"     => $extra //仅客户端为 HTML5 时此参数不为空，具体请参考 API Reference 文档
+			)
+		);
+		echo $ch;
+	}
+	public function get_pay_result(){
+		if(isset($_GET['code'])){
+			$code = $_GET['code'];
+			if($code == 0){
+				//show result
+				echo
+				'	<span style="color:green;font-size:16px;">银联：支付成功</span>
+					<script>
+						setTimeout(function(){
+							history.go(-2);location.reload();
+						},2000)
+					</script>';
+			}else if($code == 1){
+				//show result
+				echo
+				'	<span style="color:green;font-size:16px;">银联：支付失败</span>
+					<script>
+						setTimeout(function(){
+							history.go(-2);location.reload();
+						},2000)
+					</script>';
+			}else if($code == -1){
+				//show result
+				echo
+				'	<span style="color:green;font-size:16px;">银联：支付取消</span>
+					<script>
+						setTimeout(function(){
+							history.go(-2);location.reload();
+						},2000)
+					</script>';
+			}else{
+				echo '银联：未知错误('.$code.')';
+			}
+		}else{
+			//show result
+			echo
+			'	<span style="color:green;font-size:16px;">支付宝：支付成功</span>
+				<script>
+					setTimeout(function(){
+						history.go(-2);location.reload();
+					},2000)
+				</script>';
+		}
+	}
+	public function alipay_cancel(){
+		//show result
+		echo
+		'	<span style="color:green;font-size:16px;">支付宝：支付失败</span>
+			<script>
+				setTimeout(function(){
+					history.go(-2);location.reload();
+				},2000)
+			</script>';
+	}
+	public function get_pay_notify(){
+		// 读取异步通知数据
+		$notify = json_decode(file_get_contents("php://input"));
+
+		// 对异步通知做处理
+		if( ! isset($notify->object)){
+			exit("fail");
+		}
+		switch($notify->object){
+			case "charge":
+				// 开发者在此处加入对支付异步通知的处理代码
+				$this->dbHandler->updatedata("order",array("state_order"=>1),"num_order",$notify->order_no);
+			break;
+			case "refund":
+				// 开发者在此处加入对退款异步通知的处理代码
+			break;
+			default:
+			break;
+		}
 	}
 	public function get_order_num(){
 		$order_num = time();

@@ -18,7 +18,8 @@ define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
 define('WEBSITE_NAME', "蔻美");
-define('WEBSITE_URL', "http://182.92.156.106");
+//define('WEBSITE_URL', "http://182.92.156.106");
+define('WEBSITE_URL', "http://127.0.0.1");
 
 /*
 |--------------------------------------------------------------------------

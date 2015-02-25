@@ -4,6 +4,10 @@ $(document).ready(function(){
 function get_cat(){
 	
 }
+function pickcolor(){
+	$("#skincolor").click();
+	colorClick('5');
+}
 function checkAppName(){
 	var length = $("#appName").val().length;
 	if(length<1 || length>10){
@@ -285,7 +289,8 @@ function uploadAppInfo(){
 			'description':$("#appDesc").val(),
 			'template':$("#template_input").val(),
 			'category':$("#category").val(),
-			'skin':$("#skin_color_input").val()
+			'skin':$("#skin_color_input").val(),
+			'skincolor':$("#skincolor").val()
 		},
 		function(data){
 			var result=$.parseJSON(data);
@@ -310,7 +315,8 @@ function uploadAppInfo(){
 			'description':$("#appDesc").val(),
 			'template':$("#template_input").val(),
 			'category':$("#category").val(),
-			'skin':$("#skin_color_input").val()
+			'skin':$("#skin_color_input").val(),
+			'skincolor':$("#skincolor").val()
 		},
 		function(data){
 			var result=$.parseJSON(data);

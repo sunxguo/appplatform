@@ -123,3 +123,13 @@ function publish_comment(appid){
 		}
 	});
 }
+function language(language){
+	$.post(
+	"/cms/index/set_language",
+	{
+		'language':language
+	},
+	function(data){
+		location.reload();
+	});
+}

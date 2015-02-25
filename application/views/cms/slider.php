@@ -30,12 +30,12 @@
 	</a>
 </h3>
 <ul style="display: block;">
-	<li><a href="/cms/index/publish?appid=<?php echo $info->id_app;?>" <?php echo isset($publish) && $publish?'class="current"':'';?>>内容发布</a></li>
-	<li><a href="/cms/index/contents?appid=<?php echo $info->id_app;?>" <?php echo isset($contents) && $contents?'class="current"':'';?>>内容查询</a></li>
-	<li><a href="/cms/index/form?appid=<?php echo $info->id_app;?>" <?php echo isset($form) && $form?'class="current"':'';?>>表单信息</a></li>
-	<li><a href="/cms/index/orders?appid=<?php echo $info->id_app;?>" <?php echo isset($orders) && $orders?'class="current"':'';?>>订单管理</a></li>
-	<li><a href="/cms/index/users?appid=<?php echo $info->id_app;?>" <?php echo isset($users) && $users?'class="current"':'';?>>用户管理</a></li>
-	<li><a href="/cms/index/accountconfig?appid=<?php echo $info->id_app;?>" <?php echo isset($accountconfig) && $accountconfig?'class="current"':'';?>>账号配置</a></li>
+	<li><a href="/cms/index/publish?appid=<?php echo $info->id_app;?>" <?php echo isset($publish) && $publish?'class="current"':'';?>><?php echo lang('cms_sider_publishcontent');?></a></li>
+	<li><a href="/cms/index/contents?appid=<?php echo $info->id_app;?>" <?php echo isset($contents) && $contents?'class="current"':'';?>><?php echo lang('cms_sider_selectcontent');?></a></li>
+	<li><a href="/cms/index/form?appid=<?php echo $info->id_app;?>" <?php echo isset($form) && $form?'class="current"':'';?>><?php echo lang('cms_sider_formdata');?></a></li>
+	<li><a href="/cms/index/orders?appid=<?php echo $info->id_app;?>" <?php echo isset($orders) && $orders?'class="current"':'';?>><?php echo lang('cms_sider_orders');?></a></li>
+	<li><a href="/cms/index/users?appid=<?php echo $info->id_app;?>" <?php echo isset($users) && $users?'class="current"':'';?>><?php echo lang('cms_sider_users');?></a></li>
+	<li><a href="/cms/index/accountconfig?appid=<?php echo $info->id_app;?>" <?php echo isset($accountconfig) && $accountconfig?'class="current"':'';?>><?php echo lang('cms_sider_accountconfig');?></a></li>
 </ul>
 <?php endif;?>
 <!--
@@ -46,8 +46,8 @@
 	</a>
 </h3>
 -->
-<h3>
-	<a href="" id="menu_portal">
+<h3 <?php echo isset($message) && $message?'class="current"':'';?>>
+	<a href="/cms/index/message?type=2" id="menu_portal">
 		<span class="ico ico-tsxx"></span>
 		<?php echo lang('cms_sider_pushmsg');?>
 	</a>

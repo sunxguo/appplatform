@@ -14,25 +14,52 @@ $(document).ready(function(){
 	$("#header").css("width",$(window).width()+"px");
 	$("#header").css("height",header_height+"px");
 	$("#header").css("line-height",header_height+"px");
+	if(typeof($("#header").attr("bkcolor"))!="undefined")
+		$("#header").css("background-color",$("#header").attr("bkcolor"));
 	$(document.body).css({
 		"overflow-x":"hidden",
 		"overflow-y":"hidden"
 	});
 	$('#slider').unslider();
 });
+var showMore=false;
+var showBar=true;
+function showmore(){
+	var data="";
+	if(showMore) data="0px";
+	else data="-180px";
+//	$("#main").css("margin-left",data);
+	$("#main").animate({"margin-left":data},300);
+	showMore=!showMore;
+}
+function showbar(){
+	$("#bar").show();
+	$("#back_bar").hide();
+	showBar=true;
+}
+function hidebar(){
+	$("#bar").hide();
+	$("#back_bar").show();
+	showBar=false;
+}
+function bargoback(){
+	location.reload();
+}
 function show_sider(){
-	if($("#sider").css('width') !="220px"){
-		$("#sider").animate({width:220},100,"linear",$("#sider").show());
-		$("#tit_div").hide();
-		$("#main_body").hide();
-		$("#header").css("left","220px");
-		if(!$("#mall_more").is(":hidden")) showMallMore();
-	}
-	else{
-		$("#sider").animate({width:0},100,"linear",$("#sider").hide());
-		$("#tit_div").show();
-		$("#slider .slider_img").css("height",header_height*14);
-		$("#main_body").show();
+	if($("#sider").length > 0){
+		if($("#sider").css('width') !="220px"){
+			$("#sider").animate({width:220},100,"linear",$("#sider").show());
+			$("#tit_div").hide();
+			$("#main_body").hide();
+			$("#header").css("left","220px");
+			if(!$("#mall_more").is(":hidden")) showMallMore();
+		}
+		else{
+			$("#sider").animate({width:0},100,"linear",$("#sider").hide());
+			$("#tit_div").show();
+			$("#slider .slider_img").css("height",header_height*14);
+			$("#main_body").show();
+		}
 	}
 }
 var currentNavid=0;
@@ -140,6 +167,12 @@ function getinfo(navid,name){
 	});
 	if(!goBack) show_sider();
 	goBack=false;
+	if($("#bar").length > 0){
+		hidebar();
+		if(showMore){
+			showmore();
+		}
+	}
 }
 function sub_nav_click(subnavid){
 	$("#show_sider_bt").hide();
@@ -854,12 +887,66 @@ function order_click(orderid){
 			'					</div>	'+
 			'				</div>	'+
 			'			</li>	'+
-			'		</ul>	'+
-			'	</div>	';
+			'		</ul>	';
+			var state_display='';
+			switch(orderinfo.state_order){
+				case '0':
+					state_display='		<a class="btnred80" onclick="paychoose(\''+orderinfo.id_order+'\')">付款</a>';
+				break;
+				case '1':
+					state_display='		<a class="btnred80">已支付</a>';
+				break;
+				case '2':
+					state_display='		<a class="btnred80">已发货</a>';
+				break;
+				case '3':
+					state_display='		<a class="btnred80">交易成功</a>';
+				break;
+				case '4':
+					state_display='		<a class="btnred80">已取消</a>';
+				break;
+			}
+			order+=state_display+'	</div>	';
 			$("#main_body").html(order);
 		}else{
 			alert("获取订单失败，请重试！");
 		}
+	});
+}
+var currentOrderId='';
+function paychoose(orderid){
+	currentOrderId=orderid;
+	var choose_div=''+
+		'	<div class="common-wrapper choosePay">	'+
+		'		<ul>	'+
+		'			<li class="choose_pay_title">	'+
+		'				<span>请选择支付方式</span>	'+
+		'			</li>	'+
+		'			<li onclick="pay(\'alipay_wap\')">	'+
+		'				<img src="/assets/images/mobile/zfb.jpg">	'+
+		'			</li>	'+
+		'			<li onclick="pay(\'upmp_wap\')">	'+
+		'				<img src="/assets/images/mobile/zxzf.jpg">	'+
+		'			</li>	'+
+		'		</ul>	'+
+		'	</div>	';
+	$("#main_body").html(choose_div);
+}
+function pay(channel){
+	$.post(
+	"/mobile/home/pay",
+	{
+		'channel':channel,
+		'orderId':currentOrderId
+	},
+	function(charge){
+		pingpp.createPayment(charge, function(result, err){
+			if(result=="success"){
+				alert("支付成功");// payment succeed
+			} else {
+				console.log(result+" "+err.msg+" "+err.extra);
+			}
+		});
 	});
 }
 function checkAccount(){

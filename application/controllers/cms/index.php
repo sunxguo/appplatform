@@ -101,6 +101,19 @@ class Index extends CI_Controller {
 		$this->load->view('cms/account',array("merchant"=>$merchant[0]));
 		$this->load->view('cms/footer');
 	}
+	public function pingkey()
+	{
+		$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$_SESSION['userid']);
+		$this->load->view('cms/header',
+			array( 
+				'showSlider' => true,
+				'account' => true,
+				'title' => lang('cms_website_name')."-".lang('cms_sider_account'),
+			)
+		);
+		$this->load->view('cms/pingkey',array("merchant"=>$merchant[0]));
+		$this->load->view('cms/footer');
+	}
 	public function accountconfig()
 	{
 		$this->checkMerchantLogin();
@@ -207,8 +220,10 @@ class Index extends CI_Controller {
 				'title' => lang('cms_website_name')."-".lang('cms_title_preview')
 			)
 		);
+		$app=$this->dbHandler->selectPartData('app','id_app',$_GET["appid"]);
 		$this->load->view('cms/preview',array(
-			"appid"=>$_GET["appid"]
+			"appid"=>$_GET["appid"],
+			"launch"=>$app[0]->launch_app
 		));
 		$this->load->view('cms/footer');
 	}
@@ -369,6 +384,93 @@ class Index extends CI_Controller {
 		if($language=="tw_cn") return $state_tw;
 		if($language=="english") return $state_en;
 	}
+	public function message(){
+		$this->checkMerchantLogin();
+		$page=isset($_GET["page"]) && is_numeric($_GET['page']) && $_GET['page']>0?$_GET["page"]:1;
+		$message=array();
+		$orlike=array();
+		$amount=0;//总条数
+		$limit=30;//每页显示
+		$page_amount=0;//总页数
+		
+		$condition=array();
+		$type=2;
+		if(isset($_GET['to']) && $_GET['to']=="all") $condition["to_message"]=0;
+		if(isset($_GET['type']) && is_numeric($_GET['type'])){
+			$condition["type_message"]=$_GET['type'];
+			$type=$_GET['type'];
+		}else $condition["type_message"]=$type;
+		if(isset($_GET['search']) && $_GET['search']!=""){
+			$like["title_message"]=$_GET['search'];
+//			$orlike["msg_message"]=$_GET['search'];
+		}
+		else $like=array();
+		$amount=$this->dbHandler->ADUlike('message',$condition,$like,$orlike);
+		$page_amount=ceil($amount/$limit);
+		if($page>$page_amount) $page=1;
+		$offset=($page-1)*$limit;
+		if($type==1)
+			$message=$this->dbHandler->SDSDOR('message',$condition,array("limit"=>$limit,"offset"=>$offset),"<app>",array(),array("col"=>'time_message',"by"=>'desc'),$like,"merchant","to_message=id_merchant");
+		else 
+			$message=$this->dbHandler->SDSDlike('message',$condition,array("limit"=>$limit,"offset"=>$offset),array("col"=>'time_message',"by"=>'desc'),$like,$orlike);
+		if(isset($_GET['type']) && $_GET['type']==2){
+			foreach($message as $m){
+				if($m->appid_message!="null" || $m->appid_message!=""){
+					$app=$this->dbHandler->selectPartData('app','id_app',$m->appid_message);
+					$m->app=$app[0];
+				}
+			}
+		}
+		$ex_url="";
+		if(isset($_GET["to"]))$ex_url.="&to=".$_GET["to"];
+		if(isset($_GET["type"]))$ex_url.="&type=".$_GET["type"];
+		if(isset($_GET["search"]))$ex_url.="&search=".$_GET["search"];
+		$prev_link=$page>1?"/cms/index/message?page=".($page-1).$ex_url:"no";
+		$next_link=$page<$page_amount?"/cms/index/message?page=".($page+1).$ex_url:"no";
+		$first_link=($page!=1)?"/cms/index/message?page=1".$ex_url:"no";
+		$last_link=($page!=$page_amount)?"/cms/index/message?page=".$page_amount.$ex_url:"no";
+		$jump_link="/cms/index/message?jump=1".$ex_url."&page=";
+		$select_link="/cms/index/message?jump=1";
+		$this->load->view('cms/header',
+			array( 
+				'showSlider' => true,
+				'message' => true,
+				'title' => WEBSITE_NAME."-消息管理",
+			)
+		);
+		$this->load->view('cms/msglist',
+			array(
+				"message"=>$message,
+				"prev_link"=>$prev_link,
+				"next_link"=>$next_link,
+				"first_link"=>$first_link,
+				"jump_link"=>$jump_link,
+				"last_link"=>$last_link,
+				"select_link"=>$select_link,
+				"page"=>$page,
+				"page_amount"=>$page_amount,
+				"amount"=>$amount
+			));
+		$this->load->view('cms/footer');
+	}
+	public function sendmsg(){
+		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
+		$condition=array('merchant_id_app'=>$byMerchantId,'state_app !='=>7);
+		$order=array('col'=>"update_time_app",'by'=>"desc");
+		$apps=$this->dbHandler->SDUNR('app',$condition,$order);
+		$this->load->view('cms/header',
+			array( 
+				'showSlider' => true,
+				'message' => true,
+				'title' => WEBSITE_NAME."-发送消息",
+			)
+		);
+		$this->load->view('cms/sendmsg',
+			array(
+				"apps"=>$apps
+			));
+		$this->load->view('cms/footer');
+	}
 	public function publishapp(){
 		$this->checkMerchantLogin();
 		if(!isset($_GET['appid']) || !is_numeric($_GET['appid'])){
@@ -475,6 +577,8 @@ class Index extends CI_Controller {
 			$app->essay=$this->dbHandler->SDUNR('nav',array("app_id_nav"=>$_GET['appid'],"type_nav"=>3),array("col"=>'order_nav',"by"=>'asc'));
 		}elseif($_GET['type']=="product"){
 			$view="product";
+			$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$app->merchant_id_app);
+			$app->merchant=$merchant[0];
 			$app->product=$this->dbHandler->SDUNR('nav',array("app_id_nav"=>$_GET['appid'],"type_nav"=>5),array("col"=>'order_nav',"by"=>'asc'));
 		}
 		$this->load->view('cms/'.$view,array("info"=>$app));
@@ -978,6 +1082,7 @@ class Index extends CI_Controller {
 					"launch_app"=>$_POST['launch'],
 					"template_app"=>$_POST['template'],
 					"skin_app"=>$_POST['skin'],
+					"skincolor_app"=>$_POST['skincolor'],
 					"create_time_app"=>date("Y-m-d H:i:s"),
 					"update_time_app"=>date("Y-m-d H:i:s"),
 					"download_time_app"=>0
@@ -1059,6 +1164,41 @@ class Index extends CI_Controller {
 				);
 				$log="添加id为".$_POST['appid']."的APP的预览图【<img width='50' height='100' src='".$_POST['src']."'>】";
 			break;
+			case "message":
+				$table="message";
+				$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
+				$info=array(
+					"type_message"=>$_POST["type"],
+					"from_message"=>$byMerchantId,
+					"to_message"=>($_POST["to"]!="" && is_numeric($_POST["to"]))?$_POST["to"]:0 ,
+					"device_message"=>$_POST["device"],
+					"title_message"=>$_POST["title"],
+					"msg_message"=>$_POST["msg"],
+					"time_message"=>date("Y-m-d H:i:s"),
+					"appid_message"=>$_POST["app"],
+					"check_message"=>0
+				);
+				if($_POST["type"]=='2' && $_POST["device"]!='1' && false){
+					$this->load->helper("apns");
+					$rootpath = 'entrust_root_certification_authority.pem';  //ROOT证书地址
+					$cp = 'production_push_certificates.pem';  //provider证书地址
+					$apns = new APNS(0,$cp);
+					try{
+						$apns->setRCA($rootpath);  //设置ROOT证书
+						$apns->connect(); //连接
+						$apns->addDT('b9d98721b5586b61a00fbfa0d61a033954e1bfb8faaae3dfc5a1382xxxxxx');  //加入deviceToken
+						$apns->setText($_POST["title"]);  //发送内容
+						$apns->setBadge(1);  //设置图标数
+						$apns->setSound();  //设置声音
+						$apns->setExpiry(3600);  //过期时间
+						$apns->setCP('fljt',array('type' => '1','url' => 'http://www.google.com.hk'));  //自定义操作
+						$apns->send();  //发送
+					}catch(Exception $e){
+						echo $e;
+					}
+				}
+				$log="推送消息【".$_POST['title']."】";
+			break;
 		}
 		$this->log($log);
 		$result=$this->dbHandler->insertdata($table,$info);
@@ -1131,6 +1271,7 @@ class Index extends CI_Controller {
 					"launch_app"=>$_POST['launch'],
 					"template_app"=>$_POST['template'],
 					"skin_app"=>$_POST['skin'],
+					"skincolor_app"=>$_POST['skincolor'],
 					"update_time_app"=>date("Y-m-d H:i:s"),
 				);
 				$where="id_app";
@@ -1258,6 +1399,15 @@ class Index extends CI_Controller {
 				$content=$_SESSION['userid'];
 				$log="修改商户信息";
 			break;
+			case "merchant_pingkey":
+				$table="merchant";
+				$info=array(
+					"pingkey_merchant"=>$_POST["pingkey"]
+				);
+				$where="id_merchant";
+				$content=$_SESSION['userid'];
+				$log="修改商户Ping Key";
+			break;
 			case "merchant_correlation":
 				$table="merchant";
 				$info=array(
@@ -1333,6 +1483,15 @@ class Index extends CI_Controller {
 				$where="id_app";
 				$content=$_POST['appid'];
 				$log="修改APP【".$_POST['appid']."】的支付宝收款账号";
+			break;
+			case "account_config_pingid":
+				$table="app";
+				$info=array(
+					"pingid_app"=>$_POST["pingid"]
+				);
+				$where="id_app";
+				$content=$_POST['appid'];
+				$log="修改APP【".$_POST['appid']."】的Ping++的Id";
 			break;
 			case "previewimg_order":
 				$table='previewimg';
@@ -1537,6 +1696,7 @@ class Index extends CI_Controller {
 		$navid=$_POST['navid'];
 		$nav=$this->dbHandler->selectPartData('nav','id_nav',$navid);
 		$nav=$nav[0];
+		$table="";
 		//删除原内容
 		switch($nav->type_nav){
 			case 1:
@@ -1548,7 +1708,7 @@ class Index extends CI_Controller {
 				$condition=array("navid_subnav"=>$navid);
 			break;
 			case 3:
-				$table="";
+				//$table="";
 				//$condition=array("navid_essay"=>$navid);
 			break;
 			case 4://表单

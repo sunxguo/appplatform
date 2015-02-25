@@ -2,9 +2,9 @@
 	<table>
 		<thead>
 			<tr class="table-head">
-				<th style="width:250px;">操作者</th>
-				<th style="width:450px;">操作内容</th>
-				<th style="width:180px;">操作时间</th>
+				<th style="width:250px;"><?php echo lang('cms_sendmsg_operator');?></th>
+				<th style="width:450px;"><?php echo lang('cms_sendmsg_operatingcontent');?></th>
+				<th style="width:180px;"><?php echo lang('cms_sendmsg_operatingtime');?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,12 +18,12 @@
 		</tbody>
 	</table>
 	<div class="page-div">
-		<span class="">总记录数<?php echo $amount;?>条</span>
-		<span onclick="location.href='<?php echo $first_link=="no"?"#":$first_link;?>'" class="page-bt first <?php echo $first_link=="no"?"last-disabled":"";?>" title="第一页">第一页</span>
-		<span onclick="location.href='<?php echo $prev_link=="no"?"#":$prev_link;?>'" class="page-bt prev <?php echo $prev_link=="no"?"prev-disabled":"";?>" title="上一页">上一页</span>
+		<span class=""><?php echo lang("cms_content_total");?><?php echo $amount;?><?php echo lang("cms_content_totalunit");?></span>
+		<span onclick="location.href='<?php echo $first_link=="no"?"#":$first_link;?>'" class="page-bt first <?php echo $first_link=="no"?"last-disabled":"";?>" title="<?php echo lang('cms_content_firstpage');?>"><?php echo lang('cms_content_firstpage');?></span>
+		<span onclick="location.href='<?php echo $prev_link=="no"?"#":$prev_link;?>'" class="page-bt prev <?php echo $prev_link=="no"?"prev-disabled":"";?>" title="<?php echo lang('cms_content_previouspage');?>"><?php echo lang('cms_content_previouspage');?></span>
 		<span class="showpagenum"><?php echo $page;?>/<?php echo $page_amount;?></span>
-		<span onclick="location.href='<?php echo $next_link=="no"?"#":$next_link;?>'" class="page-bt next <?php echo $next_link=="no"?"next-disabled":"";?>" title="下一页">下一页</span>
-		<span onclick="location.href='<?php echo $last_link=="no"?"#":$last_link;?>'" class="page-bt last <?php echo $last_link=="no"?"last-disabled":"";?>" title="最后一页">最后一页</span>
+		<span onclick="location.href='<?php echo $next_link=="no"?"#":$next_link;?>'" class="page-bt next <?php echo $next_link=="no"?"next-disabled":"";?>" title="<?php echo lang('cms_content_nextpage');?>"><?php echo lang('cms_content_nextpage');?></span>
+		<span onclick="location.href='<?php echo $last_link=="no"?"#":$last_link;?>'" class="page-bt last <?php echo $last_link=="no"?"last-disabled":"";?>" title="<?php echo lang('cms_content_lastpage');?>"><?php echo lang('cms_content_lastpage');?></span>
 <!--
 		<span class="jump">
 			到第

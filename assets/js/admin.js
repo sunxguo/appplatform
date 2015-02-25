@@ -388,14 +388,16 @@ function save_website_config(type){
 			"/kmadmin/admin/modify_info",
 			{
 				'info_type':"appleaccount",
-				'account':$("#appleaccount").val()
+				'account':$("#appleaccount").val(),
+				'password':$("#applepassword").val()
 			},
 			function(data){
 				var result=$.parseJSON(data);
 				if(result.result=="success"){
+					alert("保存成功！");
 					location.reload();
 				}else{
-					alert(result.message);
+					alert(result.message+"或与原信息相同");
 				}
 			});
 			

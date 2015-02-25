@@ -4,34 +4,34 @@
 			<div id="tips" class="tips-error w230" style="width: 228px; display: none;">请输入验证码！</div>
 		</div>
     	<div class="item">
-        	<span class="label">帐号：</span>
-            <input type="text" name="username" id="username" class="inp-txt h2" placeholder="请输入账号" onblur="checkuserName()">
+        	<span class="label"><?php echo lang('cms_register_account');?>：</span>
+            <input type="text" name="username" id="username" class="inp-txt h2" placeholder="<?php echo lang('cms_register_accounttip');?>" onblur="checkuserName()">
             <span style="color:red;">*</span>
         </div>
     	<div class="item">
-        	<span class="label">密码：</span>
-            <input type="password" name="LoginPassword" id="LoginPassword" class="inp-txt h2" placeholder="请输入密码" onblur="checkPwd()">
+        	<span class="label"><?php echo lang('cms_register_password');?>：</span>
+            <input type="password" name="LoginPassword" id="LoginPassword" class="inp-txt h2" placeholder="<?php echo lang('cms_register_passwordtip');?>" onblur="checkPwd()">
             <span style="color:red;">*</span>
         </div>
         <div class="item">
-        	<span class="label">确认密码：</span>
-            <input type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="请输入确认密码" class="inp-txt h2" onblur="checkCfmPwd()">
+        	<span class="label"><?php echo lang('cms_register_confirmpassword');?>：</span>
+            <input type="password" name="ConfirmPassword" id="ConfirmPassword" placeholder="<?php echo lang('cms_register_confirmpasswordtip');?>" class="inp-txt h2" onblur="checkCfmPwd()">
             <span style="color:red;">*</span>
         </div>
                      <div class="item">
-                   	<span class="label">图片验证码：</span>
-            <input type="text" style="width:90px" class="inp-txt w60 fl mr10 h2" id="authCode" name="authCode" value="" placeholder="请输入验证码" onblur="checkCode()" onkeyup="checkAll()">
+                   	<span class="label"><?php echo lang('cms_register_imageverification');?>：</span>
+            <input type="text" style="width:90px" class="inp-txt w60 fl mr10 h2" id="authCode" name="authCode" value="" placeholder="<?php echo lang('cms_register_imageverificationtip');?>" onblur="checkCode()" onkeyup="checkAll()">
             <span style="color:red;float:left;">*</span> 
             <span id="validCodeContainer" style="">
-                        <img id="validCodeImg" style="cursor: pointer;width:80px; height:30px; float:left; margin-right:10px; " src="" alt="验证码" title="看不清,换一张" onclick="refreshCode()"> 
-                        <a style="display:block; width:14px; height:15px; background:url(/assets/images/cms/refresh.png) no-repeat; float:left; text-indent:-9999px; margin-top:7px;"  href="javascript:refreshCode()" title="看不清,换一张">刷新</a>
+                        <img id="validCodeImg" style="cursor: pointer;width:80px; height:30px; float:left; margin-right:10px; " src="" alt="<?php echo lang('cms_register_verificationcode');?>" title="<?php echo lang('cms_register_cantseechangeone');?>" onclick="refreshCode()"> 
+                        <a style="display:block; width:14px; height:15px; background:url(/assets/images/cms/refresh.png) no-repeat; float:left; text-indent:-9999px; margin-top:7px;"  href="javascript:refreshCode()" title="<?php echo lang('cms_register_cantseechangeone');?>"><?php echo lang('cms_register_refresh');?></a>
                         </span>
         </div>
         <div id="msgCodeItem" class="item" style=" visibility:hidden; display:none">
-        	<span class="label">短信验证码：</span>
-            <input type="text" style="width:90px" class="inp-txt w60 fl mr10 h2" id="authMsgCode" name="authMsgCode" value="" placeholder="请输入短信验证码" onkeyup="checkMsgAuthCode()">
+        	<span class="label"><?php echo lang('cms_register_messageauthenticationcode');?>：</span>
+            <input type="text" style="width:90px" class="inp-txt w60 fl mr10 h2" id="authMsgCode" name="authMsgCode" value="" placeholder="<?php echo lang('cms_register_messageauthenticationcodetip');?>" onkeyup="checkMsgAuthCode()">
             <span style="color:red;float:left;">*</span>
-            <input class="btn120" style="border:none;" id="btnGetAuthCode" value="获取短信验证码" type="button" disabled="disabled">
+            <input class="btn120" style="border:none;" id="btnGetAuthCode" value="<?php echo lang('cms_register_getmessageauthenticationcode');?>" type="button" disabled="disabled">
              </div>
 
         <div class="item" id="GetAuthCodeTip" style="display:none;">
@@ -40,13 +40,13 @@
         </div>
         <div class="item item-txt">
         	<input type="checkbox" id="chkAgree" name="chkAgree" checked="">
-            <span>我同意并遵守<a href="" target="_blank">《蔻美 APP平台服务协议》</a></span>
+            <span><?php echo lang('cms_register_iagree');?><a href="" target="_blank"><?php echo lang('cms_register_agreement');?></a></span>
         </div>
         <div class="item">
-            <input type="button" style="cursor:default;background:#687685" class="btn-big" id="btnRegister" onclick="register()" value="立即注册">
+            <input type="button" style="cursor:default;background:#687685" class="btn-big" id="btnRegister" onclick="register()" value="<?php echo lang('cms_register_registernow');?>">
         </div>
         <div class="post-zj">
-            <span>已有帐号，<a href="/cms/index/login">直接登录</a></span>
+            <span><?php echo lang('cms_register_hasaccount');?><a href="/cms/index/login"><?php echo lang('cms_register_logindirectly');?></a></span>
         </div>
     </div>
 </div>

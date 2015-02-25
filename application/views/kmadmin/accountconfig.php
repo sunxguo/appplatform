@@ -12,6 +12,10 @@
 			<span class="label" style="width:100px;">Apple开发者账号：</span>
 			<input class="inp-txt width200" type="text" name="appleaccount" id="appleaccount" placeholder="Apple开发者账号" value="<?php echo $appleDeveloperAccount->value_websiteconfig;?>"/>
 		</div>
+		<div class="item" style="padding-left:0px;">
+			<span class="label" style="width:100px;">Apple开发者密码：</span>
+			<input class="inp-txt width200" type="password" name="applepassword" id="applepassword" value="<?php echo $appleDeveloperPassword->value_websiteconfig;?>"/>
+		</div>
 		<div class="btn-center bor-top" style="width: 315px;">
 			<a href="javascript:void(0)" class="btn120" onclick="save_website_config('appleaccount')">保存</a>
 		</div>

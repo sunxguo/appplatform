@@ -17,7 +17,55 @@ $(document).ready(function(){
 			imageTabIndex:1
 		});
 	});
+	$("table tr .msgtitle").hover(function(event){
+		$("#msgdata").html("");
+		$("#msgwait").show();
+		$.post(
+		"/kmadmin/admin/get_info",
+		{
+			'info_type':"message",
+			'messageid':$(this).attr("msgid")
+		},
+		function(data){
+			var result=$.parseJSON(data);
+			$("#msgwait").hide();
+			if(result.result=="success"){
+				$("#msgdata").html(result.message.msg_message);
+			}else{
+				alert(result.message);
+			}
+		});
+		$("#msg_content").show(); 
+		$("#msg_content").css("left", event.clientX+10); 
+		$("#msg_content").css("top", event.clientY+20);
+	},function(){
+		$("#msg_content").hide(); 
+	});
 });
+function selectmsg(url){
+	if($("#keyword").val()!="") url+="&search="+$("#keyword").val();
+	url+="&type="+$("#type").val();
+	location.href=url;
+}
+function jump_page(url){
+	location.href=url+$("#page_num").val();
+}
+function receive_type(){
+	if($("#type").val()==2){
+		$("#app_div").show();
+		$("#device_div").show();
+		$("#user_div").hide();
+	}
+	else if($("#type").val()==3){
+		$("#app_div").hide();
+		$("#device_div").hide();
+		$("#user_div").show();
+	}else{
+		$("#app_div").hide();
+		$("#device_div").hide();
+		$("#user_div").hide();
+	}
+}
 function imgout(obj){
 	$(obj).find('.del-bt').hide();
 }
@@ -421,4 +469,39 @@ function publish_app(appid){
 			}
 		});
 	}
+}
+function push_msg(){
+	if($("#type").val()=="-1"){
+		alert("请选择接收对象！");
+		return false;
+	}
+	if($("#title").val().length<1){
+		alert("请输入消息标题！");
+		return false;
+	}
+	if($("#msg_content").val().length<1){
+		alert("请输入消息内容！");
+		return false;
+	}
+	$.post(
+	"/cms/index/add_info",
+	{
+		'info_type':"message",
+		'type':$("#type").val(),
+		'from':"merchant",
+		'to':$("#user").val(),
+		'app':$("#app").val(),
+		'device':$("#device").val(),
+		'title':$("#title").val(),
+		'msg':$("#msg_content").val()
+	},
+	function(data){
+		var result=$.parseJSON(data);
+		if(result.result=="success"){
+			alert("发送成功！");
+			location.reload();
+		}else{
+			alert(result.message);
+		}
+	});
 }

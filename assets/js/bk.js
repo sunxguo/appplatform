@@ -238,6 +238,24 @@ function modify_avatar(src){
 			});
 		
 	}
+	function save_account_config_pingkey(){
+		$.post(
+			"/cms/index/modify_info",
+			{
+				'info_type':"merchant_pingkey",
+				'pingkey':$("#pingkey").val()
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					alert("保存成功");
+					location.reload();
+				}else{
+					alert(result.message+"或与原Key相同");
+				}
+			});
+		
+	}
 function add_correlation(){
 	if($("#username").val()!=""){
 		$.post(
@@ -295,6 +313,24 @@ function save_account_config_info(type,appid){
 				'info_type':"account_config_alipay",
 				'appid':appid,
 				'alipay':$("#alipayaccount").val()
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					alert("保存成功");
+					location.reload();
+				}else{
+					alert(result.message+"或与原账号相同");
+				}
+			});
+		break;
+		case "pingid":
+			$.post(
+			"/cms/index/modify_info",
+			{
+				'info_type':"account_config_pingid",
+				'appid':appid,
+				'pingid':$("#pingid").val()
 			},
 			function(data){
 				var result=$.parseJSON(data);

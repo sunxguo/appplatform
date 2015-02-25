@@ -45,6 +45,7 @@ class Admin extends CI_Controller {
 	{
 		$this->checkAdminLogin();
 		$appleDeveloperAccount=$this->dbHandler->selectPartData("websiteconfig","key_websiteconfig","appleDeveloperAccount");
+		$appleDeveloperPassword=$this->dbHandler->selectPartData("websiteconfig","key_websiteconfig","appleDeveloperPassword");
 		$this->load->view('kmadmin/header',
 			array( 
 				'showSlider' => true,
@@ -53,7 +54,8 @@ class Admin extends CI_Controller {
 			)
 		);
 		$data=array(
-			"appleDeveloperAccount"=>$appleDeveloperAccount[0]
+			"appleDeveloperAccount"=>$appleDeveloperAccount[0],
+			"appleDeveloperPassword"=>$appleDeveloperPassword[0]
 		);
 		$this->load->view('kmadmin/accountconfig',$data);
 		$this->load->view('kmadmin/footer');
@@ -620,6 +622,7 @@ class Admin extends CI_Controller {
 					"title_message"=>$_POST["title"],
 					"msg_message"=>$_POST["msg"],
 					"time_message"=>date("Y-m-d H:i:s"),
+					"appid_message"=>0,
 					"check_message"=>0
 				);
 			break;
@@ -869,6 +872,7 @@ class Admin extends CI_Controller {
 				);
 				$where="key_websiteconfig";
 				$content="appleDeveloperAccount";
+				$this->dbHandler->updatedata("websiteconfig",array("value_websiteconfig"=>$_POST["password"]),"key_websiteconfig","appleDeveloperPassword");
 			break;
 		}
 		$result=$this->dbHandler->updatedata($table,$info,$where,$content);

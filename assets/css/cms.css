@@ -310,3 +310,50 @@ tbody tr:hover{
 .apply-msg-div .ac-bt{
 	text-decoration:underline;
 }
+.msg-btn {
+	display: inline-block;
+	width: 130px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	background: url(../images/cms/createapp.png) no-repeat;
+	text-align: center;
+	vertical-align: middle;
+	color: #FFFFFF;
+}
+.showinfo{
+	display:none;
+	left:1px;
+	top:1px;
+	width:422px; 
+	min-height:53px; 
+	padding:10px;
+	color:#000000;
+	background:#CCCCCC; 
+	position:fixed; 
+	border: 1px solid #ACB9C1;
+	min-width: 100px;
+	min-height: 50px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background: #F9FAFB url(/assets/images/cms/dialog.png) top repeat-x;
+	z-index: 11000;
+}
+.showinfo .dialog-hd {
+	font-size: 16px;
+	line-height: 30px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #CCD3DC;
+}
+.showinfo .itemPar {
+	padding: 10px;
+	margin: 5px 0;
+}
+.msglist .item .label {
+	display: inline-block;
+	width: 65px;
+	line-height: 28px;
+	padding-right: 5px;
+	text-align: right;
+}

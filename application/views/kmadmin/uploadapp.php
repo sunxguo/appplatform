@@ -20,6 +20,8 @@
 				<th style="width:130px;">启动图</th>
 				<th style="width:150px;">最后更新时间</th>
 				<th style="width:100px;">下载次数</th>
+				<th style="width:100px;">android</th>
+				<th style="width:100px;">ios</th>
 				<th style="width:210px;">操作</th>
 			</tr>
 		</thead>
@@ -33,6 +35,8 @@
 				<td><img class="appicon" src="<?php echo $a->launch_app;?>"></td>
 				<td><?php echo $a->update_time_app;?></td>
 				<td><?php echo $a->download_time_app;?></td>
+				<td><?php echo $a->android_link_app;?></td>
+				<td><?php echo $a->ios_link_app;?></td>
 				<td>
 					<a class="del-essay" href="javascript:app_upload_click('<?php echo $a->id_app;?>','android','<?php echo $a->username_merchant;?>','<?php echo $a->id_app;?>');">上传APK</a>
 					<a class="del-essay" href="javascript:app_upload_click('<?php echo $a->id_app;?>','ios','<?php echo $a->username_merchant;?>','<?php echo $a->id_app;?>');">上传ipa</a>

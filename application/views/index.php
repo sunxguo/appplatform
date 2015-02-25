@@ -22,7 +22,7 @@
 	<div class="clearboth"></div>
 </div>
 <div class="part-content necessary-div">
-	<div class="title">装机必备</div>
+	<div class="title"><?php echo lang('market_home_requiredapps');?></div>
 	<!-- 图片轮换 -->
 	<div class="necessary box-shadow">
 		<a class="turn-left-btn unused" id="prev_arrow" href="javascript:void(0)" hidefocus="true">
@@ -39,7 +39,7 @@
 						<a href="/market/app?appid=<?php echo $app->id_app;?>" class="vertical-tit-nes" title="<?php echo $app->name_app;?>" target="_blank"><?php echo $app->name_app;?></a>
 						<div class="stars center star<?php echo $app->star?>" style="display: block;"></div>
 						<div class="down">
-							<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="top: 0px;">下载</span>
+							<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="top: 0px;"><?php echo lang('market_home_download');?></span>
 						</div>
 					</div>
 				</li>
@@ -53,7 +53,7 @@
 <div class="part-content">
 	<div class="part-left">
 		<div>
-			<div class="title">精品软件</div>
+			<div class="title"><?php echo lang('market_home_qsualityapps');?></div>
 			<ul class="software-list box-shadow" style="margin-left: 0px;">
 				<?php if(isset($selectapps)):
 				foreach($selectapps as $app):?>
@@ -66,7 +66,7 @@
 						<span class="vertical-type"><?php echo $categories[$app->cat_app];?></span>
 						<div class="stars center star<?php echo $app->star?>" style="display: block;"></div>
 						<div class="down">
-							<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="top: 0px;">下载</span>
+							<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="top: 0px;"><?php echo lang('market_home_download');?></span>
 						</div>
 					</div>
 				</li>
@@ -78,16 +78,16 @@
 				<ul class="clearfix" id="CategoryTabTit">
 						<li class="cate1 selected">
 							<span class="category1">
-								<img style="width:22px;height:22px;vertical-align:middle;" src="/assets/images/market/life.png" alt="生活">
-								生活
+								<img style="width:22px;height:22px;vertical-align:middle;" src="/assets/images/market/life.png" alt="<?php echo lang('market_home_life');?>">
+								<?php echo lang('market_home_life');?>
 							</span>
 						</li>
 						<li class="cate2"><span class="category2">
-							<img src="/assets/images/market/news.png" alt="新闻">新闻</span></li>
+							<img src="/assets/images/market/news.png" alt="<?php echo lang('market_home_news');?>"><?php echo lang('market_home_news');?></span></li>
 						<li class="cate3"><span class="category3">
-							<img src="/assets/images/market/entertainment.png" alt="娱乐">娱乐</span></li>
+							<img src="/assets/images/market/entertainment.png" alt="<?php echo lang('market_home_entertainment');?>"><?php echo lang('market_home_entertainment');?></span></li>
 						<li class="cate4"><span class="category4">
-							<img src="/assets/images/market/shopping.png" alt="购物">购物</span></li>
+							<img src="/assets/images/market/shopping.png" alt="<?php echo lang('market_home_shopping');?>"><?php echo lang('market_home_shopping');?></span></li>
 				</ul>
 			</div>
 			<div class="category-tab-body">
@@ -101,10 +101,10 @@
 							</a>
 							<div class="app-info">
 								<a class="name" href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" title="<?php echo $app->name_app;?>"><?php echo $app->name_app;?></a>
-								<span class="down-count">下载<?php echo $app->download_time_app;?>次</span>
+								<span class="down-count"><?php echo lang('market_home_download');?><?php echo $app->download_time_app;?><?php echo lang('market_home_times');?></span>
 								<div class="stars center star<?php echo $app->star?>" ></div>
 								<div class="down">
-									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;">下载</span>
+									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;"><?php echo lang('market_home_download');?></span>
 								</div>
 							</div>
 							<div class="clearboth"></div>
@@ -120,10 +120,10 @@
 							</a>
 							<div class="app-info">
 								<a class="name" href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" title="<?php echo $app->name_app;?>"><?php echo $app->name_app;?></a>
-								<span class="down-count">下载<?php echo $app->download_time_app;?>次</span>
+								<span class="down-count"><?php echo lang('market_home_download');?><?php echo $app->download_time_app;?><?php echo lang('market_home_times');?></span>
 								<div class="stars center star<?php echo $app->star?>" ></div>
 								<div class="down">
-									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;">下载</span>
+									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;"><?php echo lang('market_home_download');?></span>
 								</div>
 							</div>
 							<div class="clearboth"></div>
@@ -139,10 +139,10 @@
 							</a>
 							<div class="app-info">
 								<a class="name" href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" title="<?php echo $app->name_app;?>"><?php echo $app->name_app;?></a>
-								<span class="down-count">下载<?php echo $app->download_time_app;?>次</span>
+								<span class="down-count"><?php echo lang('market_home_download');?><?php echo $app->download_time_app;?><?php echo lang('market_home_times');?></span>
 								<div class="stars center star<?php echo $app->star?>" ></div>
 								<div class="down">
-									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;">下载</span>
+									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;"><?php echo lang('market_home_download');?></span>
 								</div>
 							</div>
 							<div class="clearboth"></div>
@@ -158,10 +158,10 @@
 							</a>
 							<div class="app-info">
 								<a class="name" href="/market/app?appid=<?php echo $app->id_app;?>" target="_blank" title="<?php echo $app->name_app;?>"><?php echo $app->name_app;?></a>
-								<span class="down-count">下载<?php echo $app->download_time_app;?>次</span>
+								<span class="down-count"><?php echo lang('market_home_download');?><?php echo $app->download_time_app;?><?php echo lang('market_home_times');?></span>
 								<div class="stars center star<?php echo $app->star?>" ></div>
 								<div class="down">
-									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;">下载</span>
+									<span onclick="window.open('/market/app?appid=<?php echo $app->id_app;?>');" style="left: 0px;"><?php echo lang('market_home_download');?></span>
 								</div>
 							</div>
 							<div class="clearboth"></div>
@@ -173,11 +173,11 @@
 		</div>
 		<!-- 精选专题 -->
 		<div class="part-content union">
-			<div class="title">精选专题</div>
+			<div class="title"><?php echo lang('market_home_selectedspecials');?></div>
 			<div class="union-left">
 				<div class="union-banner">
 					<a href="/market/appunion?uid=<?php echo $selectUnions[0]->id_marketunion;?>" target="_blank">
-						<img src="<?php echo $selectUnions[0]->img_marketunion;?>" alt="精选专题">
+						<img src="<?php echo $selectUnions[0]->img_marketunion;?>" alt="<?php echo lang('market_home_selectedspecials');?>">
 					</a>
 				</div>
 				<div class="union-app">
@@ -190,7 +190,7 @@
 									<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>">
 								</a>
 								<a class="vertical-lit-tit" target="_blank" href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" style="display: block;"><?php echo $app->name_app;?></a>
-								<a class="install-lit-btn" href="/market/app?appid=<?php echo $app->id_app;?>" onclick="" style="display: none;" target="_blank">详情</a>
+								<a class="install-lit-btn" href="/market/app?appid=<?php echo $app->id_app;?>" onclick="" style="display: none;" target="_blank"><?php echo lang('market_home_details');?></a>
 							</div>
 						</li>
 						<?php endforeach;endif;?>
@@ -213,7 +213,7 @@
 									<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>">
 								</a>
 								<a class="vertical-lit-tit" target="_blank" href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" style="display: block;"><?php echo $app->name_app;?></a>
-								<a class="install-lit-btn" href="/market/app?appid=<?php echo $app->id_app;?>" onclick="" style="display: none;" target="_blank">详情</a>
+								<a class="install-lit-btn" href="/market/app?appid=<?php echo $app->id_app;?>" onclick="" style="display: none;" target="_blank"><?php echo lang('market_home_details');?></a>
 							</div>
 						</li>
 						<?php endforeach;endif;?>
@@ -248,14 +248,14 @@
 			</div>
 		</div>
 		<div class="union-link-all">
-			<a href="/market/appunion"><span>更多软件专题</span><i class="arrow-right"></i></a>
-			<a href="/market/appunion" class="ml15"><span>更多游戏专题</span><i class="arrow-right"></i></a>
+			<a href="/market/appunion"><span><?php echo lang('market_home_moresoftwarespecials');?></span><i class="arrow-right"></i></a>
+			<a href="/market/appunion" class="ml15"><span><?php echo lang('market_home_moregamespecials');?></span><i class="arrow-right"></i></a>
 			<div class="clearboth"></div>
 		</div>
 		<!-- 分类列表 -->
 		<div class="catelist">
 			<dl class="clearfix">
-				<dt>软件分类：</dt>
+				<dt><?php echo lang('market_home_appcategories');?>：</dt>
 				<?php foreach($categories as $key=>$c):?>
 				<dd>
 					<a href="/market/appcategory?cid=<?php echo $key;?>" target="_blank"><?php echo $c;?></a>
@@ -268,7 +268,7 @@
 		<!-- 综合排行 -->
 		<div class="week-rank">
 			<div class="rank-tit">
-				<span class="tit">综合排行</span>
+				<span class="tit"><?php echo lang('market_home_comprehensiveranking');?></span>
 				<!--
 				<ul class="rank-tab-btn">
 					<li class="selected"><a href="javascript:;">软件</a></li>
@@ -284,7 +284,7 @@
 					<div class="rank-info">
 						<a href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" class="name" target="_blank"><?php echo $app->name_app;?></a>
 						<div class="down-count">
-							<span><?php echo $app->download_time_app;?>次</span>下载
+							<span><?php echo $app->download_time_app;?><?php echo lang('market_home_times');?></span><?php echo lang('market_home_download');?>
 						</div>
 					</div>
 					<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>"></a>
@@ -296,7 +296,7 @@
 		<!-- 下载排行 -->
 		<div class="week-rank">
 			<div class="rank-tit" style="margin: 20px 0 10px;">
-				<span class="tit">下载排行</span>
+				<span class="tit"><?php echo lang('market_home_downloadranking');?></span>
 				<!--
 				<ul class="rank-tab-btn">
 					<li class="selected"><a href="javascript:;">软件</a></li>
@@ -312,7 +312,7 @@
 					<div class="rank-info">
 						<a href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" class="name" target="_blank"><?php echo $app->name_app;?></a>
 						<div class="down-count">
-							<span><?php echo $app->download_time_app;?>次</span>下载
+							<span><?php echo $app->download_time_app;?><?php echo lang('market_home_times');?></span><?php echo lang('market_home_download');?>
 						</div>
 					</div>
 					<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>"></a>
@@ -324,7 +324,7 @@
 		<!-- 上升排行 -->
 		<div class="week-rank">
 			<div class="rank-tit" style="margin: 20px 0 10px;">
-				<span class="tit">上升排行</span>
+				<span class="tit"><?php echo lang('market_home_risingranking');?></span>
 				<!--
 				<ul class="rank-tab-btn">
 					<li class="selected"><a href="javascript:;">软件</a></li>
@@ -340,7 +340,7 @@
 					<div class="rank-info">
 						<a href="/market/app?appid=<?php echo $app->id_app;?>" title="<?php echo $app->name_app;?>" class="name" target="_blank"><?php echo $app->name_app;?></a>
 						<div class="down-count">
-							<span><?php echo $app->download_time_app;?>次</span>下载
+							<span><?php echo $app->download_time_app;?><?php echo lang('market_home_times');?></span><?php echo lang('market_home_download');?>
 						</div>
 					</div>
 					<img src="<?php echo $app->icon_app;?>" alt="<?php echo $app->name_app;?>"></a>

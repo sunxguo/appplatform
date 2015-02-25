@@ -1,0 +1,53 @@
+<?php
+//繁體中文-market
+	$lang['market_website_name']="蔻美";
+	//market-home
+	$lang['market_home_home']="首頁";
+	$lang['market_home_special']="專題";
+	$lang['market_home_popularcategories']="熱門分類";
+	$lang['market_home_socialactivity']="社交";
+	$lang['market_home_tool']="工具";
+	$lang['market_home_shopping']="購物";
+	$lang['market_home_platform']="平台";
+	$lang['market_home_requiredapps']="裝機必備";
+	$lang['market_home_download']="下載";
+	$lang['market_home_qsualityapps']="精品軟件";
+	$lang['market_home_life']="生活";
+	$lang['market_home_news']="新聞";
+	$lang['market_home_entertainment']="娛樂";
+	$lang['market_home_times']="次";
+	$lang['market_home_selectedspecials']="精選專題";
+	$lang['market_home_details']="詳情";
+	$lang['market_home_moresoftwarespecials']="更多軟件專題";
+	$lang['market_home_moregamespecials']="更多遊戲專題";
+	$lang['market_home_appcategories']="軟件分類";
+	$lang['market_home_comprehensiveranking']="綜合排行";
+	$lang['market_home_downloadranking']="下載排行";
+	$lang['market_home_risingranking']="上升排行";
+	$lang['market_home_previouspage']="上一頁";
+	$lang['market_home_nextpage']="下一頁";
+	$lang['market_home_appscategories']="應用分類";
+	$lang['market_home_allapps']="全部應用";
+	$lang['market_home_sortby']="排序方式";
+	$lang['market_home_correlation']="相關度";
+	$lang['market_home_hot']="最熱";
+	$lang['market_home_new']="新品";
+	$lang['market_home_comprehensive']="綜合";
+	//market-app
+	$lang['market_app_category']="分類";
+	$lang['market_app_downloads']="下載次數";
+	$lang['market_app_time']="時間";
+	$lang['market_app_author']="作者";
+	$lang['market_app_mobilewebsite']="手機網站";
+	$lang['market_app_scan2dcode']="掃描二維碼下載";
+	$lang['market_app_preview']="預覽圖";
+	$lang['market_app_briefintroduction']="應用簡介";
+	$lang['market_app_recommendeddownload']="推薦下載";
+	$lang['market_home_usercomment']="用戶評論";
+	$lang['market_app_grade']="評分";
+	$lang['market_app_nickname']="暱稱";
+	$lang['market_app_nicknamelength']="請輸入1-15個字";
+	$lang['market_app_comment']="評論";
+	$lang['market_app_publish']="發表";
+	
+?>

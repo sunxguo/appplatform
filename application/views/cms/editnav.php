@@ -1,9 +1,9 @@
 <div class="app-warp">
 	<div class="h2-wrap">
 		<h2>
-			<a class="en-tab e-n-tab-l goto" href="/cms/index/editapp?appid=<?php echo $app->id_app?>">APP编辑</a>
-			<span class="en-tab e-n-tab-c active">APP导航设计</span>
-			<a class="en-tab e-n-tab-r goto" href="/cms/index/preview?appid=<?php echo $app->id_app?>">预览</a>
+			<a class="en-tab e-n-tab-l goto" href="/cms/index/editapp?appid=<?php echo $app->id_app?>"><?php echo lang('cms_editapp_editapp');?></a>
+			<span class="en-tab e-n-tab-c active"><?php echo lang('cms_editapp_designappnav');?></span>
+			<a class="en-tab e-n-tab-r goto" href="/cms/index/preview?appid=<?php echo $app->id_app?>"><?php echo lang('cms_editapp_preview');?></a>
 		</h2>
 	</div>
     <div class="app-con">
@@ -34,9 +34,9 @@
 		</div>
 		<div class="app-edit-nav-div">
 			<div class="clearfix">
-				<a class="addModleBtn" href="javascript:add_nav()">添加导航</a>
+				<a class="addModleBtn" href="javascript:add_nav()"><?php echo lang('cms_editnav_addnav');?></a>
 			</div>
-			<div>通过导航后面的编辑按钮<img src="/assets/images/cms/edit.png">可以编辑该导航详细信息</div>
+			<div><?php echo lang('cms_editnav_navtip');?></div>
 			<ul>
 				<?php $array_num=sizeof($navs); 
 				foreach($navs as $key=>$item):?>
@@ -46,28 +46,28 @@
 					<div class="order">
 						<span class="order-num">No：<?php echo $item->order_nav;?></span>
 						<?php if($key!=0):?>
-						<a href="javascript:order_nav('<?php echo $item->app_id_nav;?>','plus','<?php echo $item->id_nav;?>','<?php echo $item->order_nav;?>')" class="upBtn" title="上移"></a>
+						<a href="javascript:order_nav('<?php echo $item->app_id_nav;?>','plus','<?php echo $item->id_nav;?>','<?php echo $item->order_nav;?>')" class="upBtn" title="<?php echo lang('cms_editnav_moveup');?>"></a>
 						<?php endif;?>
 						<?php if($key!=($array_num-1)):?>
-						<a href="javascript:order_nav('<?php echo $item->app_id_nav;?>','sub','<?php echo $item->id_nav;?>','<?php echo $item->order_nav;?>')" class="downBtn" title="下移"></a>
+						<a href="javascript:order_nav('<?php echo $item->app_id_nav;?>','sub','<?php echo $item->id_nav;?>','<?php echo $item->order_nav;?>')" class="downBtn" title="<?php echo lang('cms_editnav_movedown');?>"></a>
 						<?php endif;?>
-						<a href="javascript:edit_nav('<?php echo $item->name_nav;?>','<?php echo $item->id_nav;?>','<?php echo $item->type_nav;?>')" class="editBtn" title="编辑"></a>
-						<a href="javascript:del_nav('<?php echo $item->app_id_nav;?>','<?php echo $item->id_nav;?>','<?php echo $item->order_nav;?>','<?php echo $array_num;?>')" class="deleteBtn" title="删除"></a>
+						<a href="javascript:edit_nav('<?php echo $item->name_nav;?>','<?php echo $item->id_nav;?>','<?php echo $item->type_nav;?>')" class="editBtn" title="<?php echo lang('cms_editnav_edit');?>"></a>
+						<a href="javascript:del_nav('<?php echo $item->app_id_nav;?>','<?php echo $item->id_nav;?>','<?php echo $item->order_nav;?>','<?php echo $array_num;?>')" class="deleteBtn" title="<?php echo lang('cms_editnav_delete');?>"></a>
 					</div>
 				</li>
 				<?php endforeach;?>
 			</ul>
 		</div>
 		<div class="dialog pic-edit add-new-nav" id="addNewFuncDialog">
-			<a title="关闭" class="close" href="javascript:void()" onclick="closeAddFuncDialog()">关闭</a>
-			<div class="dialog-hd">添加新导航</div>
+			<a title="<?php echo lang('cms_editapp_close');?>" class="close" href="javascript:void()" onclick="closeAddFuncDialog()"><?php echo lang('cms_editapp_close');?></a>
+			<div class="dialog-hd"><?php echo lang('cms_editnav_addnewnav');?></div>
 			<div class="custom-pic">
 				<div>
-					<span class="label">名称：</span>
+					<span class="label"><?php echo lang('cms_editnav_navname');?>：</span>
 					<input id="new_nav_name" class="inp-text" type="text" value=""/>
 				</div>
 				<div class="icon">
-					<span class="label">图标：</span>
+					<span class="label"><?php echo lang('cms_editnav_navicon');?>：</span>
 					<ul class="clearfix">
 						<li class="icon-click icon-active"><img src="/assets/images/mobile/2.png"/></li>
 						<li class="icon-click"><img src="/assets/images/mobile/3.png"/></li>
@@ -89,99 +89,99 @@
 					</ul>
 				</div>
 				<div class="custom-pic-top">
-					<input id="save_bt" class="save" type="button" value="添加" onclick="add_new_nav('<?php echo $app->id_app?>')">
+					<input id="save_bt" class="save" type="button" value="<?php echo lang('cms_editapp_add');?>" onclick="add_new_nav('<?php echo $app->id_app?>')">
 				</div>
 			</div>
 		</div>
 		<!--导航编辑 对话框 start-->
 		<div class="dialog" id="edit_nav_dialog" style="width: 700px;">
 			<input id="navid_edit" type="hidden">
-			<a title="关闭" class="close" href="javascript:closeEditNavDialog()">关闭</a>
-			<div class="dialog-hd">编辑导航<<span id="edit_nav_name"></span>></div>
-			<div id="waitUpload" style="margin-top:20px;">正在加载...  <img src="/assets/images/cms/loading.gif" ></div>
+			<a title="<?php echo lang('cms_editapp_close');?>" class="close" href="javascript:closeEditNavDialog()"><?php echo lang('cms_editapp_close');?></a>
+			<div class="dialog-hd"><?php echo lang('cms_editnav_editnav');?><<span id="edit_nav_name"></span>></div>
+			<div id="waitUpload" style="margin-top:20px;"><?php echo lang('cms_editnav_loading');?><img src="/assets/images/cms/loading.gif" ></div>
 			<div id="edit_nav_main">
 				<div>
-					<span class="label">>名称：</span>
+					<span class="label">><?php echo lang('cms_editnav_navname');?>：</span>
 					<input type="text" id="edit_name_input">
 				</div>
 				<div class="category">
-					<span class="label">>点击后内容：</span>
+					<span class="label">><?php echo lang('cms_editnav_afterclick');?>：</span>
 					<div class="cat" id="category">
-						<input id="cat1" onclick="cat_click(this,1);" type="button" value="固定页面" class="active">
+						<input id="cat1" onclick="cat_click(this,1);" type="button" value="<?php echo lang('cms_editnav_fixedpage');?>" class="active">
 						<textarea id="cat1_content" style="display:none;"></textarea>
-						<input id="cat2" onclick="cat_click(this,2);" type="button" value="固定二级页面">
-						<input id="cat3" onclick="cat_click(this,3);" type="button" value="文章列表">
-						<input id="cat4" onclick="cat_click(this,4);" type="button" value="表单页">
-						<input id="cat5" onclick="cat_click(this,5);" type="button" value="商城">
-						<input id="cat6" onclick="cat_click(this,6);" type="button" value="链接">
+						<input id="cat2" onclick="cat_click(this,2);" type="button" value="<?php echo lang('cms_editnav_fixedsubpage');?>">
+						<input id="cat3" onclick="cat_click(this,3);" type="button" value="<?php echo lang('cms_editnav_essaylist');?>">
+						<input id="cat4" onclick="cat_click(this,4);" type="button" value="<?php echo lang('cms_editnav_form');?>">
+						<input id="cat5" onclick="cat_click(this,5);" type="button" value="<?php echo lang('cms_editnav_mall');?>">
+						<input id="cat6" onclick="cat_click(this,6);" type="button" value="<?php echo lang('cms_editnav_link');?>">
 						<input id="catval" type="hidden" value="0">
 					</div>
 				</div>
 				<div id="subCategory" class="subCategory">
-					<span class="label">>二级列表：</span>
+					<span class="label">><?php echo lang('cms_editnav_subnavlist');?>：</span>
 					<input id="sub_nav_num" type="hidden" value="0">
 					<div style="margin-bottom:10px;">
-						<input id="new_input" type="text" placeholder="新二级列表项">
-						<input onclick="add_new_sub()" type="button" value="添加二级列表项" class="add-bt">
+						<input id="new_input" type="text" placeholder="<?php echo lang('cms_editnav_newsublist');?>">
+						<input onclick="add_new_sub()" type="button" value="<?php echo lang('cms_editnav_addnewsub');?>" class="add-bt">
 					</div>
 					<ul id="sub_nav_list" class="clearfix"></ul>
 					<div id="update_subnavname" style="margin-top:8px;">
 						<input id="update_subname_input" type="text">
-						<img onclick="update_subname()" src="/assets/images/cms/update.png" width="21" height="21" title="修改" class="update-nav-bt">
-						<img onclick="delete_subnav()" src="/assets/images/cms/del.png" width="20" height="20" title="删除" class="update-nav-bt">
+						<img onclick="update_subname()" src="/assets/images/cms/update.png" width="21" height="21" title="<?php echo lang('cms_editnav_modify');?>" class="update-nav-bt">
+						<img onclick="delete_subnav()" src="/assets/images/cms/del.png" width="20" height="20" title="<?php echo lang('cms_editnav_delete');?>" class="update-nav-bt">
 					</div>
 				</div>
 				<div id="content" style="display:none;">
-					<span class="label">>对应内容：</span>
+					<span class="label">><?php echo lang('cms_editnav_correspond');?>：</span>
 					<input id="current_id" value="cat1_content" type="hidden">
 					<textarea name="description"></textarea>
 				</div>
 				<div id="essay" style="display:none;">
-					<span>内容在“应用管理->应用->内容管理”增加</span>
+					<span><?php echo lang('cms_editnav_addcontenttip');?></span>
 				</div>
 				<div id="mall" style="display:none;">
-					<input type="radio" value="0" name="hascat" checked="true" onclick="select_has_cat('no')">无分类
-					<input id="hascatradio" type="radio" value="1" name="hascat" onclick="select_has_cat('has')">有分类
+					<input type="radio" value="0" name="hascat" checked="true" onclick="select_has_cat('no')"><?php echo lang('cms_editnav_nocat');?>
+					<input id="hascatradio" type="radio" value="1" name="hascat" onclick="select_has_cat('has')"><?php echo lang('cms_editnav_hascat');?>
 					<input id="mall_cat_num" type="hidden" value="0">
 					<div id="mall_cat_info">
 						<input type="text" id="new_cat" class="inp-txt">
-						<input type="button" value="添加" onclick="add_new_mallcat()" class="add-bt">
+						<input type="button" value="<?php echo lang('cms_editapp_add');?>" onclick="add_new_mallcat()" class="add-bt">
 						<ul id="mallcat_list" class="clearfix"></ul>
 						<div id="update_mallcat" style="margin-top:8px;display:none;">
 							<input id="update_mallcatname_input" type="text">
-							<img onclick="update_mallcat()" src="/assets/images/cms/update.png" width="21" height="21" title="修改" class="update-nav-bt">
-							<img onclick="delete_mallcat()" src="/assets/images/cms/del.png" width="20" height="20" title="删除" class="update-nav-bt">
+							<img onclick="update_mallcat()" src="/assets/images/cms/update.png" width="21" height="21" title="<?php echo lang('cms_editnav_modify');?>" class="update-nav-bt">
+							<img onclick="delete_mallcat()" src="/assets/images/cms/del.png" width="20" height="20" title="<?php echo lang('cms_editnav_delete');?>" class="update-nav-bt">
 						</div>
 					</div>
 				</div>
 				<div id="form" class="nav-form" style="display:none;">
-					<span class="label">>表单项：</span>
+					<span class="label">><?php echo lang('cms_editnav_formitem');?>：</span>
 					<input id="form_item_num" type="hidden" value="0">
 					<div style="margin-bottom:10px;">
-						<input id="new_formitem_input" type="text" placeholder="新表单项名称">
+						<input id="new_formitem_input" type="text" placeholder="<?php echo lang('cms_editnav_newformitemname');?>">
 						<select id="form_item_size_add">
-							<option value="short">短文本</option>
-							<option value="long">长文本</option>
+							<option value="short"><?php echo lang('cms_editnav_shorttext');?></option>
+							<option value="long"><?php echo lang('cms_editnav_longtext');?></option>
 						</select>
-						<input onclick="add_new_formitem()" type="button" value="添加表单项" class="add-bt">
+						<input onclick="add_new_formitem()" type="button" value="<?php echo lang('cms_editnav_addformitem');?>" class="add-bt">
 					</div>
 					<ul id="form_item_list" class="clearfix"></ul>
 					<div id="update_form_item" style="margin-top:8px;">
 						<input id="update_formitemname_input" type="text">
 						<select id="form_item_size_update">
-							<option value="short">短文本</option>
-							<option value="long">长文本</option>
+							<option value="short"><?php echo lang('cms_editnav_shorttext');?></option>
+							<option value="long"><?php echo lang('cms_editnav_longtext');?></option>
 						</select>
-						<img onclick="update_formitem()" src="/assets/images/cms/update.png" width="21" height="21" title="修改" class="update-nav-bt">
-						<img onclick="delete_formitem()" src="/assets/images/cms/del.png" width="20" height="20" title="删除" class="update-nav-bt">
+						<img onclick="update_formitem()" src="/assets/images/cms/update.png" width="21" height="21" title="<?php echo lang('cms_editnav_modify');?>" class="update-nav-bt">
+						<img onclick="delete_formitem()" src="/assets/images/cms/del.png" width="20" height="20" title="<?php echo lang('cms_editnav_delete');?>" class="update-nav-bt">
 					</div>
 				</div>
 				<div id="link" style="display:none;">
-					<span class="label">>链接地址：</span>
+					<span class="label">><?php echo lang('cms_editnav_linkurl');?>：</span>
 					<input type="text" id="edit_link_input" value="http://">
 				</div>
 				<div class="bt-div">
-					<input id="save_edit_bt" class="save" type="button" value="保存" onclick="savenav();">
+					<input id="save_edit_bt" class="save" type="button" value="<?php echo lang('cms_editapp_save');?>" onclick="savenav();">
 				</div>
 			</div>
 		</div>

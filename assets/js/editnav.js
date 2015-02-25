@@ -23,6 +23,9 @@ $(document).ready(function(){
 			
 		}
 	});
+	setTimeout(function(){
+		$("#launchImg").fadeOut(1000);
+	},1000)
 });
 function add_nav(){
 	setDivCenter("#addNewFuncDialog");

@@ -29,9 +29,9 @@
 				<a href="/cms/index/logout" title="<?php echo lang('cms_user_logout');?>"><?php echo lang('cms_user_logout');?></a>
 			</li>
 			<li class="language">
-				<a href="javascript:language('zh_cn')" class="<?php echo (!isset($_SESSION['language']) || $_SESSION['language']=="zh_cn")?"active":""?>" target="_blank" title="切换简体中文版">简中</a> <span>|</span>
-				<a href="javascript:language('tw_cn')" class="<?php echo (!isset($_SESSION['language']) || $_SESSION['language']=="tw_cn")?"active":""?>" target="_blank" title="切換繁體中文版">繁中</a> <span>|</span>
-				<a href="javascript:language('english')" class="<?php echo (!isset($_SESSION['language']) || $_SESSION['language']=="english")?"active":""?>" target="_blank" title="Switch to the English version">English</a>
+				<a href="javascript:language('zh_cn')" class="<?php echo (!isset($_SESSION['language']) || $_SESSION['language']=="zh_cn")?"active":""?>" title="切换简体中文版">简中</a> <span>|</span>
+				<a href="javascript:language('tw_cn')" class="<?php echo (!isset($_SESSION['language']) || $_SESSION['language']=="tw_cn")?"active":""?>" title="切換繁體中文版">繁中</a> <span>|</span>
+				<a href="javascript:language('english')" class="<?php echo (!isset($_SESSION['language']) || $_SESSION['language']=="english")?"active":""?>" title="Switch to the English version">English</a>
 			</li>
         </ul>
     </div>

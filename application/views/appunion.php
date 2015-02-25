@@ -20,10 +20,10 @@
 						</a>
 						<div class="union-list-app-detail">
 							<a href="/market/app?appid=<?php echo $a->id_app;?>" target="_blank" title="<?php echo $a->name_app;?>" class="appName ofh"><?php echo $a->name_app;?></a>
-							<span class="download">下载<?php echo $a->download_time_app;?>次</span>
+							<span class="download"><?php echo lang('market_home_download');?><?php echo $a->download_time_app;?><?php echo lang('market_home_times');?></span>
 							<div class="stars center star<?php echo $a->star?>" style="margin:10px 0 0 0;"></div>
 							<div class="down">
-								<span onclick="window.open('/market/app?appid=<?php echo $a->id_app;?>');" style="top: 0px;">下载</span>
+								<span onclick="window.open('/market/app?appid=<?php echo $a->id_app;?>');" style="top: 0px;"><?php echo lang('market_home_download');?></span>
 							</div>
 						</div>
 					</div>
@@ -39,11 +39,11 @@
 	<div class="clearboth"></div>
 	<div class="page-box">
 		<div class="inlineblock clearfix pagin">
-			<a href="<?php echo $prev_link=="no"?"javascript:void()":$prev_link;?>" class="prev"><i></i>上一页</a>
+			<a href="<?php echo $prev_link=="no"?"javascript:void()":$prev_link;?>" class="prev"><i></i><?php echo lang('market_home_previouspage');?></a>
 			<?php for($i=$start;$i<=$end;$i++):?>
 			<a href="<?php echo $jump_link.$i;?>" <?php echo $i==$page?'class="current"':"";?>><?php echo $i;?></a>
 			<?php endfor;?>
-			<a href="<?php echo $next_link=="no"?"javascript:void()":$next_link;?>" class="next">下一页<i></i></a>
+			<a href="<?php echo $next_link=="no"?"javascript:void()":$next_link;?>" class="next"><?php echo lang('market_home_nextpage');?><i></i></a>
 		</div>
 	</div>
 </div>

@@ -20,16 +20,12 @@
 				<span id="userShowName"><?php echo $_SESSION['username'];?></span>
 			</li>
 			<li class="message">
-				<a href="#nogo" title="消息" id="js-openmsg">
+				<a href="/kmadmin/admin/message" title="消息" id="js-openmsg">
                 <img src="/assets/images/cms/ico_mail.png" width="24" height="24"></a>
 				<span id="unreadMesNumber"></span>
 			</li>
 			<li class="logout">
 				<a href="/kmadmin/admin/logout" title="退出">退出</a>
-			</li>
-			<li class="language">
-				中文 <span>|</span>
-				<a href="" target="_blank" title="切换英文版">English</a>
 			</li>
         </ul>
     </div>

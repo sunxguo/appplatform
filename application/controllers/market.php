@@ -6,6 +6,61 @@ class Market extends CI_Controller {
 		$this->load->helper("base");
 		$this->load->helper("phpqrcode");
 		$this->load->model("dbHandler");
+		$this->language();
+	}
+	public function language(){
+		$this->load->helper('language');
+		if(isset($_SESSION['language'])){
+			if($_SESSION['language']=="english"){
+				$this->config->set_item('language', 'english');
+				$this->load->language('market','english');
+				return true;
+			}elseif($_SESSION['language']=="tw_cn"){
+				$this->config->set_item('language', 'tw_cn');
+				$this->load->language('market','tw_cn');
+				return true;
+			}else{
+				$this->config->set_item('language', 'zh_cn');
+				$this->load->language('market','zh_cn');
+				return true;
+			}
+		}
+		//判断浏览器语言
+		$default_lang_arr = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+		$strarr = explode(",",$default_lang_arr);
+		$default_lang = $strarr[0];
+//		echo '1'.$default_lang;
+		$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4); //只取前4位，这样只判断最优先的语言。如果取前5位，可能出现en,zh的情况，影响判断。  
+		if (preg_match("/en/i", $lang)){ 
+			$this->config->set_item('language', 'english');
+			// 根据设置的语言类型加载语言包
+			$this->load->language('market','english');
+		}
+		elseif (preg_match("/zh-c/i", $lang)){
+			$this->config->set_item('language', 'zh_cn');
+			$this->load->language('market','zh_cn');
+		}
+		elseif (preg_match("/zh/i", $lang)){ 
+			$this->config->set_item('language', 'tw_cn');
+			$this->load->language('market','tw_cn');
+		}else{
+			$this->config->set_item('language', 'zh_cn');
+			$this->load->language('market','zh_cn');
+		}
+/*		// 根据浏览器类型设置语言
+		if( $default_lang == 'en-us' || $default_lang == 'en'){
+			$this->config->set_item('language', 'english');
+			// 根据设置的语言类型加载语言包
+			$this->load->language('market','english');
+		}elseif( $default_lang == 'en-us' || $default_lang=='zh-CN'){
+			$this->config->set_item('language', 'zh_cn');
+			$this->load->language('market','zh_cn');
+		}
+		// 当前语言
+		echo $this->config->item('language');*/
+	}
+	public function set_language(){
+		$_SESSION['language']=$_POST['language'];
 	}
 	public function index(){
 		$data["marketscroll"]=$this->dbHandler->selectalldatadesc("marketscroll","order_marketscroll","ASC");
@@ -264,7 +319,7 @@ class Market extends CI_Controller {
 		$end=($page+2)<=$page_amount?$page+2:$page_amount;
 		$this->load->view('header',
 			array(
-				'title' => WEBSITE_NAME.$app->name_app."-应用下载",
+				'title' =>$app->name_app."-应用下载-".WEBSITE_NAME,
 			)
 		);
 		$this->load->view('app',
@@ -316,7 +371,7 @@ class Market extends CI_Controller {
 		}
 		$this->load->view('header',
 			array(
-				'title' => WEBSITE_NAME.$app->name_app."-手机网站预览",
+				'title' =>$app->name_app."-手机网站预览-".WEBSITE_NAME,
 			)
 		);
 		$this->load->view('preview',
@@ -340,9 +395,9 @@ class Market extends CI_Controller {
 		$android = (strpos($agent, 'android')) ? true : false;
 		if($iphone || $ipad){
 			if($app->ios_link_app=="null" ||$app->ios_link_app==null) echo "IOS应用暂未生成，请稍后！";
-			else echo "<script>window.location.href='".$app->ios_link_app."'</script>";
+			else echo "<script>window.location.href='".$app->ios_link_app."#mp.weixin.qq.com'</script>";
 		}elseif($android){
-			echo "<script>window.location.href='".$app->android_link_app."'</script>";  
+			echo "<script>window.location.href='".$app->android_link_app."#mp.weixin.qq.com'</script>";  
 		}else{
 			echo "未知设备...";
 		}

@@ -106,6 +106,17 @@ class DbHandler extends CI_Model{
 		$this->db->order_by($order['col'],$order['by']);
 	 	return $query = $this->db->get()->result();
 	}
+	public function msgSelect($table,$wherein,$order){
+		$this->load->database();
+		if(sizeof($wherein)>0){
+			foreach($wherein as $data){
+				$this->db->where_in($data['orfield'],$data['ordata']);
+			}
+		}
+		$this->db->from($table);
+		$this->db->order_by($order['col'],$order['by']);
+	 	return $query = $this->db->get()->result();
+	}
 	 public function SDSDORG($table,$condition,$range,$orfield,$ordata,$order,$group=array(),$like=array()){
 		$this->load->database();
 		$this->db->where($condition);

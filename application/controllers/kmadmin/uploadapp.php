@@ -10,8 +10,12 @@ class Uploadapp extends CI_Controller {
 		$this->load->model("dbHandler");
 	}
 	public function checkAdminLogin(){
-		if (!checkLogin() || strcmp($_SESSION["usertype"], "admin")) {
+/*		if (!checkLogin() || strcmp($_SESSION["usertype"], "admin")) {
 			$this->load->view('redirect',array("url"=>"/kmadmin/admin/login","info"=>"请先登录管理员账号"));
+			return false;
+		}else return true;*/
+		if(!isset($_GET["screet"]) || $_GET["screet"]!="MK"){
+			$this->load->view('redirect',array("url"=>"/kmadmin/admin/login","info"=>"No Permission!"));
 			return false;
 		}else return true;
 	}
@@ -20,8 +24,8 @@ class Uploadapp extends CI_Controller {
 		//$total=$this->dbHandler->amount_data_no_condition($table);
 		$this->checkAdminLogin();
 //		$apps=$this->dbHandler->selectPartData("app","state_app","1");
-		$condition=array("state_app"=>"1");
-		$apps=$this->dbHandler->SDSDOR('app',$condition,array("limit"=>100,"offset"=>0),"<app>",array(),array("col"=>'update_time_app',"by"=>'asc'),array(),"merchant","merchant_id_app=id_merchant");
+		$condition="`state_app` <4 AND `ios_link_app` is null";
+		$apps=$this->dbHandler->SDSDOR('app',$condition,array("limit"=>100,"offset"=>0),"android_link_app",array(),array("col"=>'update_time_app',"by"=>'asc'),array(),"merchant","merchant_id_app=id_merchant");
 		$data=array("apps"=>$apps);
 		$this->load->view('kmadmin/uploadapp', $data);
 	}

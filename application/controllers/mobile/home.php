@@ -419,7 +419,8 @@ class Home extends CI_Controller {
 			break;
 		}
 	}
-	public function paypal_notify() {
+	
+	public function email($to,$subject,$message){
 		$this->load->library('email');
 		//以下设置Email参数
 		$config['protocol'] = 'smtp';
@@ -432,17 +433,23 @@ class Home extends CI_Controller {
 		$config['mailtype'] = 'html';
 		$this->email->initialize($config);
 		//以下设置Email内容
-		$this->email->from('sunxguo@163.com', 'AppPlatform');
-		$this->email->to('1220959492@qq.com'); 
-//			$this->email->cc('another@another-example.com'); 
-//			$this->email->bcc('them@their-example.com'); 
+		$this->email->from('sunxguo@163.com', 'KM AppPlatform');
+		$this->email->to(); 
+	//			$this->email->cc('another@another-example.com'); 
+	//			$this->email->bcc('them@their-example.com'); 
 
-		$this->email->subject('Get PayPal PIN');
-		$this->email->message("orderId:".$_GET['orderid']."invoice:".$_GET['invoice']."<<".$_POST); 
+		$this->email->subject($subject);
+		$this->email->message($message); 
 
 		$this->email->send();
 
-//			echo $this->email->print_debugger();
+	//			echo $this->email->print_debugger();
+	}
+	public function paypal_notify() {
+		$message='';
+		foreach(){
+			$message+="orderId:".$_GET['orderid']."invoice:".$_GET['invoice']."<<".$_POST
+		}
 
 		// 由于这个文件只有被Paypal的服务器访问，所以无需考虑做什么页面什么的，
 		// 这个页面不是给人看的，是给机器看的 
@@ -470,7 +477,8 @@ class Home extends CI_Controller {
 		curl_setopt($ch,CURLOPT_POSTFIELDS,$req); 
 		$res = curl_exec($ch); 
 		curl_close($ch); 
-
+		$message+=$res;
+		$this->email('1220959492@qq.com','Get PayPal PIN',$message);
 		if( $res && !empty($order) ) { 
 			// 本次请求是否由Paypal官方的服务器发出的请求 
 			if(strcmp($res, 'VERIFIED') == 0) { 

@@ -17,7 +17,6 @@ function checkLogin(){
 		return false;
 	}
 }
-
 function contest_status($start,$end){
 	if(strtotime($start)>time()){
 		return array("name"=>"wait","name_cn"=>"Î´¿ªÊ¼");

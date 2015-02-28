@@ -15,6 +15,7 @@
 <body scroll="no">
 <div id="all">
 	<input type="hidden" id="appid" value="<?php echo $_GET["appid"];?>">
+	<input type="hidden" id="website" value="<?php echo WEBSITE_URL;?>">
 	<?php if($app->template_app==1):?>
 	<div class="sider" id="sider">
 		<div class="search">

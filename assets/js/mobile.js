@@ -824,6 +824,9 @@ function checkOrders(){
 		}
 	});
 }
+var this_order_amount=0;
+var this_order_product="";
+var this_order_business="sunxguo-facilitator@163.com";
 function order_click(orderid){
 	$("#goBackUC_bt").hide();
 	$("#goBackUCOrders_bt").show();
@@ -855,6 +858,7 @@ function order_click(orderid){
 			'			</li>	';
 			for(var i=0;i<products.length;i++){
 				var thumbnails=$.parseJSON(products[i].info.thumbnail_product);
+				this_order_product+=products[i].info.name_product+'&';
 				order+=''+
 				'		<li>	'+
 				'			<div class="order-box">	'+
@@ -908,6 +912,8 @@ function order_click(orderid){
 			}
 			order+=state_display+'	</div>	';
 			$("#main_body").html(order);
+			this_order_amount=orderinfo.total_order;
+			this_order_business=orderinfo.business_paypal;
 		}else{
 			alert("获取订单失败，请重试！");
 		}
@@ -916,6 +922,8 @@ function order_click(orderid){
 var currentOrderId='';
 function paychoose(orderid){
 	currentOrderId=orderid;
+	var appid=$("#appid").val();
+	var website=$("#website").val();
 	var choose_div=''+
 		'	<div class="common-wrapper choosePay">	'+
 		'		<ul>	'+
@@ -928,10 +936,36 @@ function paychoose(orderid){
 		'			<li onclick="pay(\'upmp_wap\')">	'+
 		'				<img src="/assets/images/mobile/zxzf.jpg">	'+
 		'			</li>	'+
+		'			<li>	'+
+		'				<form action="https://www.sandbox.paypal.com/cn/cgi-bin/webscr" method="post">	'+
+		'				<input type="hidden" name="cmd" value="_xclick">	'+
+		'				<input type="hidden" name="business" value="'+this_order_business+'">	'+
+		'				<input type="hidden" name="item_name" value="'+this_order_product+'">	'+
+		'				<input type="hidden" name="currency_code" value="USD">	'+
+		'				<input type="hidden" name="amount" value="'+this_order_amount+'">	'+
+		'				<input type="hidden" name="return" value="'+website+'/mobile/home?appid='+appid+'">		'+
+		'				<input type="hidden" name="notify_url" value="'+website+'/mobile/home/paypal_notify">		'+
+		'				<input type="hidden" name="invoice" value="'+orderid+'">	'+
+		'				<input type="image" src="http://www.paypal.com/zh_CN/i/btn/x-click-but01.gif" name="submit" alt="PayPal">	'+
+		'				</form>	'
+		'			</li>	'+
 		'		</ul>	'+
 		'	</div>	';
 	$("#main_body").html(choose_div);
 }
+/*function paypal(){
+	var paypal_div=''+
+		'	<form action="https://www.sandbox.paypal.com/cn/cgi-bin/webscr" method="post">	'+
+		'		<input type="hidden" name="cmd" value="_xclick">	'+
+		'		<input type="hidden" name="business" value="sunxguo-facilitator@163.com">	'+
+		'		<input type="hidden" name="item_name" value="iphone 6">	'+
+		'		<input type="hidden" name="currency_code" value="USD">	'+
+		'		<input type="hidden" name="amount" value="1.00">	'+
+		'		<input type="image" src="http://www.paypal.com/zh_CN/i/btn/x-click-but01.gif" name="submit" alt="PayPal">	'+
+		'	</form>	';
+	$("#main_body").html(paypal_div);
+	
+}*/
 function pay(channel){
 	$.post(
 	"/mobile/home/pay",

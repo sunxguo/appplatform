@@ -163,7 +163,12 @@ class Home extends CI_Controller {
 			case "order":
 				$orderid=$_POST['orderid'];
 				$order=$this->dbHandler->selectPartData('order','id_order',$orderid);
-				$msg=$order[0];
+				$msg=$order=$order[0];
+				$app=$this->dbHandler->selectPartData('app','id_app',$order->appid_order);
+				$app=$app[0];
+				$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$app->merchant_id_app);
+				$merchant=$merchant[0];
+				$msg->business_paypal=$merchant->paypal_merchant;
 			break;
 			case "msglist":
 				$msg=$this->dbHandler->SDSDUNROR('message',array("type_message"=>"3"),"to_message",array(0,$_SESSION["appuserid"]),array("col"=>'time_message',"by"=>'desc'));
@@ -329,7 +334,7 @@ class Home extends CI_Controller {
 			array(
 				"order_no"  => $order->num_order,  //商户系统自己生成的订单号
 				"app"       => array("id" => $app->pingid_app),  //Ping++ 分配给商户的应用 ID
-				"amount"    => $order->total_order,  //交易金额
+				"amount"    => ($order->total_order)*100,  //交易金额
 				"channel"   => $_POST['channel'],  //交易渠道
 				"currency"  => "cny",
 				"client_ip" => $_SERVER["REMOTE_ADDR"],  //发起交易的客户端的 IP
@@ -414,6 +419,59 @@ class Home extends CI_Controller {
 			break;
 		}
 	}
+	public function paypal_notify() { 
+		// 由于这个文件只有被Paypal的服务器访问，所以无需考虑做什么页面什么的，
+		// 这个页面不是给人看的，是给机器看的 
+		$order_id = (int) $_GET['orderid']; 
+		$order=$this->dbHandler->selectPartData('order','id_order',$order_id);
+		$order=$order[0];
+		$app=$this->dbHandler->selectPartData('app','id_app',$order->appid_order);
+		$app=$app[0];
+		$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$app->merchant_id_app);
+		$merchant=$merchant[0];
+		// 由于该URL不仅仅只有Paypal的服务器能访问，其他任何服务器都可以向该方法发起请求。
+		// 所以要判断请求发起的合法性，也就是要判断请求是否是paypal官方服务器发起的 
+
+		// 拼凑 post 请求数据 
+		$req = 'cmd=_notify-validate';// 验证请求 
+		foreach ($_POST as $k=>$v){ 
+			$v = urlencode(stripslashes($v)); 
+			$req .= "&{$k}={$v}"; 
+		} 
+
+		$ch = curl_init(); 
+		curl_setopt($ch,CURLOPT_URL,'http://www.sandbox.paypal.com/cgi-bin/webscr'); 
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); 
+		curl_setopt($ch,CURLOPT_POST,1); 
+		curl_setopt($ch,CURLOPT_POSTFIELDS,$req); 
+		$res = curl_exec($ch); 
+		curl_close($ch); 
+
+		if( $res && !empty($order) ) { 
+			// 本次请求是否由Paypal官方的服务器发出的请求 
+			if(strcmp($res, 'VERIFIED') == 0) { 
+				/** 
+				* 判断订单的状态 
+				* 判断订单的收款人 
+				* 判断订单金额 
+				* 判断货币类型 
+				*/ 
+				if(($_POST['payment_status'] != 'Completed' && $_POST['payment_status'] != 'Pending')
+				 OR ($_POST['receiver_email'] != $merchant->paypal_merchant)
+				  OR ($_POST['mc_gross'] != 13)
+				   OR ('USD' != $_POST['mc_currency'])) { 
+				// 如果有任意一项成立，则终止执行。由于是给机器看的，所以不用考虑什么页面。直接输出即可 
+					exit('fail'); 
+				} else {// 如果验证通过，则证明本次请求是合法的 
+					//D('Order')->finishOrder($order_id);// 更改订单状态 
+					$this->dbHandler->updatedata("order",array("state_order"=>1),"num_order",$order_id);
+					exit('success'); 
+				} 
+			} else { 
+				exit('fail'); 
+			} 
+		} 
+	} 
 	public function get_order_num(){
 		$order_num = time();
 		return $order_num .= rand(1000,9999);

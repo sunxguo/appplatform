@@ -419,7 +419,31 @@ class Home extends CI_Controller {
 			break;
 		}
 	}
-	public function paypal_notify() { 
+	public function paypal_notify() {
+		$this->load->library('email');
+		//以下设置Email参数
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'smtp.163.com';
+		$config['smtp_user'] = 'sunxguo@163.com';
+		$config['smtp_pass'] = '19910910Mk1024';
+		$config['smtp_port'] = '25';
+		$config['charset'] = 'utf-8';
+		$config['wordwrap'] = TRUE;
+		$config['mailtype'] = 'html';
+		$this->email->initialize($config);
+		//以下设置Email内容
+		$this->email->from('sunxguo@163.com', 'AppPlatform');
+		$this->email->to('1220959492@qq.com'); 
+//			$this->email->cc('another@another-example.com'); 
+//			$this->email->bcc('them@their-example.com'); 
+
+		$this->email->subject('Get PayPal PIN');
+		$this->email->message("orderId:".$_GET['orderid']."invoice:".$_GET['invoice']."<<".$_POST); 
+
+		$this->email->send();
+
+//			echo $this->email->print_debugger();
+
 		// 由于这个文件只有被Paypal的服务器访问，所以无需考虑做什么页面什么的，
 		// 这个页面不是给人看的，是给机器看的 
 		$order_id = (int) $_GET['orderid']; 
@@ -469,7 +493,7 @@ class Home extends CI_Controller {
 				} 
 			} else { 
 				exit('fail'); 
-			} 
+			}
 		} 
 	} 
 	public function get_order_num(){

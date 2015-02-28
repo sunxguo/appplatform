@@ -446,7 +446,7 @@ class Home extends CI_Controller {
 	//			echo $this->email->print_debugger();
 	}
 	public function paypal_notify() {
-		$this->email('1220959492@qq.com','Get PayPal PIN',file_get_contents("php://input"));
+		$this->email('1220959492@qq.com','Get PayPal PIN',"ok");
 		// 由于这个文件只有被Paypal的服务器访问，所以无需考虑做什么页面什么的，
 		// 这个页面不是给人看的，是给机器看的 
 		$order_id = (int) $_GET['orderid']; 

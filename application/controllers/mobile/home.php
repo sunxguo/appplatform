@@ -445,23 +445,21 @@ class Home extends CI_Controller {
 
 	//			echo $this->email->print_debugger();
 	}
-	public function test(){
-		print_r($_POST);
-		$content="mc_gross=25.00&invoice=18&protection_eligibility=Eligible&address_status=confirmed&payer_id=SXZZVBRD9D4JJ&tax=0.00&address_street=1+Main+St&payment_date=05%3A23%3A07+Mar+01%2C+2015+PST&payment_status=Completed&charset=windows-1252&address_zip=95131&first_name=test&mc_fee=1.03&address_country_code=US&address_name=test+buyer¬ify_version=3.8&custom=&payer_status=verified&business=sunxguo-facilitator%40163.com&address_country=United+States&address_city=San+Jose&quantity=1&verify_sign=ACkCvEsJvmOecWFvZsZ4A2g5Nt9MApZMHtotk5..k3ZcBn3q0UA7WuLa&payer_email=sunxguo-buyer%40163.com&txn_id=1VL90883LX3271452&payment_type=instant&last_name=buyer&address_state=CA&receiver_email=sunxguo-facilitator%40163.com&payment_fee=1.03&receiver_id=XX2RXQZAHTW58&txn_type=web_accept&item_name=iphone6+plus+64G%26&mc_currency=USD&item_number=&residence_country=US&test_ipn=1&handling_amount=0.00&transaction_subject=iphone6+plus+64G%26&payment_gross=25.00&shipping=0.00&ipn_track_id=e5af3dcbf778";
-		$notify = json_decode($content);
-		print_r($notify);
+	public function convert_input_data($data){
+		$new_array=array();
+		$arr = explode("&",$content);
+		foreach($arr as $u){
+			$strarr = explode("=",$u);
+			$new_array[$strarr[0]]=$strarr[1];
+		}
+		return $new_array;
 	}
 	public function paypal_notify() {
-		$message="";
-		foreach ($_POST as $k=>$v){
-			$message+="【key:".$k."=>value:".$v."】";
-		}
-		$this->email('1220959492@qq.com','Get PayPal PIN',$message);
-		$notify = json_decode(file_get_contents("php://input"));
-		//$this->email('1220959492@qq.com','Get PayPal PIN',"data2:".$notify->invoice);
+		$notify = $this->convert_input_data(file_get_contents("php://input"));
+		$this->email('1220959492@qq.com','Get PayPal PIN',"data2:".$notify['invoice']);
 		// 由于这个文件只有被Paypal的服务器访问，所以无需考虑做什么页面什么的，
 		// 这个页面不是给人看的，是给机器看的 
-		$order_id = (int) $notify->invoice; 
+		$order_id = (int) $notify['invoice']; 
 		$order=$this->dbHandler->selectPartData('order','id_order',$order_id);
 		$order=$order[0];
 		$app=$this->dbHandler->selectPartData('app','id_app',$order->appid_order);
@@ -473,8 +471,8 @@ class Home extends CI_Controller {
 
 		// 拼凑 post 请求数据 
 		$req = 'cmd=_notify-validate';// 验证请求 
-		$message="invoice:".$notify->invoice;
-		foreach ((array)$notify as $k=>$v){ 
+		$message="invoice:".$notify['invoice'];
+		foreach ($notify as $k=>$v){ 
 			$v = urlencode(stripslashes($v)); 
 			$req .= "&{$k}={$v}";
 			$message+="【key:".$k."=>value:".$v."】";
@@ -495,10 +493,10 @@ class Home extends CI_Controller {
 				* 判断订单金额 
 				* 判断货币类型 
 				*/ 
-				if(($$notify->payment_status != 'Completed' && $notify->payment_status != 'Pending')
-				 OR ($notify->receiver_email != $merchant->paypal_merchant)
-				  OR ($notify->mc_gross != 13)
-				   OR ('USD' != $notify->mc_currency)) { 
+				if(($$notify['payment_status'] != 'Completed' && $notify['payment_status'] != 'Pending')
+				 OR ($notify['receiver_email'] != $merchant['paypal_merchant'])
+				  OR ($notify['mc_gross'] != 13)
+				   OR ('USD' != $notify['mc_currency'])) { 
 				// 如果有任意一项成立，则终止执行。由于是给机器看的，所以不用考虑什么页面。直接输出即可 
 					exit('fail'); 
 				} else {// 如果验证通过，则证明本次请求是合法的 

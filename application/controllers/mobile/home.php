@@ -447,7 +447,7 @@ class Home extends CI_Controller {
 	}
 	public function convert_input_data($data){
 		$new_array=array();
-		$arr = explode("&",$content);
+		$arr = explode("&",$data);
 		foreach($arr as $u){
 			$strarr = explode("=",$u);
 			$new_array[$strarr[0]]=$strarr[1];

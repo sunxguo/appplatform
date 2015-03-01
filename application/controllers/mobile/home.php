@@ -446,10 +446,10 @@ class Home extends CI_Controller {
 	//			echo $this->email->print_debugger();
 	}
 	public function paypal_notify() {
-		//$notify = json_decode(file_get_contents("php://input"));
+		$notify = (array)json_decode(file_get_contents("php://input"));
 		// 由于这个文件只有被Paypal的服务器访问，所以无需考虑做什么页面什么的，
 		// 这个页面不是给人看的，是给机器看的 
-		$order_id = (int) $_POST["invoice"]; 
+		$order_id = (int) $notify["invoice"]; 
 		$order=$this->dbHandler->selectPartData('order','id_order',$order_id);
 		$order=$order[0];
 		$app=$this->dbHandler->selectPartData('app','id_app',$order->appid_order);
@@ -461,8 +461,8 @@ class Home extends CI_Controller {
 
 		// 拼凑 post 请求数据 
 		$req = 'cmd=_notify-validate';// 验证请求 
-		$message="invoice:".$_POST["invoice"];
-		foreach ($_POST as $k=>$v){ 
+		$message="invoice:".$notify["invoice"];
+		foreach ($notify as $k=>$v){ 
 			$v = urlencode(stripslashes($v)); 
 			$req .= "&{$k}={$v}";
 			$message+="【key:".$k."=>value:".$v."】";
@@ -484,10 +484,10 @@ class Home extends CI_Controller {
 				* 判断订单金额 
 				* 判断货币类型 
 				*/ 
-				if(($_POST['payment_status'] != 'Completed' && $_POST['payment_status'] != 'Pending')
-				 OR ($_POST['receiver_email'] != $merchant->paypal_merchant)
-				  OR ($_POST['mc_gross'] != 13)
-				   OR ('USD' != $_POST['mc_currency'])) { 
+				if(($notify['payment_status'] != 'Completed' && $notify['payment_status'] != 'Pending')
+				 OR ($notify['receiver_email'] != $merchant->paypal_merchant)
+				  OR ($notify['mc_gross'] != 13)
+				   OR ('USD' != $notify['mc_currency'])) { 
 				// 如果有任意一项成立，则终止执行。由于是给机器看的，所以不用考虑什么页面。直接输出即可 
 					exit('fail'); 
 				} else {// 如果验证通过，则证明本次请求是合法的 

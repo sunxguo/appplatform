@@ -446,7 +446,7 @@ class Home extends CI_Controller {
 	//			echo $this->email->print_debugger();
 	}
 	public function paypal_notify() {
-		$this->email('1220959492@qq.com','Get PayPal PIN',"Begin>><br>");
+		$this->email('1220959492@qq.com','Get PayPal PIN',"data:".file_get_contents("php://input"));
 		// 由于这个文件只有被Paypal的服务器访问，所以无需考虑做什么页面什么的，
 		// 这个页面不是给人看的，是给机器看的 
 		$order_id = (int) $_GET['orderid']; 
@@ -467,7 +467,6 @@ class Home extends CI_Controller {
 			$req .= "&{$k}={$v}";
 			$message+="key:".$k."=>value:".$v;
 		}
-		$this->email('1220959492@qq.com','Get PayPal PIN',"data:".$message."<br>");
 		$ch = curl_init(); 
 		curl_setopt($ch,CURLOPT_URL,'http://www.sandbox.paypal.com/cgi-bin/webscr'); 
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); 
@@ -475,7 +474,6 @@ class Home extends CI_Controller {
 		curl_setopt($ch,CURLOPT_POSTFIELDS,$req); 
 		$res = curl_exec($ch); 
 		curl_close($ch);
-		$this->email('1220959492@qq.com','Get PayPal PIN',"result:".$res."<br><<End");
 		if( $res && !empty($order) ) { 
 			// 本次请求是否由Paypal官方的服务器发出的请求 
 			if(strcmp($res, 'VERIFIED') == 0) { 

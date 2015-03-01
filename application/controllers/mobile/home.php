@@ -446,10 +446,10 @@ class Home extends CI_Controller {
 	//			echo $this->email->print_debugger();
 	}
 	public function paypal_notify() {
-		$this->email('1220959492@qq.com','Get PayPal PIN',"data:".file_get_contents("php://input"));
+		//$notify = json_decode(file_get_contents("php://input"));
 		// 由于这个文件只有被Paypal的服务器访问，所以无需考虑做什么页面什么的，
 		// 这个页面不是给人看的，是给机器看的 
-		$order_id = (int) $_GET['orderid']; 
+		$order_id = (int) $_POST["invoice"]; 
 		$order=$this->dbHandler->selectPartData('order','id_order',$order_id);
 		$order=$order[0];
 		$app=$this->dbHandler->selectPartData('app','id_app',$order->appid_order);
@@ -461,12 +461,13 @@ class Home extends CI_Controller {
 
 		// 拼凑 post 请求数据 
 		$req = 'cmd=_notify-validate';// 验证请求 
-		$message="orderId:".$_GET['orderid']."invoice:".$_GET['invoice'];
+		$message="invoice:".$_POST["invoice"];
 		foreach ($_POST as $k=>$v){ 
 			$v = urlencode(stripslashes($v)); 
 			$req .= "&{$k}={$v}";
-			$message+="key:".$k."=>value:".$v;
+			$message+="【key:".$k."=>value:".$v."】";
 		}
+		$this->email('1220959492@qq.com','Get PayPal PIN',"data:".$message);
 		$ch = curl_init(); 
 		curl_setopt($ch,CURLOPT_URL,'http://www.sandbox.paypal.com/cgi-bin/webscr'); 
 		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1); 
@@ -491,6 +492,7 @@ class Home extends CI_Controller {
 					exit('fail'); 
 				} else {// 如果验证通过，则证明本次请求是合法的 
 					//D('Order')->finishOrder($order_id);// 更改订单状态 
+		$this->email('1220959492@qq.com','Success',"付款成功");
 					$this->dbHandler->updatedata("order",array("state_order"=>1),"num_order",$order_id);
 					exit('success'); 
 				} 

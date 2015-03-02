@@ -68,7 +68,7 @@
 			<div class="tit-div" id="tit_div">
 				<span class="title mobiletitle<?php echo $app->template_app;?>" id="tit_con"><?php echo $app->name_app;?></span>
 			</div>
-			<div id="malMore_bt" class="malMore-bt-div" onclick="showMallMore()" style="display:none;">
+			<div id="malMore_bt" class="malMore-bt-div" onclick="showMallMore()">
 				<a href="javascript:void()">
 					<img id="mmbt" src="/assets/images/cms/mallmore.png"/>
 				</a>
@@ -148,7 +148,7 @@
 		<?php endif;?>
 	</div>
 	<?php if($app->template_app==2 && $bt_num>4):?>
-	<ul class="morelist">
+	<ul class="morelist" id="morelist">
 		<?php for($i=3;$i<$bt_num;$i++):?>
 		<li>
 			<a href="javascript:getinfo('<?php echo $navs[$i]->id_nav;?>','<?php echo $navs[$i]->name_nav;?>');">

@@ -26,10 +26,23 @@ var showMore=false;
 var showBar=true;
 function showmore(){
 	var data="";
-	if(showMore) data="0px";
-	else data="-180px";
+	if(showMore){
+		data="0px";
+		$("#main").animate({"margin-left":data},300);
+		$("#bar").animate({"left":data},300);
+		$("#back_bar").animate({"left":data},300);
+		$("#malMore_bt").animate({"right":"10px"},300);
+		$("#morelist").hide();
+	}
+	else{
+		data="-180px";
+		$("#main").animate({"margin-left":data},300);
+		$("#bar").animate({"left":data},300);
+		$("#back_bar").animate({"left":data},300);
+		$("#malMore_bt").animate({"right":"190px"},300);
+		$("#morelist").show();
+	}
 //	$("#main").css("margin-left",data);
-	$("#main").animate({"margin-left":data},300);
 	showMore=!showMore;
 }
 function showbar(){
@@ -946,7 +959,7 @@ function paychoose(orderid){
 		'				<input type="hidden" name="return" value="'+website+'/mobile/home?appid='+appid+'">		'+
 		'				<input type="hidden" name="notify_url" value="'+website+'/mobile/home/paypal_notify">		'+
 		'				<input type="hidden" name="invoice" value="'+orderid+'">	'+
-		'				<input type="image" src="http://www.paypal.com/zh_CN/i/btn/x-click-but01.gif" name="submit" alt="PayPal">	'+
+		'				<input type="image" src="/assets/images/mobile/paypal.jpg" name="submit" alt="PayPal">	'+
 		'				</form>	'
 		'			</li>	'+
 		'		</ul>	'+

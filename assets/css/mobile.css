@@ -147,12 +147,10 @@ body{
 	height:100%;
 }
 .productlist li .detail{
-	position:absolute;
 	width:60%;
 	right: 0px;
-	height:95px;
-	margin:5px;
-	float:left;
+	height:90px;
+	float: right;
 }
 .productlist li .detail .title{
 	width:95%;
@@ -1000,8 +998,8 @@ display: block;
 .main .bar,
 .main .backbar{
 	width:100%;
-	position: relative;
-	bottom: 58px;
+	position: fixed;
+	bottom: 0px;
 	background: #75A341;
 	height:58px;
 }
@@ -1054,6 +1052,7 @@ display: block;
 	right:0px;*/
 	float:right;
 	background-color: rgb(84, 112, 111);
+	display:none;
 }
 .morelist li{
 	float:left;
@@ -1106,6 +1105,10 @@ display: block;
 .choosePay ul li img{
 	width:120px;
 	margin:10px auto;
+	display: block;
+}
+.choosePay ul li input[name="submit"]{
 	width:120px;
+	margin:10px auto;
 	display: block;
 }

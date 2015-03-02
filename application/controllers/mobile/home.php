@@ -474,10 +474,8 @@ class Home extends CI_Controller {
 		$notify["cmd"]="_notify-validate";
 		$url='https://www.sandbox.paypal.com/cgi-bin/webscr';
 		$res=httpPost($url, $notify);
-		$res="VERIFIED";
 		if( $res && !empty($order) ) {
-			// 本次请求是否由Paypal官方的服务器发出的请求 
-					
+			// 本次请求是否由Paypal官方的服务器发出的请求 	
 			if(strcmp($res, 'VERIFIED') == 0) { 
 				/** 
 				* 判断订单的状态 

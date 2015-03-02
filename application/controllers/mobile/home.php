@@ -475,7 +475,6 @@ class Home extends CI_Controller {
 		$url='https://www.sandbox.paypal.com/cgi-bin/webscr';
 		$res=httpPost($url, $notify);
 		if( $res && !empty($order) ) {
-			$this->email('1220959492@qq.com','result',$res);
 			// 本次请求是否由Paypal官方的服务器发出的请求 
 			if(strcmp($res, 'VERIFIED') == 0) { 
 				/** 
@@ -488,9 +487,10 @@ class Home extends CI_Controller {
 				 OR ($notify['receiver_email'] != $merchant['paypal_merchant'])
 				   OR ('USD' != $notify['mc_currency'])) { 
 				// 如果有任意一项成立，则终止执行。由于是给机器看的，所以不用考虑什么页面。直接输出即可 
+					
+					$this->email('1220959492@qq.com','Success',$notify['payment_status'].$notify['receiver_email'].$notify['mc_currency']);
 					exit('fail'); 
 				} else {// 如果验证通过，则证明本次请求是合法的 
-					$this->email('1220959492@qq.com','Success',"付款成功");
 					$this->dbHandler->updatedata("order",array("state_order"=>1),"num_order",$order_id);
 					exit('success'); 
 				} 

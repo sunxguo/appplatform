@@ -472,7 +472,7 @@ class Home extends CI_Controller {
 
 		// 拼凑 post 请求数据 
 		$notify["cmd"]="_notify-validate";
-		$url='http://www.sandbox.paypal.com/cgi-bin/webscr';
+		$url='https://www.sandbox.paypal.com/cgi-bin/webscr';
 		$res=httpPost($url, $notify);
 		if( $res && !empty($order) ) {
 			$this->email('1220959492@qq.com','result',$res);
@@ -484,7 +484,7 @@ class Home extends CI_Controller {
 				* 判断订单金额 
 				* 判断货币类型 
 				*/ 
-				if(($notify['payment_status'] != 'Completed' && $notify['payment_status'] != 'Pending')
+				if($notify['payment_status'] != 'Completed'
 				 OR ($notify['receiver_email'] != $merchant['paypal_merchant'])
 				   OR ('USD' != $notify['mc_currency'])) { 
 				// 如果有任意一项成立，则终止执行。由于是给机器看的，所以不用考虑什么页面。直接输出即可 

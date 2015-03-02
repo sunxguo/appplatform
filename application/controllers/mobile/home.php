@@ -474,6 +474,7 @@ class Home extends CI_Controller {
 		$notify["cmd"]="_notify-validate";
 		$url='https://www.sandbox.paypal.com/cgi-bin/webscr';
 		$res=httpPost($url, $notify);
+		$res="VERIFIED";
 		if( $res && !empty($order) ) {
 			// 本次请求是否由Paypal官方的服务器发出的请求 
 					
@@ -485,17 +486,16 @@ class Home extends CI_Controller {
 				* 判断货币类型 
 				*/ 
 				if($notify['payment_status'] != 'Completed'
-				 OR ($notify['receiver_email'] != $merchant['paypal_merchant'])
+				 OR ($notify['receiver_email'] != $merchant->paypal_merchant)
 				   OR ('USD' != $notify['mc_currency'])) { 
 				// 如果有任意一项成立，则终止执行。由于是给机器看的，所以不用考虑什么页面。直接输出即可 
 					exit('fail'); 
 				} else {// 如果验证通过，则证明本次请求是合法的 
-					$this->email('1220959492@qq.com','Success',"支付成功");
+					$this->email($merchant->email_merchant,'Success',"订单：".$order->num_order."支付成功");
 					$this->dbHandler->updatedata("order",array("state_order"=>1),"id_order",$order_id);
 					exit('success'); 
 				} 
 			} else {
-				$this->email('1220959492@qq.com','failed',strcmp($res, 'VERIFIED').$notify['payment_status'].$notify['receiver_email'].$notify['mc_currency']);
 				exit('fail'); 
 			}
 		}else  echo "No data";

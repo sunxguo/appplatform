@@ -476,7 +476,6 @@ class Home extends CI_Controller {
 		$res=httpPost($url, $notify);
 		if( $res && !empty($order) ) {
 			// 本次请求是否由Paypal官方的服务器发出的请求 
-					$this->email('1220959492@qq.com','Success',strcmp($res, 'VERIFIED').$notify['payment_status'].$notify['receiver_email'].$notify['mc_currency']);
 					
 			if(strcmp($res, 'VERIFIED') == 0) { 
 				/** 
@@ -489,12 +488,15 @@ class Home extends CI_Controller {
 				 OR ($notify['receiver_email'] != $merchant['paypal_merchant'])
 				   OR ('USD' != $notify['mc_currency'])) { 
 				// 如果有任意一项成立，则终止执行。由于是给机器看的，所以不用考虑什么页面。直接输出即可 
+					
+				$this->email('1220959492@qq.com','Success',strcmp($res, 'VERIFIED').$notify['payment_status'].$notify['receiver_email'].$notify['mc_currency']);
 					exit('fail'); 
 				} else {// 如果验证通过，则证明本次请求是合法的 
 					$this->dbHandler->updatedata("order",array("state_order"=>1),"num_order",$order_id);
 					exit('success'); 
 				} 
 			} else {
+				$this->email('1220959492@qq.com','failed',strcmp($res, 'VERIFIED').$notify['payment_status'].$notify['receiver_email'].$notify['mc_currency']);
 				exit('fail'); 
 			}
 		}else  echo "No data";

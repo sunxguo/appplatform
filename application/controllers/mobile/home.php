@@ -21,7 +21,7 @@ class Home extends CI_Controller {
 		$this->load->view('mobile/home',
 			array(
 				'showSlider' => true,
-				'title' => WEBSITE_NAME."-手机网站",
+				'title' => $app[0]->name_app."-手机网站",
 				'app'=>$app[0],
 				'navs'=>$navs,
 				'sliders'=>$sliders
@@ -487,16 +487,16 @@ class Home extends CI_Controller {
 				 OR ($notify['receiver_email'] != $merchant->paypal_merchant)
 				   OR ('USD' != $notify['mc_currency'])) { 
 				// 如果有任意一项成立，则终止执行。由于是给机器看的，所以不用考虑什么页面。直接输出即可 
-					exit('fail'); 
+					exit('fail');
 				} else {// 如果验证通过，则证明本次请求是合法的 
-					$this->email($merchant->email_merchant,'Success',"订单：".$order->num_order."支付成功");
+					$this->email($merchant->email_merchant,'Success',"订单：".($order->num_order)."支付成功");
 					$this->dbHandler->updatedata("order",array("state_order"=>1),"id_order",$order_id);
-					exit('success'); 
+					exit('success');
 				} 
 			} else {
 				exit('fail'); 
 			}
-		}else  echo "No data";
+		}else  exit('No data');
 	} 
 	public function get_order_num(){
 		$order_num = time();

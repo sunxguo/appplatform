@@ -793,6 +793,27 @@ function submitOrder(){
 		}
 	});
 }
+function get_order_state(stateCode){
+	state_display='';
+	switch(stateCode){
+		case '0':
+			state_display='待付款';
+		break;
+		case '1':
+			state_display='已支付';
+		break;
+		case '2':
+			state_display='已发货';
+		break;
+		case '3':
+			state_display='交易成功';
+		break;
+		case '4':
+			state_display='已取消';
+		break;
+	}
+	return state_display;
+}
 function checkOrders(){
 	$("#show_sider_bt").hide();
 	$("#goBackSub_bt").hide();
@@ -822,7 +843,7 @@ function checkOrders(){
 				'	<li onclick="order_click(\''+orders[i].id_order+'\')">	'+
 				'		<div class="thumbnail"><img src="'+thumbnails[0].src+'"></div>	'+
 				'		<div class="detail" style="font-size:14px;">	'+
-				'			<div class="title">订单号：'+orders[i].num_order+'</div>	'+
+				'			<div class="title">订单号：'+orders[i].num_order+'<span class="state state'+orders[i].state_order+'">'+get_order_state(orders[i].state_order)+'</span></div>	'+
 				'			<div class="title">'+orders[i].time_order+'</div>	'+
 				'			<div class="buy">	'+
 				'				<div class="now-price">'+products[0].info.unit_product+orders[i].total_order+'</div>	'+

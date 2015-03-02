@@ -862,6 +862,36 @@ display: block;
 .orderlist .title{
 	font-size:14px !important;
 }
+.orderlist .title .state{
+	float: right;
+	color: white;
+	display: inline-block;
+	width:80px;
+	text-align:center;
+	-moz-border-radius: 3px;      /* Gecko browsers */
+    -webkit-border-radius: 3px;   /* Webkit browsers */
+    border-radius:3px;            /* W3C syntax */
+}
+.orderlist .title .state0{
+	border:1px solid green;
+	background-color:green;
+}
+.orderlist .title .state1{
+	border:1px solid #007FFF;
+	background-color:#007FFF;
+}
+.orderlist .title .state2{
+	border:1px solid #D900D9;
+	background-color:#D900D9;
+}
+.orderlist .title .state3{
+	border:1px solid #000000;
+	background-color:#000000;
+}
+.orderlist .title .state4{
+	border:1px solid #FF2626;
+	background-color:#FF2626;
+}
 .orderlist .detail{
 	width: 70% !important;
 }

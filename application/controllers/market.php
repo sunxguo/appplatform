@@ -399,7 +399,7 @@ class Market extends CI_Controller {
 		}elseif($android){
 			echo "<script>window.location.href='".$app->android_link_app."#mp.weixin.qq.com'</script>";  
 		}else{
-			echo "未知设备...";
+			echo "未知设备...正在跳转<script>window.location.href='/market/app?appid=".$app->id_app."#mp.weixin.qq.com'</script>";
 		}
 	}
 	public function getAverageStar($totalStar,$commentNnum){

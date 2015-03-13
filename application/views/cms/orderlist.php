@@ -1,7 +1,7 @@
 <div class="padding10 contentlist">
 	<div id="appDiv" class="titA tit-bot pb5" style="">
 		<div style="float: right;margin-left:10px;">
-			<input type="text" id="keyword" class="inp-txt width200" value="<?php echo isset($_GET["search"])?$_GET["search"]:"";?>">
+			<input type="text" id="keyword" class="inp-txt width200" value="<?php echo isset($_GET["search"])?$_GET["search"]:"";?>" placeholder="Consignee or Address">
 			<a href="javascript:selectorder('<?php echo $select_link;?>')" class="btn80"><?php echo lang('cms_content_search');?></a>
 		</div>
 		<div style="float: right;">

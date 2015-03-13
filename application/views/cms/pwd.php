@@ -4,7 +4,7 @@
 			<a href="/cms/index/account"><?php echo lang('cms_account_basicinformation');?></a>
 			<a href="#" class="current"><?php echo lang('cms_account_modifypwd');?></a>
 			<a href="/cms/index/correlation"><?php echo lang('cms_account_setthesubaccount');?></a>
-			<a href="/cms/index/pingkey"><?php echo lang('cms_account_pingkey');?></a>
+			<a href="/cms/index/pingkey"><?php echo lang('cms_account_ping');?></a>
 		</div>
 	</div>
 	<div class="titA" style="margin-left:20px;"><?php echo lang('cms_account_modifypwd');?></div>

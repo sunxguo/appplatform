@@ -1,6 +1,6 @@
 <div class="slider">
 <h3>
-	<a href="/cms/index" id="menu_portal">
+	<a href="/" target="_blank" id="menu_portal">
 		<span class="ico ico-sy"></span>
 		<?php echo lang('cms_sider_home');?>
 	</a>
@@ -35,7 +35,9 @@
 	<li><a href="/cms/index/form?appid=<?php echo $info->id_app;?>" <?php echo isset($form) && $form?'class="current"':'';?>><?php echo lang('cms_sider_formdata');?></a></li>
 	<li><a href="/cms/index/orders?appid=<?php echo $info->id_app;?>" <?php echo isset($orders) && $orders?'class="current"':'';?>><?php echo lang('cms_sider_orders');?></a></li>
 	<li><a href="/cms/index/users?appid=<?php echo $info->id_app;?>" <?php echo isset($users) && $users?'class="current"':'';?>><?php echo lang('cms_sider_users');?></a></li>
+<!--
 	<li><a href="/cms/index/accountconfig?appid=<?php echo $info->id_app;?>" <?php echo isset($accountconfig) && $accountconfig?'class="current"':'';?>><?php echo lang('cms_sider_accountconfig');?></a></li>
+-->
 </ul>
 <?php endif;?>
 <!--

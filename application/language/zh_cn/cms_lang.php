@@ -28,6 +28,7 @@
 	$lang['cms_internal_all']="全部";
 	$lang['cms_internal_recyclebin']="我的回收站";
 	$lang['cms_internal_preview']="预览";
+	$lang['cms_internal_previewimage']="预览图";
 	//button
 	$lang['cms_button_design']="设计";
 	$lang['cms_button_delete']="删除";
@@ -45,6 +46,12 @@
 	$lang['cms_app_clear']="清除";
 	$lang['cms_app_restore']="恢复";
 	$lang['cms_app_appdownloadlink']="APP下载地址";
+	$lang['cms_app_appdownload']="下载应用";
+	$lang['cms_app_downloadlink2']="下载地址";
+	$lang['cms_app_scandownloaddirectly']="手机扫描二维码直接下载";
+	$lang['cms_app_accessdownloaddirectly']="（手机访问该网址可以直接下载APP）";
+	$lang['cms_app_downloadapk']="下载APK文件";
+	$lang['cms_app_downloadipa']="下载IPA文件";
 	$lang['cms_app_appandroiddownloadlink']="安卓 app下载";
 	$lang['cms_app_appiosdownloadlink']="IOS app下载";
 	$lang['cms_app_viewstatistics']="查看统计";
@@ -208,8 +215,13 @@
 	$lang['cms_content_save']="保存";
 	$lang['cms_content_alipayreceiptaccount']="支付宝收款账户";
 	$lang['cms_content_appidinping']="该应用在Ping++中的ID";
+	$lang['cms_account_ping']="Ping++";
 	$lang['cms_account_pingkey']="Ping++ Key";
+	$lang['cms_account_pingsetting']="Ping++ 账号配置";
 	$lang['cms_account_setkeyinping']="设置你的账号在Ping++中的Key";
+	$lang['cms_account_payment']="支付方式";
+	$lang['cms_account_alipay']="支付宝";
+	$lang['cms_account_paypal']="PayPal";
 	//cms-create app
 	$lang['cms_content_createapp']="APP创建";
 	$lang['cms_editapp_create']="创建";

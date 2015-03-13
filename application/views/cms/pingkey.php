@@ -4,18 +4,22 @@
 			<a href="/cms/index/account"><?php echo lang('cms_account_basicinformation');?></a>
 			<a href="/cms/index/pwd"><?php echo lang('cms_account_modifypwd');?></a>
 			<a href="/cms/index/correlation"><?php echo lang('cms_account_setthesubaccount');?></a>
-			<a class="current"><?php echo lang('cms_account_pingkey');?></a>
+			<a class="current"><?php echo lang('cms_account_ping');?></a>
 		</div>
 	</div>
-	<div class="titA" style="margin-left:20px;"><?php echo lang('cms_account_pingkey');?></div>
+	<div class="titA" style="margin-left:20px;"><?php echo lang('cms_account_pingsetting');?></div>
 	<form class="form-modify" action="/kmadmin/admin/modify" method="post" enctype="multipart/form-data">
 		<div class="tips-error w230" style="margin-left: 160px; width: 200px;" id="errorInfo"></div>
 		<div class="item">
 			<span class="label" style="width:100px;"><?php echo lang('cms_account_pingkey');?>：</span>
 			<input class="inp-txt width200" type="text" name="pingkey" id="pingkey" placeholder="<?php echo lang('cms_account_setkeyinping');?>" value="<?php  echo $merchant->pingkey_merchant;?>"/>
 		</div>
+		<div class="item">
+			<span class="label" style="width:100px;"><?php echo lang('cms_content_pingid');?>：</span>
+			<input class="inp-txt width200" type="text" name="pingid" id="pingid" placeholder="<?php echo lang('cms_account_setkeyinping');?>" value="<?php  echo $merchant->pingid_merchant;?>"/>
+		</div>
 		<div class="btn-center bor-top" style="width: 315px;">
-			<a href="javascript:void(0)" class="btn120" onclick="save_account_config_pingkey()"><?php echo lang('cms_content_save');?></a>
+			<a href="javascript:void(0)" class="btn120" onclick="save_account_config_ping()"><?php echo lang('cms_content_save');?></a>
 		</div>
 	</form>
 	<form id="uploadAvatarForm" method="post" action="/cms/index/upload_img" enctype="multipart/form-data">

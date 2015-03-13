@@ -11,6 +11,8 @@
 	$lang['market_home_platform']="平台";
 	$lang['market_home_requiredapps']="装机必备";
 	$lang['market_home_download']="下载";
+	$lang['market_home_checktheappdetails']="查看APP详情";
+	$lang['market_app_mobilescan']="手机扫描二维码访问，或者直接输入";
 	$lang['market_home_qsualityapps']="精品软件";
 	$lang['market_home_life']="生活";
 	$lang['market_home_news']="新闻";

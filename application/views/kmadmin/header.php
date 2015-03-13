@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title><?=$title?></title>
+    <title><?php echo $title;?></title>
 	<link rel="stylesheet" href="/assets/css/base.css" type="text/css"/>
 	<link rel="stylesheet" href="/assets/css/bk.css" type="text/css"/>
 	<link rel="stylesheet" href="/assets/css/admin.css" type="text/css"/>

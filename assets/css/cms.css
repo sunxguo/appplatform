@@ -357,3 +357,124 @@ tbody tr:hover{
 	padding-right: 5px;
 	text-align: right;
 }
+.app-base-info{
+	background: #ededed;
+}
+.app-base-info .main-box{
+	width: 831px;
+	margin:15px auto;
+}
+.main-box .box-content.box-header {
+	border-radius: 3px 3px 0 0;
+	box-shadow: none;
+}
+.card>.box-content {
+	padding-left: 22px;
+}
+.main-box .box-content {
+	font-size: 13px;
+	font-weight: 400;
+	padding: 20px 16px;
+	background: white;
+	border-style: solid;
+	border-radius: 3px;
+	box-shadow: 0 2px 0 0 #e6e6e6;
+	overflow: hidden;
+}
+.card>.box-header img {
+	float: left;
+	margin-right: 22px;
+}
+.app-logo.show-logo {
+	box-sizing: border-box;
+	border: 1px solid #b5b5b5;
+}
+.app-logo {
+	width: 90px;
+	height: 90px;
+	display: block;
+	border-radius: 3px;
+}
+.card>.box-header>.app-info {
+	width:400px;
+	float:left;
+}
+.card>.box-header>.app-operation{
+	
+}
+.card>.box-header>.app-info>h1 {
+	font-size: 16px;
+	margin: 5px 0 0 0;
+}
+.card>.box-header>.app-info>h1+p {
+	margin-top: 6px;
+}
+.card>.box-header>.app-info>p+p {
+	margin-top: 6px;
+}
+.card>.box-header>.app-info>p {
+	font-size: 13px;
+	height: 13px;
+	line-height: 13px;
+}
+.main-box .box-content figcaption, .box-content p {
+	color: #676767;
+}
+.main-box .box-content.box-middle {
+	background: #f7f7f7;
+	border-color: #e6e6e6;
+	border-width: 1px 0 0 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+.card>.box-content {
+	padding-left: 22px;
+}
+.app-card>.download-app>h1 {
+	line-height: 152px;
+}
+.app-card>.box-content>h1 {
+	float: left;
+	width: 90px;
+	font-size: 14px;
+	color: #585858;
+}
+.app-card>.box-content>.align {
+	float: left;
+	margin: 0 60px 0 22px;
+}
+.app-card>.download-app>figure>img {
+	width: 128px;
+	height: 128px;
+}
+.app-card>.download-app>figure>figcaption {
+	color: #818181;
+	font-size: 12px;
+}
+.app-card>.download-app>ul {
+	float: left;
+}
+.app-card>.download-app>ul>li {
+	line-height: 40px;
+	margin: 20px 0;
+	border-radius: 3px;
+}
+li.android-download {
+	background: #a7cd47 url("/assets/images/cms/mobile-icon.png") no-repeat 10px 5px;
+}
+li.ios-download {
+	background: #333 url("/assets/images/cms/mobile-icon.png") no-repeat 10px -45px;
+}
+.app-card>.download-app>ul>li>a {
+	display: block;
+	padding: 0 20px 0 52px;
+	text-decoration: none;
+	color: white;
+}
+.main-box .box-content.box-footer {
+	background: #f7f7f7;
+	border-color: #e6e6e6;
+	border-width: 1px 0;
+	border-radius: 0 0 3px 3px;
+	box-shadow: 0 2px 0 0 #e6e6e6;
+}

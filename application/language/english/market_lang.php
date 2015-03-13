@@ -11,6 +11,8 @@
 	$lang['market_home_platform']="Platform";
 	$lang['market_home_requiredapps']="Required APPs";
 	$lang['market_home_download']="Download";
+	$lang['market_home_checktheappdetails']="Check the APP details";
+	$lang['market_app_mobilescan']="Mobile phone scan qr code to access, or enter directly";
 	$lang['market_home_qsualityapps']="Quality APPs";
 	$lang['market_home_life']="Life";
 	$lang['market_home_news']="News";

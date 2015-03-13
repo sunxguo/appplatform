@@ -131,7 +131,7 @@
 					<form id="uploadLaunchForm" method="post" action="/cms/index/upload_img" enctype="multipart/form-data">
 						<input onchange="return upload_launch('#uploadLaunchForm')" name="image" type="file" id="launchFile" style="display:none;" accept="image/*">
 					</form>
-					<div id="divupload" class="add-link" style="<?php echo !$info->poslaunch?"display:none;":"";?>" onclick="openupload()">
+					<div id="divupload" class="add-link" style="<?php echo $info->poslaunch?"display:none;":"display:block;";?>" onclick="openupload()">
 						<a href="javascript:launchAdd()"><?php echo lang('cms_editapp_reupload');?></a>
 					</div>
 				</div>

@@ -114,6 +114,19 @@ class Index extends CI_Controller {
 		$this->load->view('cms/pingkey',array("merchant"=>$merchant[0]));
 		$this->load->view('cms/footer');
 	}
+	public function payment()
+	{
+		$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$_SESSION['userid']);
+		$this->load->view('cms/header',
+			array( 
+				'showSlider' => true,
+				'account' => true,
+				'title' => lang('cms_website_name')."-".lang('cms_sider_account'),
+			)
+		);
+		$this->load->view('cms/payment',array("merchant"=>$merchant[0]));
+		$this->load->view('cms/footer');
+	}
 	public function accountconfig()
 	{
 		$this->checkMerchantLogin();
@@ -289,13 +302,14 @@ class Index extends CI_Controller {
 	 **/
 	public function app(){
 		$this->checkMerchantLogin();
-		$limit=8;
+		$limit=1;
 		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
 		$del=isset($_GET['type']) && $_GET['type']=="del"?'state_app':'state_app !=';
-		$amount=$this->dbHandler->ADU('app',array("merchant_id_app"=>$byMerchantId,$del=>7,"validity_app"=>1));
-		$page_amount=ceil($amount/$limit);
-		$page=isset($_GET['page']) && is_numeric($_GET['page'])?$_GET['page']:1;
-		$offset=($page-1)*$limit;
+//		$amount=$this->dbHandler->ADU('app',array("merchant_id_app"=>$byMerchantId,$del=>7,"validity_app"=>1));
+//		$page_amount=ceil($amount/$limit);
+//		$page=isset($_GET['page']) && is_numeric($_GET['page'])?$_GET['page']:1;
+//		$offset=($page-1)*$limit;
+		$offset=0;
 		$apps=$this->dbHandler->SDU('app',array("merchant_id_app"=>$byMerchantId,$del=>7,"validity_app"=>1),array("limit"=>$limit,"offset"=>$offset),array("col"=>'update_time_app',"by"=>'desc'));
 		
 		foreach($apps as $item){
@@ -312,8 +326,8 @@ class Index extends CI_Controller {
 				$item->left_time_app=$left_time<10?10:$left_time;
 			}
 		}
-		$pre_link=($page<2)?"javascript:void()":"/cms/index/app?page=".($page-1);
-		$next_link=($page>=$page_amount)?"javascript:void()":"/cms/index/app?page=".($page+1);
+//		$pre_link=($page<2)?"javascript:void()":"/cms/index/app?page=".($page-1);
+//		$next_link=($page>=$page_amount)?"javascript:void()":"/cms/index/app?page=".($page+1);
 		$this->load->view('cms/header',
 			array(
 				'showSlider' => true,
@@ -323,11 +337,11 @@ class Index extends CI_Controller {
 		);
 		$this->load->view('cms/app',
 			array(
-				"apps"=>$apps,
-				"amount"=>$amount,
-				"page_amount"=>$page_amount,
-				"pre_link"=>$pre_link,
-				"next_link"=>$next_link
+				"app"=>$apps[0],
+//				"amount"=>$amount,
+//				"page_amount"=>$page_amount,
+//				"pre_link"=>$pre_link,
+//				"next_link"=>$next_link
 			)
 		);
 		$this->load->view('cms/footer');
@@ -858,8 +872,8 @@ class Index extends CI_Controller {
 		$condition=array("appid_order"=>$_GET['appid']);
 		if(isset($_GET["state"]) && is_numeric($_GET['state'])) $condition["state_order"]=$_GET['state'];
 		if(isset($_GET['search']) && $_GET['search']!=""){
-//			$like["username_order"]=$_GET['search'];
-//			$orlike["realname_order"]=$_GET['search'];
+			$like["name_order"]=$_GET['search'];
+			$orlike["address_order"]=$_GET['search'];
 		}
 		else{
 			$like=array();
@@ -1399,10 +1413,11 @@ class Index extends CI_Controller {
 				$content=$_SESSION['userid'];
 				$log="修改商户信息";
 			break;
-			case "merchant_pingkey":
+			case "merchant_ping":
 				$table="merchant";
 				$info=array(
-					"pingkey_merchant"=>$_POST["pingkey"]
+					"pingkey_merchant"=>$_POST["pingkey"],
+					"pingid_merchant"=>$_POST["pingid"]
 				);
 				$where="id_merchant";
 				$content=$_SESSION['userid'];

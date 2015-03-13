@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title><?=$title?></title>
+    <title><?php echo $title;?></title>
 	<link rel="stylesheet" href="/assets/css/base.css" type="text/css"/>
 	<link rel="stylesheet" href="/assets/css/bk.css" type="text/css"/>
 	<link rel="stylesheet" href="/assets/css/cms.css" type="text/css"/>
@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="header-cms">
-		<a  class="km-logo" href="">
+		<a  class="km-logo" href="/">
             <img title="<?php echo WEBSITE_NAME;?>" class="logo-cms" src="/assets/images/cms/logo-cms.png" alt="网站logo" />
 		</a>
         <ul class="menu-cms">
@@ -21,7 +21,7 @@
 				<span id="userShowName"><?php echo $_SESSION['username'];?></span>
 			</li>
 			<li class="message">
-				<a href="#nogo" title="<?php echo lang('cms_user_message');?>" id="js-openmsg">
+				<a href="/cms/index/message?type=2" title="<?php echo lang('cms_user_message');?>" id="js-openmsg">
                 <img src="/assets/images/cms/ico_mail.png" width="24" height="24"></a>
 				<span id="unreadMesNumber"></span>
 			</li>

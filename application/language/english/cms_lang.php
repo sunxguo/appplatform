@@ -28,6 +28,7 @@
 	$lang['cms_internal_all']="All";
 	$lang['cms_internal_recyclebin']="RecycleBin";
 	$lang['cms_internal_preview']="Preview";
+	$lang['cms_internal_previewimage']="Preview";
 	//button
 	$lang['cms_button_design']="Design";
 	$lang['cms_button_delete']="Delete";
@@ -45,6 +46,12 @@
 	$lang['cms_app_clear']="Clear";
 	$lang['cms_app_restore']="Restore";
 	$lang['cms_app_appdownloadlink']="APP Download Link";
+	$lang['cms_app_appdownload']="Download";
+	$lang['cms_app_downloadlink2']="Link";
+	$lang['cms_app_scandownloaddirectly']="Mobile phone scan qr code to download directly";
+	$lang['cms_app_accessdownloaddirectly']="(Mobile phones access the site to download the APP directly)";
+	$lang['cms_app_downloadapk']="Download APK";
+	$lang['cms_app_downloadipa']="Download IPA";
 	$lang['cms_app_appandroiddownloadlink']="Android APP Download";
 	$lang['cms_app_appiosdownloadlink']="IOS APP Download";
 	$lang['cms_app_viewstatistics']="View Statistics";
@@ -208,8 +215,13 @@
 	$lang['cms_content_save']="Save";
 	$lang['cms_content_alipayreceiptaccount']="Alipay Account";
 	$lang['cms_content_appidinping']="The id of this APP in Ping++";
+	$lang['cms_account_ping']="Ping++";
 	$lang['cms_account_pingkey']="Ping++ Key";
+	$lang['cms_account_pingsetting']="Ping++ Account Setting";
 	$lang['cms_account_setkeyinping']="Set your key in Ping++";
+	$lang['cms_account_payment']="Payment";
+	$lang['cms_account_alipay']="Alipay";
+	$lang['cms_account_paypal']="PayPal";
 	//cms-create app
 	$lang['cms_content_createapp']="APP Creation";
 	$lang['cms_editapp_create']="Create";

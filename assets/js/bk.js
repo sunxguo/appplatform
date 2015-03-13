@@ -238,12 +238,13 @@ function modify_avatar(src){
 			});
 		
 	}
-	function save_account_config_pingkey(){
+	function save_account_config_ping(){
 		$.post(
 			"/cms/index/modify_info",
 			{
-				'info_type':"merchant_pingkey",
-				'pingkey':$("#pingkey").val()
+				'info_type':"merchant_ping",
+				'pingkey':$("#pingkey").val(),
+				'pingid':$("#pingid").val()
 			},
 			function(data){
 				var result=$.parseJSON(data);
@@ -251,7 +252,7 @@ function modify_avatar(src){
 					alert("保存成功");
 					location.reload();
 				}else{
-					alert(result.message+"或与原Key相同");
+					alert(result.message+"或与原值相同");
 				}
 			});
 		

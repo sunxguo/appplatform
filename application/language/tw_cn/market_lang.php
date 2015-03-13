@@ -11,6 +11,8 @@
 	$lang['market_home_platform']="平台";
 	$lang['market_home_requiredapps']="裝機必備";
 	$lang['market_home_download']="下載";
+	$lang['market_home_checktheappdetails']="查看APP詳情";
+	$lang['market_app_mobilescan']="手機掃描二維碼訪問，或者直接輸入";
 	$lang['market_home_qsualityapps']="精品軟件";
 	$lang['market_home_life']="生活";
 	$lang['market_home_news']="新聞";

@@ -1818,9 +1818,9 @@ class Index extends CI_Controller {
 	public function log($log){
 		$info=array(
 			"time_log"=>date("Y-m-d H:i:s"),
-			"operation_log"=>$log,
-			"merchant_log"=>$_SESSION["userid"]
+			"operation_log"=>$log
 		);
+		$info["merchant_log"]=isset($_SESSION["userid"])?$_SESSION["userid"]:0;
 		$result=$this->dbHandler->insertdata("log",$info);
 	}
 }

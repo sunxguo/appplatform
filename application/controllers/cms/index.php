@@ -337,7 +337,7 @@ class Index extends CI_Controller {
 		);
 		$this->load->view('cms/app',
 			array(
-				"app"=>$apps[0],
+				"app"=>count($apps)>0?$apps[0]:array(),
 //				"amount"=>$amount,
 //				"page_amount"=>$page_amount,
 //				"pre_link"=>$pre_link,
@@ -407,7 +407,9 @@ class Index extends CI_Controller {
 		$limit=30;//每页显示
 		$page_amount=0;//总页数
 		
-		$condition=array();
+		$byMerchantId=(isset($_SESSION['Fuserid']) && $_SESSION['Fuserid']!="")?$_SESSION['Fuserid']:$_SESSION['userid'];
+		$app=$this->dbHandler->selectPartData('app','merchant_id_app',$byMerchantId);
+		$condition=isset($app[0]->id_app)?array('appid_message'=>$app[0]->id_app):array('appid_message'=>0);
 		$type=2;
 		if(isset($_GET['to']) && $_GET['to']=="all") $condition["to_message"]=0;
 		if(isset($_GET['type']) && is_numeric($_GET['type'])){

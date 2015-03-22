@@ -478,3 +478,197 @@ li.ios-download {
 	border-radius: 0 0 3px 3px;
 	box-shadow: 0 2px 0 0 #e6e6e6;
 }
+.store-payment{
+	width:800px;
+	margin:10px auto;
+}
+.store-payment dd {
+	margin-bottom: 20px;
+	background-color: #f4f4f4;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 0 2px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0 0 2px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 0 2px rgba(0,0,0,0.1);
+	box-shadow: 0 0 2px rgba(0,0,0,0.1);
+}
+.store-payment .way-title {
+	padding: 25px 0;
+	overflow: hidden;
+}
+.store-payment .way-title .control {
+	position: relative;
+	float: right;
+	padding-right: 55px;
+}
+.store-payment .way-title .control label {
+	margin: 20px 0;
+	display: block;
+}
+.store-payment dd .active i {
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+	-moz-opacity: 1;
+	-khtml-opacity: 1;
+	opacity: 1;
+}
+.store-payment .way-title i {
+	position: relative;
+	float: left;
+	margin-left: 30px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+	font-style: italic;
+}
+.icons i.img-cash {
+	background-position: 0 -205px;
+}
+.icons i.img-zhifubao {
+	background-position: -100px -205px;
+}
+.icons i.img-paypal {
+	background-position: 0px -405px;
+}
+.pull-right {
+	float: right;
+}
+.icons i.img-cash, .icons i.img-zhifubao, .icons i.img-weixin, .icons i.img-money, .icons i.img-paypal {
+	width: 100px;
+	height: 100px;
+}
+.icons i {
+	background: url("/assets/images/cms/icons_commodity.png") no-repeat;
+	vertical-align: middle;
+	display: inline-block;
+}
+.store-payment .way-title .txt {
+	margin: 0 120px 0 175px;
+}
+.store-payment .way-title .txt h3 {
+	margin: 16px 0;
+	padding: 0;
+	font-size: 16px;
+	line-height: 18px;
+	font-weight: bold;
+}
+.store-payment .way-title .txt h4 {
+	padding: 0;
+	margin-bottom: 10px;
+	font-size: 16px;
+	line-height: 18px;
+	color: #585858;
+}
+.store-payment .way-content {
+	background-color: #fcfcfc;
+	border-top: 1px solid #e4e4e4;
+	overflow: hidden;
+}
+.store-payment .way-content .dd {
+	margin: 0 10px;
+	padding: 15px 20px;
+	border-bottom: 1px solid #e4e4e4;
+}
+.store-payment .way-content .inner {
+	padding: 0 10px;
+	background-color: #f7f7f7;
+}
+.store-payment .way-content h3 {
+	margin-top: -1px;
+	padding: 25px 45px 25px 165px;
+	border-top: 1px solid #e4e4e4;
+}
+.store-payment .way-content h3 a {
+	font-size: 14px;
+}
+.store-payment .way-content .title {
+	margin-top: -1px;
+	padding: 12px 30px;
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: #e4e4e4;
+	background-color: #f7f7f7;
+	filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#f3f3f3,endColorStr=#ffffff);
+	background: -ms--webkit-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -ms--moz-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -ms--o-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -ms--ms-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -ms-linear-gradient(to bottom, #f3f3f3, #ffffff);
+	background: -moz--webkit-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -moz--moz-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -moz--o-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -moz--ms-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -moz-linear-gradient(to bottom, #f3f3f3, #ffffff);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#f3f3f3), to(#ffffff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#f3f3f3), to(#ffffff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#f3f3f3), to(#ffffff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#f3f3f3), to(#ffffff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%,from(#f3f3f3), to(#ffffff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#ffffff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#ffffff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#ffffff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#ffffff));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f3f3f3), to(#ffffff));
+	background: -webkit--webkit-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -webkit--moz-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -webkit--o-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -webkit--ms-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -webkit-linear-gradient(to bottom, #f3f3f3, #ffffff);
+	background: -o--webkit-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -o--moz-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -o--o-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -o--ms-linear-gradient(top, #f3f3f3, #ffffff);
+	background: -o-linear-gradient(to bottom, #f3f3f3, #ffffff);
+}
+.store-payment .way-content .dd label span {
+	width: 100px;
+	display: inline-block;
+}
+.store-payment .way-content .dd label input, .store-payment .way-content .dd label a {
+	margin-left: 10px;
+}
+.store-payment .way-content .btns {
+	margin: -1px 0 0;
+	padding: 18px 30px;
+	background-color: #f7f7f7;
+	border-top: 1px solid #e4e4e4;
+}
+button.btn, .btn, .btn:hover, .btn:active {
+	height: auto;
+	display: inline-block;
+	min-width: 3em;
+	padding: 5px 10px;
+	background: #fcfcfc;
+	color: #585858;
+	line-height: 16px;
+	text-align: center;
+	font-weight: normal;
+	border-color: #e4e4e4;
+	text-decoration: none;
+	-webkit-box-shadow: 0px 0px 1px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 0px 1px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0px 0px 1px rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 1px rgba(0,0,0,0.2);
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+button.primary, .btn-primary, .btn-primary:hover, .btn-primary:active {
+	background: #359fe0;
+	color: #fff;
+}
+.store-payment .hide{
+	display:none;
+}
+.store-payment .pay-button{
+	float:none;
+	width:112px;
+	height:34px;
+	line-height: 34px;
+	font-size: 14px;
+	padding:0px;
+}

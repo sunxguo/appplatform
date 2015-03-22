@@ -80,6 +80,60 @@ $(document).ready(function(){
 				$("#checkAll1").prop("checked",false);
 			}
 		}) ;
+		$("input[name='cash']").change(function(){
+			if(confirm("确定修改？")){
+				$.post(
+				"/cms/index/modify_info",
+				{
+					'info_type':"merchant_payment_cashswitch",
+					'switch':$("input[name='cash']:checked").val()
+				},
+				function(data){
+					var result=$.parseJSON(data);
+					if(result.result=="success"){
+						location.reload();
+					}else{
+						alert(result.message);
+					}
+				});
+			}
+		});
+		$("input[name='paypal']").change(function(){
+			if(confirm("确定修改？")){
+				$.post(
+				"/cms/index/modify_info",
+				{
+					'info_type':"merchant_payment_paypalswitch",
+					'switch':$("input[name='paypal']:checked").val()
+				},
+				function(data){
+					var result=$.parseJSON(data);
+					if(result.result=="success"){
+						location.reload();
+					}else{
+						alert(result.message);
+					}
+				});
+			}
+		});
+		$("input[name='alipay']").change(function(){
+			if(confirm("确定修改？")){
+				$.post(
+				"/cms/index/modify_info",
+				{
+					'info_type':"merchant_payment_alipayswitch",
+					'switch':$("input[name='alipay']:checked").val()
+				},
+				function(data){
+					var result=$.parseJSON(data);
+					if(result.result=="success"){
+						location.reload();
+					}else{
+						alert(result.message);
+					}
+				});
+			}
+		});
 	});	
 	
 	//让指定的DIV始终显示在屏幕正中间   
@@ -325,6 +379,42 @@ function save_account_config_info(type,appid){
 				}
 			});
 		break;
+		case "alipay_config":
+			$.post(
+			"/cms/index/modify_info",
+			{
+				'info_type':"account_config_alipayconfig",
+				'alipayAccount':$("#alipayAccount").val(),
+				'alipayPid':$("#alipayPid").val(),
+				'alipayKey':$("#alipayKey").val()
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					alert("保存成功");
+					location.reload();
+				}else{
+					alert(result.message+"或与原账号相同");
+				}
+			});
+		break;
+		case "paypal_config":
+			$.post(
+			"/cms/index/modify_info",
+			{
+				'info_type':"account_config_paypalconfig",
+				'paypalAccount':$("#paypalAccount").val()
+			},
+			function(data){
+				var result=$.parseJSON(data);
+				if(result.result=="success"){
+					alert("保存成功");
+					location.reload();
+				}else{
+					alert(result.message+"或与原账号相同");
+				}
+			});
+		break;
 		case "pingid":
 			$.post(
 			"/cms/index/modify_info",
@@ -342,6 +432,18 @@ function save_account_config_info(type,appid){
 					alert(result.message+"或与原账号相同");
 				}
 			});
+		break;
+	}
+}
+function show_pay_detail(type,ifshow){
+	switch(type){
+		case 'alipay':
+			if(ifshow) $("#alipay_div").show();
+			else $("#alipay_div").hide();
+		break;
+		case 'paypal':
+			if(ifshow) $("#paypal_div").show();
+			else $("#paypal_div").hide();
 		break;
 	}
 }

@@ -90,6 +90,7 @@ class Index extends CI_Controller {
 	}
 	public function account()
 	{
+		$this->checkMerchantLogin();
 		$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$_SESSION['userid']);
 		$this->load->view('cms/header',
 			array( 
@@ -103,6 +104,7 @@ class Index extends CI_Controller {
 	}
 	public function pingkey()
 	{
+		$this->checkMerchantLogin();
 		$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$_SESSION['userid']);
 		$this->load->view('cms/header',
 			array( 
@@ -116,6 +118,7 @@ class Index extends CI_Controller {
 	}
 	public function payment()
 	{
+		$this->checkMerchantLogin();
 		$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$_SESSION['userid']);
 		$this->load->view('cms/header',
 			array( 
@@ -150,6 +153,7 @@ class Index extends CI_Controller {
 	}
 	public function pwd()
 	{
+		$this->checkMerchantLogin();
 		$this->load->view('cms/header',
 			array( 
 				'showSlider' => true,
@@ -200,6 +204,7 @@ class Index extends CI_Controller {
 	}
 	public function correlation()
 	{
+		$this->checkMerchantLogin();
 		$merchant=$this->dbHandler->selectPartData('merchant','id_merchant',$_SESSION['userid']);
 		$merchant=$merchant[0];
 		$correlation=array();
@@ -1501,6 +1506,54 @@ class Index extends CI_Controller {
 				$content=$_POST['appid'];
 				$log="修改APP【".$_POST['appid']."】的支付宝收款账号";
 			break;
+			case "account_config_alipayconfig":
+				$table="merchant";
+				$info=array(
+					"alipay_merchant"=>$_POST["alipayAccount"],
+					"alipaypid_merchant"=>$_POST["alipayPid"],
+					"alipaykey_merchant"=>$_POST["alipayKey"]
+				);
+				$where="id_merchant";
+				$content=$_SESSION['userid'];
+				$log="修改支付宝收款账号为".$_POST["alipayAccount"];
+			break;
+			case "account_config_paypalconfig":
+				$table="merchant";
+				$info=array(
+					"paypal_merchant"=>$_POST["paypalAccount"]
+				);
+				$where="id_merchant";
+				$content=$_SESSION['userid'];
+				$log="修改支付宝收款账号为".$_POST["paypalAccount"];
+			break;
+			case "merchant_payment_cashswitch":
+				$table="merchant";
+				$info=array(
+					"cashondelivery_merchant"=>$_POST["switch"]
+				);
+				$where="id_merchant";
+				$content=$_SESSION['userid'];
+				$log="修改‘货到付款’为".$_POST["switch"]==1?"开通":"关闭";
+			break;
+			case "merchant_payment_paypalswitch":
+				$table="merchant";
+				$info=array(
+					"paypalswitch_merchant"=>$_POST["switch"]
+				);
+				$where="id_merchant";
+				$content=$_SESSION['userid'];
+				$log="修改‘paypal支付’为".$_POST["switch"]==1?"开通":"关闭";
+			break;
+			case "merchant_payment_alipayswitch":
+				$table="merchant";
+				$info=array(
+					"alipayswitch_merchant"=>$_POST["switch"]
+				);
+				$where="id_merchant";
+				$content=$_SESSION['userid'];
+				$log="修改‘alipay支付’为".$_POST["switch"]==1?"开通":"关闭";
+			break;
+			
 			case "account_config_pingid":
 				$table="app";
 				$info=array(

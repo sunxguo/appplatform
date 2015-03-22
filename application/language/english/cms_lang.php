@@ -222,6 +222,30 @@
 	$lang['cms_account_payment']="Payment";
 	$lang['cms_account_alipay']="Alipay";
 	$lang['cms_account_paypal']="PayPal";
+	$lang['cms_account_paymentaccountconfiguration']="Payment Account Configuration";
+	//cms-account-payment
+	$lang['cms_account_payment_open']="Open";
+	$lang['cms_account_payment_close']="Close";
+	$lang['cms_account_payment_cash']="Cash on delivery";
+	$lang['cms_account_payment_cashtip']="Customers face-to-face payment after receiving your goods";
+	$lang['cms_account_payment_paypaltip']="Users paid directly to the account after binding account";
+	$lang['cms_account_payment_openpaypal']="Open the PayPal payment";
+	$lang['cms_account_payment_modify']="Modify";
+	$lang['cms_account_payment_paypalaccount']="PayPal Account:";
+	$lang['cms_account_payment_bindpaypalaccount']="Bind PayPal Account";
+	$lang['cms_account_payment_submit']="Submit";
+	$lang['cms_account_payment_update']="Update";
+	$lang['cms_account_payment_cancel']="Cancel";
+	$lang['cms_account_payment_alipay']="Alipay";
+	$lang['cms_account_payment_alipaytip']="Users paid directly to the account after binding corporate account";
+	$lang['cms_account_payment_openalipay']="Open the Alipay payment";
+	$lang['cms_account_payment_howopenalipay']="How to open alipay corporate account";
+	$lang['cms_account_payment_isboundto']="Is bound to:";
+	$lang['cms_account_payment_bindingaccount']="Binding Account";
+	$lang['cms_account_payment_alipayaccount']="Alipay Account:";
+	$lang['cms_account_payment_inputalipayaccount']="Input Alipay account";
+	$lang['cms_account_payment_alipaypid']="Collaborators identity PID:";
+	$lang['cms_account_payment_alipaykey']="The security check code KEY:";
 	//cms-create app
 	$lang['cms_content_createapp']="APP Creation";
 	$lang['cms_editapp_create']="Create";

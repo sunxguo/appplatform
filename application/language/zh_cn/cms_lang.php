@@ -222,6 +222,30 @@
 	$lang['cms_account_payment']="支付方式";
 	$lang['cms_account_alipay']="支付宝";
 	$lang['cms_account_paypal']="PayPal";
+	$lang['cms_account_paymentaccountconfiguration']="收款账号配置";
+	//cms-account-payment
+	$lang['cms_account_payment_open']="开启";
+	$lang['cms_account_payment_close']="关闭";
+	$lang['cms_account_payment_cash']="货到付款";
+	$lang['cms_account_payment_cashtip']="用户收到您的商品后，进行当面付款";
+	$lang['cms_account_payment_paypaltip']="绑定PayPal账号，用户直接支付到该账号";
+	$lang['cms_account_payment_openpaypal']="开通PayPal支付";
+	$lang['cms_account_payment_modify']="修改";
+	$lang['cms_account_payment_paypalaccount']="PayPal账号：";
+	$lang['cms_account_payment_bindpaypalaccount']="绑定PayPal账号";
+	$lang['cms_account_payment_submit']="提交";
+	$lang['cms_account_payment_update']="更新";
+	$lang['cms_account_payment_cancel']="取消";
+	$lang['cms_account_payment_alipay']="支付宝";
+	$lang['cms_account_payment_alipaytip']="绑定支付宝企业账号，用户直接支付到该账号";
+	$lang['cms_account_payment_openalipay']="开通支付宝支付";
+	$lang['cms_account_payment_howopenalipay']="如何开通支付宝企业账号";
+	$lang['cms_account_payment_isboundto']="已绑定至：";
+	$lang['cms_account_payment_bindingaccount']="绑定账号";
+	$lang['cms_account_payment_alipayaccount']="支付宝账号：";
+	$lang['cms_account_payment_inputalipayaccount']="输入支付宝账号";
+	$lang['cms_account_payment_alipaypid']="合作者身份PID：";
+	$lang['cms_account_payment_alipaykey']="安全校验码KEY：";
 	//cms-create app
 	$lang['cms_content_createapp']="APP创建";
 	$lang['cms_editapp_create']="创建";

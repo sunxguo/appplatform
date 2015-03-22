@@ -222,6 +222,30 @@
 	$lang['cms_account_payment']="支付方式";
 	$lang['cms_account_alipay']="支付寶";
 	$lang['cms_account_paypal']="PayPal";
+	$lang['cms_account_paymentaccountconfiguration']="收款賬號配置";
+	//cms-account-payment
+	$lang['cms_account_payment_open']="開啟";
+	$lang['cms_account_payment_close']="關閉";
+	$lang['cms_account_payment_cash']="貨到付款";
+	$lang['cms_account_payment_cashtip']="用戶收到您的商品后，進行當面付款";
+	$lang['cms_account_payment_paypaltip']="綁定PayPal賬號，用戶直接支付到該賬號";
+	$lang['cms_account_payment_openpaypal']="開通PayPal支付";
+	$lang['cms_account_payment_modify']="修改";
+	$lang['cms_account_payment_paypalaccount']="PayPal賬號：";
+	$lang['cms_account_payment_bindpaypalaccount']="綁定PayPal賬號";
+	$lang['cms_account_payment_submit']="提交";
+	$lang['cms_account_payment_update']="更新";
+	$lang['cms_account_payment_cancel']="取消";
+	$lang['cms_account_payment_alipay']="支付寶";
+	$lang['cms_account_payment_alipaytip']="綁定支付寶企業賬號，用戶直接支付到該賬號";
+	$lang['cms_account_payment_openalipay']="開通支付寶支付";
+	$lang['cms_account_payment_howopenalipay']="如何開通支付寶企業賬號";
+	$lang['cms_account_payment_isboundto']="已綁定至：";
+	$lang['cms_account_payment_bindingaccount']="綁定賬號";
+	$lang['cms_account_payment_alipayaccount']="支付寶賬號：";
+	$lang['cms_account_payment_inputalipayaccount']="輸入支付寶賬號";
+	$lang['cms_account_payment_alipaypid']="合作者身份PID：";
+	$lang['cms_account_payment_alipaykey']="安全校驗碼KEY：";
 	//cms-create app
 	$lang['cms_content_createapp']="APP創建";
 	$lang['cms_editapp_create']="創建";

@@ -17,9 +17,9 @@
 				<span class="label"><?php echo lang("cms_pushmsg_app");?>：</span>
 				<select class="select" id="app" style="width: 120px;">
 					<option value="0"><?php echo lang("cms_sendmsg_all");?></option>
-					<?php foreach($apps as $app):?>
-					<option value="<?php echo $app->id_app;?>"><?php echo $app->name_app;?></option>
-					<?php endforeach;?>
+					<?php if(sizeof($apps)>0):?>
+					<option value="<?php echo $apps[0]->id_app;?>"><?php echo $apps[0]->name_app;?></option>
+					<?php endif;?>
 				</select>
 				<span style="color: red;">*</span>
 			</div>

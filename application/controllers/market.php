@@ -487,7 +487,8 @@ class Market extends CI_Controller {
 		$QR = $_SERVER['DOCUMENT_ROOT'].'/uploads/2dcode/'.$appid.'qrcode.png';//已经生成的原始二维码图    
 		
 		//生成二维码图片
-		QRcode::png($value,$QR, $errorCorrectionLevel, $matrixPointSize, 2);   
+		QRcode::png($value,$QR, $errorCorrectionLevel, $matrixPointSize, 2);
+		chmod($QR,0777);	
 		$logo = $_SERVER['DOCUMENT_ROOT'].$logoSrc;//准备好的logo图片 
 
 		if ($logo !== FALSE) {

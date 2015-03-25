@@ -141,6 +141,27 @@
 			</div>
 		</dd>
 	</dl>
+	<div class="store-payment-help">
+		<h4>支付宝企业账号绑定流程</h4>
+		<div class="wizard-tags">
+			<div class="no-left-bd active"><span><i class="wizard-point">1</i></span></div>
+			<div class="active"><span><i class="wizard-point">2</i></span></div>
+			<div class="active"><span><i class="wizard-point">3</i></span></div>
+			<div class="active"><span><i class="wizard-point">4</i></span></div>
+		</div>
+		<ul class="zhifubao">
+			<li>注册支付宝企业账号，<br>具体流程请参考<a target="_blank" href="https://cshall.alipay.com/lab/help_detail.htm?help_id=211702">支付宝<br>官方文档</a></li>
+			<li><a target="_blank" href="https://b.alipay.com/order/productDetail.htm?productId=2013080604609688">申请手机网站支付</a>（注意<br>：必须填写以公司名义备<br>案的域名）</li>
+			<li>获取商户PID以及Key，获取<br>路径：支付宝-&gt;我的商家<br>服务-&gt;查询PID，Key</li>
+			<li>回到快站支付方式页面，<br>点击支付宝开启按钮，输入<br>相关信息，即可成功绑定</li>
+		</ul>
+		<div class="wizard-hint">
+			<h4>温馨提示</h4>
+			<p>1、到<a target="_blank" href="http://help.alipay.com/support/index_sh.htm">支付宝商家帮助中心</a>查看更多帮助信息</p>
+			<p>2、请确保您的支付宝PID和Key是有效的，否则无法使用支付宝支付</p>
+			<p>3、支付金额将转至您的支付宝账号，请确保所填的账号准确无误，避免损失</p>
+		</div>
+	</div>
 	<form id="uploadAvatarForm" method="post" action="/cms/index/upload_img" enctype="multipart/form-data">
 		<input onchange="return upload_avatar()" name="image" type="file" id="avatarfile" style="display:none;" accept="image/*">
 	</form>

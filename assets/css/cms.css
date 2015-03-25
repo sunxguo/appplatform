@@ -672,3 +672,11 @@ button.primary, .btn-primary, .btn-primary:hover, .btn-primary:active {
 	font-size: 14px;
 	padding:0px;
 }
+.store-payment-help{
+	
+}
+.store-payment-help h4 {
+	padding: 12px 10px;
+	font-size: 14px;
+	text-align: left;
+}

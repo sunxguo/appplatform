@@ -141,7 +141,7 @@
 			</div>
 		</dd>
 	</dl>
-	<div class="store-payment-help">
+	<div class="store-payment-help" style="display:none;">
 		<h4>支付宝企业账号绑定流程</h4>
 		<div class="wizard-tags">
 			<div class="no-left-bd active"><span><i class="wizard-point">1</i></span></div>

@@ -153,7 +153,17 @@
 							<img src="/assets/images/cms/skin/4.png" width="150" height="160"></a></li>
 						<li id="skin5" class=""><a href="javascript:pickcolor()">
 							<img src="/assets/images/cms/skin/5.png" width="150" height="160"></a></li>
+						<li id="skin6" class=""><a href="javascript:uploadBGImg()">
+							<img src="<?php echo $info->skin_app==6?$info->skinbgimg_app:'/assets/images/cms/skin/6.png';?>" width="150" height="160"></a></li>
 					</ul>
+					<form id="uploadBgForm" method="post" action="/cms/index/upload_img" enctype="multipart/form-data">
+						<input onchange="return upload_bg('#uploadBgForm')" name="image" type="file" id="bgFile" style="display:none;" accept="image/*">
+					</form>
+					<!--
+					<div id="bgImgReupload" class="add-link" onclick="uploadBGImg()">
+						<a href="javascript:uploadBGImg()"><?php echo lang('cms_editapp_reupload');?></a>
+					</div>
+					-->
 				</div>
 				<div>
 					<span style="font-size:16px;color:#51657F;display:block;margin:30px 0 5px 0;"><?php echo lang('cms_editapp_choosetemplate');?><span style="font-size:14px;color: red; margin-left:5px;"></span></span>
@@ -217,6 +227,7 @@
 <input type="hidden" id="is_text_input" value="<?php echo $info->icon_text_app==""?"no":"yes";?>">
 <input type="hidden" id="launch_pic_input" value="<?php echo $info->poslaunch?$info->poslaunch:5;?>">
 <input type="hidden" id="skin_color_input" value="<?php echo $info->skin_app;?>">
+<input type="hidden" id="bg_img_input" value="<?php echo $info->skinbgimg_app;?>">
 <input type="hidden" id="template_input" value="<?php echo $info->template_app;?>">
 <input type="color" id="skincolor" style="visibility: hidden;" value="<?php echo $info->skincolor_app;?>">
 <div id="bkDiv" class="bk-div"></div>

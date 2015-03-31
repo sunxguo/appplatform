@@ -1293,7 +1293,8 @@ class Index extends CI_Controller {
 					"template_app"=>$_POST['template'],
 					"skin_app"=>$_POST['skin'],
 					"skincolor_app"=>$_POST['skincolor'],
-					"update_time_app"=>date("Y-m-d H:i:s"),
+					"skinbgimg_app"=>$_POST['skinBgImg'],
+					"update_time_app"=>date("Y-m-d H:i:s")
 				);
 				$where="id_app";
 				$content=$_POST['id'];

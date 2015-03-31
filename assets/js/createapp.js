@@ -8,6 +8,9 @@ function pickcolor(){
 	$("#skincolor").click();
 	colorClick('5');
 }
+function uploadBGImg(){
+	$("#bgFile").click();
+}
 function checkAppName(){
 	var length = $("#appName").val().length;
 	if(length<1 || length>10){
@@ -191,6 +194,29 @@ function upload_launch(){
 	});
 	return false;
 }
+function upload_bg(){
+	$("#uploadBgForm").ajaxSubmit({
+		success: function (data) {
+			var result=$.parseJSON(data);
+			if(result.code){
+				$("#bgImgReupload").show();
+				$("#skin6 img").attr("src",result.message);
+//				$("#phoneBg").attr("src",result.message);
+				colorClick(6);
+			}else{
+				alert(result.message);
+			}
+		},
+		url: "/cms/index/upload_img",
+		data: $("#uploadBgForm").formSerialize(),
+		type: 'POST',
+		beforeSubmit: function () {
+//			$("#waitLaunchUpload").show();
+			$("#skin6 img").attr("src",'/assets/images/cms/loading.gif');
+		}
+	});
+	return false;
+}
 function step(fromStep,toStep){
 	var check=false;
 	switch(fromStep){
@@ -248,6 +274,10 @@ function get_pic_src(type,id){
 		case "launch":
 			if(id==5) src=$("#img5").attr("src");
 			else src="/resource/launch/"+id+".png";
+		break;
+		case "bgImg":
+			if(id==6) src=$("#skin6 img").attr("src");
+			else src="";
 		break;
 	}
 	return src;
@@ -316,7 +346,8 @@ function uploadAppInfo(){
 			'template':$("#template_input").val(),
 			'category':$("#category").val(),
 			'skin':$("#skin_color_input").val(),
-			'skincolor':$("#skincolor").val()
+			'skincolor':$("#skincolor").val(),
+			'skinBgImg':get_pic_src("bgImg",6)
 		},
 		function(data){
 			var result=$.parseJSON(data);

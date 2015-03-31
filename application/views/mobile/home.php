@@ -37,7 +37,7 @@
 	</div>
 	<?php endif;?>
 	<div class="main" id="main">
-		<div class="header skin<?php echo $app->skin_app;?>" id="header" bkcolor="<?php echo $app->skin_app=="5"?$app->skincolor_app:'';?>">
+		<div class="header skin<?php echo $app->skin_app;?>" id="header" bkcolor="<?php echo $app->skin_app=="5"?$app->skincolor_app:'';?>" bkimg="<?php echo $app->skin_app=="6"?$app->skinbgimg_app:'';?>">
 			<?php if($app->template_app==1):?>
 			<div id="show_sider_bt" class="bt-div" onclick="show_sider()">
 				<a href="javascript:void()">

@@ -16,6 +16,8 @@ $(document).ready(function(){
 	$("#header").css("line-height",header_height+"px");
 	if(typeof($("#header").attr("bkcolor"))!="undefined")
 		$("#header").css("background-color",$("#header").attr("bkcolor"));
+	if(typeof($("#header").attr("bkimg"))!="undefined")
+		$("#header").css("background-image",'url('+$("#header").attr("bkimg")+')');
 	$(document.body).css({
 		"overflow-x":"hidden",
 		"overflow-y":"hidden"

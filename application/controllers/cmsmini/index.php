@@ -1016,7 +1016,7 @@ class Index extends CI_Controller {
 					$_SESSION['useravatar']=$info[0]->avatar_merchant;
 					$_SESSION['usertype']="merchant";
 					if($info[0]->accept_apply_merchant==2) $_SESSION['Fuserid']=$info[0]->correlation_merchant;
-					$this->load->view('redirect',array("url"=>"/cmsmini/index"));
+					$this->load->view('redirect',array("url"=>"/cmsmini/module"));
 				}
 				else{
 					$this->load->view('redirect',array("info"=>"密码错误"));

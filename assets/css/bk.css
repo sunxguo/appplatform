@@ -13,14 +13,35 @@
 	text-decoration:none;
 }
 .header-cms .km-logo {
-	width: 338px;
+	width: 150px;
 	height: 50px;
 	float: left;
 }
 .header-cms .km-logo .logo-cms{
 	width:120px;
-	height:50px;
+	height:51px;
 	margin-left:15px;
+}
+.header-cms .panel{
+	display:inline-block;
+	width:80px;
+	height:51px;
+	line-height:51px;
+	color:white;
+	font-size:16px;
+	text-align:center;
+}
+.header-cms .panel:hover{
+	background-color:white;
+	color:rgb(41,75,110);
+	transition-duration: 0.4s;
+	-moz-transition-duration:0.4s; /* Firefox 4 */
+	-webkit-transition-duration:0.4s; /* Safari 和 Chrome */
+	-o-transition-duration:0.4s; /* Opera */
+}
+.header-cms .panel.current{
+	background-color:#F2F2F2;
+	color:rgb(41,75,110);
 }
 .header-cms .menu-cms{
 	float: right;

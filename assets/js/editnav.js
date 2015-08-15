@@ -360,7 +360,8 @@ function savenav(){
 			'form':get_formitem(),
 			'mallcat':get_mallcat(),
 			'link':$("#edit_link_input").val(),
-			'hascat':$('#hascatradio').is(':checked')
+			'hascat':0
+//			'hascat':$('#hascatradio').is(':checked')
 		},
 		function(data){
 			var result=$.parseJSON(data);
